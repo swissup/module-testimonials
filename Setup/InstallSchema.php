@@ -54,7 +54,7 @@ class InstallSchema implements InstallSchemaInterface
                 ['name', 'email', 'message'],
                 ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
             )
-            ->setComment('Templates Master Testimonials Data Table');
+            ->setComment('Swissup Testimonials Data Table');
         $installer->getConnection()->createTable($table);
 
         /**
@@ -90,7 +90,7 @@ class InstallSchema implements InstallSchemaInterface
             'store_id',
             Table::ACTION_CASCADE
         )->setComment(
-            'Testimonial To Store Linkage Table'
+            'Swissup Testimonial To Store Linkage Table'
         );
         $installer->getConnection()->createTable($table);
 

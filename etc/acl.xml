@@ -4,7 +4,7 @@
         <resources>
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Backend::content">
-                    <resource id="Swissup_Testimonials::title" title="Templates Master" sortOrder="50" >
+                    <resource id="Swissup_Testimonials::title" title="Swissup" sortOrder="50" >
                         <resource id="Swissup_Testimonials::testimonials" title="Testimonials" sortOrder="0">
                             <resource id="Swissup_Testimonials::save" title="Save" sortOrder="10" />
                             <resource id="Swissup_Testimonials::delete" title="Delete" sortOrder="20" />
