@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Swissup_Testimonials::title" title="Templates Master" module="Swissup_Testimonials" sortOrder="50" parent="Magento_Backend::content" resource="Swissup_Testimonials::title" />
+        <add id="Swissup_Testimonials::testimonials" title="Testimonials" module="Swissup_Testimonials" sortOrder="0" parent="Swissup_Testimonials::title" action="testimonials/index" resource="Swissup_Testimonials::testimonials"/>
+    </menu>
+</config>
