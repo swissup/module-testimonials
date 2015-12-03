@@ -1,0 +1,10 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>New Testimonial</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Swissup\Testimonials\Block\TestimonialsForm" name="testimonials.form" template="Swissup_Testimonials::form.phtml" />
+        </referenceContainer>
+    </body>
+</page>

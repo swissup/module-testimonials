@@ -16,7 +16,7 @@
                 <show_email>0</show_email>
             </list>
             <form>
-                <layout>2columns-left</layout>
+                <layout>2columns-right</layout>
                 <enable_company>0</enable_company>
                 <enable_website>0</enable_website>
                 <enable_twitter>0</enable_twitter>

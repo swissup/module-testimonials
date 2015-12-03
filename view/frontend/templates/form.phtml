@@ -1,0 +1,95 @@
+<form class="form testimonial"
+      action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+      id="testimonial-form"
+      method="post"
+      enctype="multipart/form-data"
+      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+    <fieldset class="fieldset">
+        <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Submit your testimonial') ?></span></legend><br />
+        <div class="field name required">
+            <label class="label" for="name"><span><?php /* @escapeNotVerified */ echo __('Name') ?></span></label>
+            <div class="control">
+                <input name="name" id="name" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?php /* @escapeNotVerified */ echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+
+        <div class="field company">
+            <label class="label" for="company"><span><?php /* @escapeNotVerified */ echo __('Company') ?></span></label>
+            <div class="control">
+                <input name="company" id="company" title="<?php /* @escapeNotVerified */ echo __('Company') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getCompany()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+            </div>
+        </div>
+        <div class="field website">
+            <label class="label" for="website"><span><?php /* @escapeNotVerified */ echo __('Website') ?></span></label>
+            <div class="control">
+                <input name="website" id="website" title="<?php /* @escapeNotVerified */ echo __('Website') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getWebsite()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+            </div>
+        </div>
+        <div class="field twitter">
+            <label class="label" for="twitter"><span><?php /* @escapeNotVerified */ echo __('Twitter') ?></span></label>
+            <div class="control">
+                <input name="twitter" id="twitter" title="<?php /* @escapeNotVerified */ echo __('Twitter') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getTwitter()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+            </div>
+        </div>
+        <div class="field facebook">
+            <label class="label" for="facebook"><span><?php /* @escapeNotVerified */ echo __('Facebook') ?></span></label>
+            <div class="control">
+                <input name="facebook" id="facebook" title="<?php /* @escapeNotVerified */ echo __('Facebook') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getFacebook()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+            </div>
+        </div>
+        <div class="field image">
+            <label class="label" for="image"><span><?php /* @escapeNotVerified */ echo __('Profile image') ?></span></label>
+            <div class="control">
+                <input name="image" id="image" title="<?php /* @escapeNotVerified */ echo __('Profile image') ?>" value="" class="input-text" type="file" data-validate="{required:false}"/>
+            </div>
+        </div>
+        <div class="field choice review-field-rating">
+            <label class="label" id="rating"><span><?php echo __('Rating') ?></span></label>
+            <div class="control review-control-vote">
+            <?php for ($i = 1; $i <= 5; ++$i): ?>
+                <input
+                    type="radio"
+                    name="rating"
+                    id="rating_<?php /* @escapeNotVerified */ echo $i ?>"
+                    value="<?php /* @escapeNotVerified */ echo $i ?>"
+                    class="radio"
+                    <?php if ($this->helper('Swissup\Testimonials\Helper\Form')->getRating() == $i): ?>
+                    checked="checked"
+                    <?php endif; ?>
+                    data-validate="{required:false}"/>
+                <label
+                    class="rating-<?php /* @escapeNotVerified */ echo $i ?>"
+                    for="rating_<?php /* @escapeNotVerified */ echo $i ?>"
+                    title="<?php /* @escapeNotVerified */ echo __('%1 %2', $i, $i > 1 ? 'stars' : 'star') ?>"
+                    id="rating_<?php /* @escapeNotVerified */ echo $i ?>_label">
+                    <span><?php /* @escapeNotVerified */ echo __('%1 %2', $i, $i > 1 ? 'stars' : 'star') ?></span>
+                </label>
+            <?php endfor; ?>
+            </div>
+        </div>
+        <div class="field message required">
+            <label class="label" for="message"><span><?php /* @escapeNotVerified */ echo __('Message') ?></span></label>
+            <div class="control">
+                <textarea name="message" id="message" title="<?php /* @escapeNotVerified */ echo __('Message') ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getMessage()) ?></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+                <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+            </button>
+            <button type="button" title="<?php /* @escapeNotVerified */ echo __('Back to testimonials') ?>" class="button" onclick="window.location = '<?php echo $block->getListAction(); ?>';return false;">
+                <span><?php /* @escapeNotVerified */ echo __('Back to testimonials') ?></span>
+            </button>
+        </div>
+    </div>
+</form>
