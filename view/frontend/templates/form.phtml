@@ -19,31 +19,38 @@
                 <input name="email" id="email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
             </div>
         </div>
-
+        <?php if ($block->configHelper->isCompanyEnabled()): ?>
         <div class="field company">
             <label class="label" for="company"><span><?php /* @escapeNotVerified */ echo __('Company') ?></span></label>
             <div class="control">
                 <input name="company" id="company" title="<?php /* @escapeNotVerified */ echo __('Company') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getCompany()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if ($block->configHelper->isWebsiteEnabled()): ?>
         <div class="field website">
             <label class="label" for="website"><span><?php /* @escapeNotVerified */ echo __('Website') ?></span></label>
             <div class="control">
                 <input name="website" id="website" title="<?php /* @escapeNotVerified */ echo __('Website') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getWebsite()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if ($block->configHelper->isTwitterEnabled()): ?>
         <div class="field twitter">
             <label class="label" for="twitter"><span><?php /* @escapeNotVerified */ echo __('Twitter') ?></span></label>
             <div class="control">
                 <input name="twitter" id="twitter" title="<?php /* @escapeNotVerified */ echo __('Twitter') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getTwitter()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if ($block->configHelper->isFacebookEnabled()): ?>
         <div class="field facebook">
             <label class="label" for="facebook"><span><?php /* @escapeNotVerified */ echo __('Facebook') ?></span></label>
             <div class="control">
                 <input name="facebook" id="facebook" title="<?php /* @escapeNotVerified */ echo __('Facebook') ?>" value="<?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getFacebook()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
+        <?php endif; ?>
         <div class="field image">
             <label class="label" for="image"><span><?php /* @escapeNotVerified */ echo __('Profile image') ?></span></label>
             <div class="control">
