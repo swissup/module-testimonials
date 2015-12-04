@@ -12,7 +12,7 @@ class Save extends \Magento\Framework\App\Action\Action
      *
      * @var \Magento\Framework\Session\Generic
      */
-    protected $testimonialSession;
+    protected $_testimonialSession;
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
@@ -23,21 +23,39 @@ class Save extends \Magento\Framework\App\Action\Action
      */
     protected $_configHelper;
     /**
+     * upload model
+     *
+     * @var \Swissup\Testimonials\Model\Upload
+     */
+    protected $_uploadModel;
+    /**
+     * image model
+     *
+     * @var \Swissup\Testimonials\Model\Data\Image
+     */
+    protected $_imageModel;
+    /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Framework\Session\Generic $testimonialSession
+     * @param \Swissup\Testimonials\Model\Data\Image $imageModel
+     * @param \Swissup\Testimonials\Model\Upload $uploadModel
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
-        \Magento\Framework\Session\Generic $testimonialSession
+        \Magento\Framework\Session\Generic $testimonialSession,
+        \Swissup\Testimonials\Model\Data\Image $imageModel,
+        \Swissup\Testimonials\Model\Upload $uploadModel
     ) {
         parent::__construct($context);
         $this->_storeManager = $storeManager;
         $this->_configHelper = $configHelper;
-        $this->testimonialSession = $testimonialSession;
+        $this->_testimonialSession = $testimonialSession;
+        $this->_uploadModel = $uploadModel;
+        $this->_imageModel = $imageModel;
     }
     protected function _redirectReferer()
     {
@@ -76,6 +94,8 @@ class Save extends \Magento\Framework\App\Action\Action
                 TestimonialsModel:: STATUS_AWAITING_APPROVAL;
             $model = $this->_objectManager->create('Swissup\Testimonials\Model\Data');
             $model->setData($post);
+            $imageName = $this->_uploadModel->uploadFileAndGetName('image', $this->_imageModel->getBaseDir(), $post);
+            $model->setImage($imageName);
             $model->save();
             $this->messageManager->addSuccess(__($this->_configHelper->getSentMessage()));
             $this->_redirectReferer();
@@ -84,7 +104,7 @@ class Save extends \Magento\Framework\App\Action\Action
             $this->messageManager->addError(
                 __($e->getMessage())
             );
-            $this->testimonialSession->setFormData(
+            $this->_testimonialSession->setFormData(
                 $post
             )->setRedirectUrl(
                 $this->_redirect->getRefererUrl()
