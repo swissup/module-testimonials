@@ -3,6 +3,13 @@
         <title>Testimonials</title>
     </head>
     <body>
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="id" xsi:type="string">page-title-heading</argument>
+                <argument name="add_base_attribute_aria" xsi:type="string">page-title-heading toolbar-amount</argument>
+            </arguments>
+            <block class="Swissup\Testimonials\Block\NewLink" name="new.link" template="Swissup_Testimonials::newlink.phtml"/>
+        </referenceBlock>
         <referenceContainer name="content">
             <block class="Swissup\Testimonials\Block\TestimonialsList" name="testimonials.list" template="list.phtml" />
         </referenceContainer>
