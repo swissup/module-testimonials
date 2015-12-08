@@ -4,7 +4,22 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Swissup\Testimonials\Block\TestimonialsForm" name="testimonials.form" template="Swissup_Testimonials::form.phtml" />
+            <block class="Swissup\Testimonials\Block\TestimonialsForm" name="testimonials.form" template="Swissup_Testimonials::form.phtml">
+                <block class="Magento\Captcha\Block\Captcha" name="captcha">
+                    <action method="setFormId">
+                        <argument name="formId" xsi:type="string">testimonial_new</argument>
+                    </action>
+                    <action method="setImgWidth">
+                        <argument name="width" xsi:type="string">230</argument>
+                    </action>
+                    <action method="setImgHeight">
+                        <argument name="width" xsi:type="string">50</argument>
+                    </action>
+                </block>
+            </block>
         </referenceContainer>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+        </referenceBlock>
     </body>
 </page>

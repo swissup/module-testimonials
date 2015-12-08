@@ -87,6 +87,7 @@
                 <textarea name="message" id="message" title="<?php /* @escapeNotVerified */ echo __('Message') ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getMessage()) ?></textarea>
             </div>
         </div>
+        <?php echo $block->getChildHtml('captcha'); ?>
     </fieldset>
     <div class="actions-toolbar">
         <div class="primary">

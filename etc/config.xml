@@ -31,5 +31,24 @@
                 <email_template>testimonials_email_admin_email_template</email_template>
             </email_admin>
         </testimonials>
+        <customer>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <testimonial_new>1</testimonial_new>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <testimonial_new>1</testimonial_new>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha>
+            <frontend>
+                <areas>
+                    <testimonial_new>
+                        <label>Testimonials Form</label>
+                    </testimonial_new>
+                </areas>
+            </frontend>
+        </captcha>
     </default>
 </config>
