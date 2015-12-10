@@ -14,6 +14,11 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
      */
     public $configHelper;
     /**
+     * Get testimonials list helper
+     * @var \Swissup\Testimonials\Helper\ListHelper
+     */
+    public $listHelper;
+    /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
@@ -25,11 +30,13 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
         \Magento\Framework\View\Element\Template\Context $context,
         \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
         \Swissup\Testimonials\Helper\Config $configHelper,
+        \Swissup\Testimonials\Helper\ListHelper $listHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->_testimonialsCollectionFactory = $testimonialsCollectionFactory;
         $this->configHelper = $configHelper;
+        $this->listHelper = $listHelper;
     }
      /**
      * @return \Swissup\Testimonials\Model\ResourceModel\Data\Collection
@@ -65,5 +72,34 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     public function getIdentities()
     {
         return [TestimonialsModel::CACHE_TAG . '_' . 'list'];
+    }
+    /**
+     * Get user profile image url
+     * @param \Swissup\Testimonials\Model\Data $testimonial
+     * @return String
+     */
+    public function getProfileImageUrl($testimonial)
+    {
+        return $this->listHelper->resize($testimonial);
+    }
+    /**
+     * Check if social block enabled
+     * @param  \Swissup\Testimonials\Model\Data $testimonial
+     * @return Boolean
+     */
+    public function canShowSocial($testimonial)
+    {
+        return (($testimonial->getFacebook() && $this->configHelper->isFacebookEnabled())||
+                ($testimonial->getTwitter() && $this->configHelper->isTwitterEnabled()));
+    }
+    /**
+     * Get rating value in percents
+     * @param  \Swissup\Testimonials\Model\Data $testimonial
+     * @return String
+     */
+    public function getRatingPercent($testimonial)
+    {
+        $ratingPercent = $testimonial->getRating() / 5 * 100;
+        return (String)$ratingPercent;
     }
 }

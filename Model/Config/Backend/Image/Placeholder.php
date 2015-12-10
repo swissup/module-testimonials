@@ -7,7 +7,7 @@ class Placeholder extends \Magento\Config\Model\Config\Backend\Image
      * The tail part of directory path for uploading
      *
      */
-    const UPLOAD_DIR = 'testimonials';
+    const UPLOAD_DIR = 'testimonials/image';
 
     /**
      * Return path to directory for upload file

@@ -45,7 +45,8 @@
                     <label>Image placeholder</label>
                     <comment>Allowed file types:PNG, GIF, JPG, JPEG, SVG.</comment>
                     <backend_model>Swissup\Testimonials\Model\Config\Backend\Image\Placeholder</backend_model>
-                    <base_url type="media" scope_info="1">testimonials</base_url>
+                    <upload_dir config="system/filesystem/media" scope_info="1">testimonials/image</upload_dir>
+                    <base_url type="media" scope_info="1">testimonials/image</base_url>
                 </field>
                 <field id="show_email" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show user email in testimonials list</label>

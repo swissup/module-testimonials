@@ -1,19 +1,94 @@
 <?php /** @var $block \Swissup\Testimonials\Block\TestimonialsList */ ?>
-<ul class="testimonials-list">
-<?php /** @var $testimonial \Swissup\Testimonials\Model\Data */ ?>
-<?php foreach ($block->getTestimonials() as $testimonial): ?>
-    <li class="testimonial-list-item">
-        <h3 class="testimonial-item-title">
-            <?php echo $testimonial->getName() ?>
-        </h3>
-
-        <div class="testimonial-item-content">
-            <?php echo $testimonial->getMessage(); ?>
-        </div>
-
-        <div class="testimonial-item-meta">
-            <strong><?php echo __('Created at:') ?></strong> <?php echo $testimonial->getDate() ?>
-        </div>
-    </li>
-<?php endforeach; ?>
-</ul>
+<div class="testimonials-list">
+    <div class="testimonials">
+    <?php
+        $_testimonials = $block->getTestimonials();
+        $_configHelper = $block->configHelper;
+        $_listHelper = $block->listHelper;
+        $_width = $_configHelper->getImageWidth();
+        $_height = $_configHelper->getImageHeight();
+    ?>
+    <?php if($_testimonials->getSize()): ?>
+        <?php /** @var $_testimonial \Swissup\Testimonials\Model\Data */ ?>
+        <?php foreach ($_testimonials as $_testimonial): ?>
+            <div class="testimonial">
+                <?php if ($image = $_listHelper->getImagePath($_testimonial)): ?>
+                <div class="testimonial-image" style="width: <?php echo ($_width + 10) ?>px">
+                    <img src="<?php echo $block->getProfileImageUrl($_testimonial); ?>"
+                    alt="Profile image" />
+                </div>
+                <?php endif ?>
+                <div class="container" style="width: auto; margin-left: <?php echo $image ? ($_width + 10) : 0 ?>px">
+                    <div class="content-wrapper">
+                        <div class="message-wrapper">
+                            <div class="message"><?php echo $_testimonial->getMessage() ?>
+                                <span class="author-info">
+                                    <?php echo $_testimonial->getName();
+                                        if ($_testimonial->getCompany() &&
+                                            $_configHelper->isCompanyEnabled()): ?>,
+                                        <?php if ($_testimonial->getWebsite() &&
+                                                  $_configHelper->isWebsiteEnabled()): ?>
+                                            <a href="<?php echo $_testimonial->getWebsite() ?>">
+                                            <?php echo $_testimonial->getCompany(); ?></a><?php
+                                            else:
+                                                echo $_testimonial->getCompany();
+                                            endif;
+                                        endif; ?>
+                                        <?php if ($_configHelper->showUserEmail()):
+                                            echo ', ' . $_testimonial->getEmail();
+                                        endif ?>
+                                </span>
+                                <?php if ($block->canShowSocial($_testimonial)): ?>
+                                <div class="socialInfo">
+                                    <?php echo __('Find us on'); ?>
+                                    <?php if ($_testimonial->getFacebook() &&
+                                              $_configHelper->isFacebookEnabled()): ?>
+                                        <a href="<?php echo $_testimonial->getFacebook() ?>">
+                                        <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/facebook.png'); ?>" /><?php echo __('Facebook') ?></a>
+                                    <?php endif ?>
+                                    <?php if ($_testimonial->getTwitter() &&
+                                              $_configHelper->isTwitterEnabled()): ?>
+                                    , <a href="<?php echo $_testimonial->getTwitter() ?>">
+                                    <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/twitter.png'); ?>" /><?php echo __('Twitter') ?></a><?php endif ?>
+                                </div>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                        <div style="margin: 10px 0 0 <?php echo $image ? 40 : 80 ?>px">
+                            <?php if ($_testimonial->getRating()): ?>
+                            <?php $ratingPercent = $block->getRatingPercent($_testimonial); ?>
+                            <div class="review-ratings">
+                                <div class="rating-summary item">
+                                    <span class="label rating-label"><span>Rating</span></span>
+                                    <div class="rating-result" title="<?php echo $ratingPercent ?>%">
+                                        <span style="width:<?php echo $ratingPercent ?>%">
+                                            <span><?php echo $ratingPercent ?>%</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endif ?>
+                            <div class="testimonial-date">
+                                <span><?php echo __('Placed on') ?></span>
+                                <span class="nobr"><?php /* @escapeNotVerified */ echo $block->formatDate($_testimonial->getDate(), \IntlDateFormatter::LONG) ?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo __('No testimonials found.'); ?></p>
+    <?php endif ?>
+    <?php if ($_testimonials->getCurPage() * $_testimonials->getPageSize() >= $_testimonials->getSize()): ?>
+        <script type="text/javascript">
+        //<![CDATA[
+            if ($('viewMore')) $('viewMore').hide();
+        //]]>
+        </script>
+    <?php endif ?>
+    </div>
+    <div class="more-button">
+        <a id="viewMore" target="blank" href=""><?php echo __('Show more testimonials') ?></a>
+    </div>
+</div>
