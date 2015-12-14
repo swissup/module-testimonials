@@ -1,6 +1,8 @@
 <?php /** @var $block \Swissup\Testimonials\Block\TestimonialsList */ ?>
+<?php if (!$block->getIsAjax()): ?>
 <div class="testimonials-list">
     <div class="testimonials">
+<?php endif; ?>
     <?php
         $_testimonials = $block->getTestimonials();
         $_configHelper = $block->configHelper;
@@ -82,13 +84,29 @@
     <?php endif ?>
     <?php if ($_testimonials->getCurPage() * $_testimonials->getPageSize() >= $_testimonials->getSize()): ?>
         <script type="text/javascript">
-        //<![CDATA[
-            if ($('viewMore')) $('viewMore').hide();
-        //]]>
+        require([
+            'jquery'
+        ], function ($) {
+            $('#viewMore').hide();
+        });
         </script>
     <?php endif ?>
+<?php if (!$block->getIsAjax()): ?>
     </div>
     <div class="more-button">
         <a id="viewMore" target="blank" href=""><?php echo __('Show more testimonials') ?></a>
     </div>
 </div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'testimonials-list'
+    ], function ($, testimonialsList) {
+        testimonialsList.init("<?php echo $block->getLoadAction() ?>", '.testimonials');
+        $('#viewMore').on('click', testimonialsList.makeAjaxCall);
+        <?php if ($_configHelper->getTestimonialsPerPage() >= $_testimonials->getSize()): ?>
+        $('#viewMore').hide();
+        <?php endif ?>
+    });
+</script>
+<?php endif; ?>

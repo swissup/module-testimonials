@@ -53,7 +53,7 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
                     DataInterface::DATE,
                     TestimonialsCollection::SORT_ORDER_DESC
                 )
-                ->setCurPage(1)
+                ->setCurPage($this->getCurrentPage())
                 ->setPageSize($this->configHelper->getTestimonialsPerPage());
             $this->setData('testimonials', $testimonials);
         }
@@ -63,6 +63,14 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     public function getNewAction()
     {
         return $this->getUrl('testimonials/index/new');
+    }
+    /**
+     * Get load action
+     * @return String load action url
+     */
+    public function getLoadAction()
+    {
+        return $this->getUrl('testimonials/index/load');
     }
     /**
      * Return identifiers for produced content
