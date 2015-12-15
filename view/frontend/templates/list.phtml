@@ -30,7 +30,7 @@
                                             $_configHelper->isCompanyEnabled()): ?>,
                                         <?php if ($_testimonial->getWebsite() &&
                                                   $_configHelper->isWebsiteEnabled()): ?>
-                                            <a href="<?php echo $_testimonial->getWebsite() ?>">
+                                            <a href="<?php echo $_testimonial->getWebsite() ?>" target="_blank">
                                             <?php echo $_testimonial->getCompany(); ?></a><?php
                                             else:
                                                 echo $_testimonial->getCompany();
@@ -45,12 +45,12 @@
                                     <?php echo __('Find us on'); ?>
                                     <?php if ($_testimonial->getFacebook() &&
                                               $_configHelper->isFacebookEnabled()): ?>
-                                        <a href="<?php echo $_testimonial->getFacebook() ?>">
+                                        <a href="<?php echo $_testimonial->getFacebook() ?>" target="_blank">
                                         <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/facebook.png'); ?>" /><?php echo __('Facebook') ?></a>
                                     <?php endif ?>
                                     <?php if ($_testimonial->getTwitter() &&
                                               $_configHelper->isTwitterEnabled()): ?>
-                                    , <a href="<?php echo $_testimonial->getTwitter() ?>">
+                                    , <a href="<?php echo $_testimonial->getTwitter() ?>" target="_blank">
                                     <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/twitter.png'); ?>" /><?php echo __('Twitter') ?></a><?php endif ?>
                                 </div>
                                 <?php endif ?>
