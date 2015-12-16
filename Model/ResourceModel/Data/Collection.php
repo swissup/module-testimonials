@@ -192,4 +192,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             ->where('main_table.status = ?', $status);
         return $this;
     }
+    /**
+     * Filter collection by use in widget
+     *
+     * @return $this
+     */
+    public function addWidgetFilter($widget)
+    {
+        $this->getSelect()
+            ->where('main_table.widget = ?', $widget);
+        return $this;
+    }
 }

@@ -1,0 +1,56 @@
+<?php
+$testimonials = $block->getTestimonials();
+if (!count($testimonials)) {
+    return;
+}
+?>
+
+<div class="widget block block-testimonials <?php if (!$block->getShowBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList">
+    <div class="block-title">
+        <strong><?php echo __('Testimonials') ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="testimonial-container">
+            <?php $itemId = 0; ?>
+            <?php foreach ($testimonials as $testimonial): ?>
+                <div id="testimonial_<?php echo $itemId ?>" class="content"
+                <?php if ($itemId > 0): ?> style="display: none;"<?php endif ?>>
+                    <div class="content-wrapper">
+                        <?php if ($testimonial->getRating()): ?>
+                            <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
+                            <div class="review-ratings">
+                                <div class="rating-summary item">
+                                    <span class="label rating-label"><span>Rating</span></span>
+                                    <div class="rating-result" title="<?php echo $ratingPercent ?>%">
+                                        <span style="width:<?php echo $ratingPercent ?>%">
+                                            <span><?php echo $ratingPercent ?>%</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                        <div class="message"><?php echo $testimonial->getMessage(); ?></div>
+                    </div>
+                    <div class="name"><?php echo $testimonial->getName(); ?></div>
+                    <a class="read-more" href="#"><?php echo __('Read more') ?></a>
+                    <a class="read-less" href="#" style="display: none;"><?php echo __('Read less') ?></a>
+                </div>
+                <?php ++$itemId; ?>
+            <?php endforeach; ?>
+        </div>
+        <div class="actions-toolbar">
+            <div class="secondary">
+                <a class="action" href="<?php echo $block->getListUrl() ?>"><span><?php echo __('View all testimonials') ?></span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'testimonials-side-list-widget'
+    ], function (sideListWidget) {
+        sideListWidget.init(<?php echo count($testimonials); ?>,
+            <?php echo $block->getViewTime(); ?>,
+            <?php echo $block->getAnimDuration(); ?>);
+    });
+</script>
