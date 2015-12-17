@@ -1,0 +1,20 @@
+<div class="widget block block-testimonials <?php if (!$block->getShowBlockDesign()): ?>empty-design<?php endif ?>">
+    <div class="block-title">
+        <strong><?php echo __('Store Review') ?></strong>
+    </div>
+    <div class="block-content">
+        <span itemscope itemtype="http://schema.org/Store">
+            <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="review">
+                <div itemprop="ratingValue" class="score"><?php echo $block->getAvgRating() ?></div>
+                <div class="score-info"><?php echo ' ' . __('out of') . ' 5 (' ?><span itemprop="ratingCount"><?php echo $block->getTestimonials()->getSize() ?></span><?php echo ' ' . __('votes') . ')' ?>
+                </div>
+            </div>
+            <meta itemprop="name" content="<?php echo $block->getStoreName() ?>">
+        </span>
+        <div class="actions-toolbar">
+            <div class="secondary">
+                <a class="action" href="<?php echo $block->getListUrl() ?>"><span><?php echo __('View all testimonials') ?></span></a>
+            </div>
+        </div>
+    </div>
+</div>

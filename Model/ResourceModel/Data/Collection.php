@@ -203,4 +203,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             ->where('main_table.widget = ?', $widget);
         return $this;
     }
+    /**
+     * Filter collection by rating
+     *
+     * @return $this
+     */
+    public function addRatingFilter()
+    {
+        $this->getSelect()
+            ->where('main_table.rating > 0');
+        return $this;
+    }
 }

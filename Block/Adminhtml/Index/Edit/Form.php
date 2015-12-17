@@ -240,8 +240,8 @@ class Form extends \Magento\Backend\Block\Widget\Form\Generic
             'widget',
             'select',
             [
-                'label' => __('Display in widget'),
-                'title' => __('Display in widget'),
+                'label' => __('Display in side list widget'),
+                'title' => __('Display in side list widget'),
                 'name' => 'widget',
                 'required' => false,
                 'options' => ['1' => __('Yes'), '0' => __('No')],

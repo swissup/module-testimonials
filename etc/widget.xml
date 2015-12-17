@@ -2,27 +2,39 @@
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
     <widget id="swissup_testimonials_side_list" class="Swissup\Testimonials\Block\Widgets\SideList" is_email_compatible="false"
-            placeholder_image="Swissup_Testimonials::images/list.png" ttl="86400">
-            <label translate="true">Testimonials: List of testimonials (for side panel)</label>
-            <description>Shows changing testimonials list in side panel</description>
-            <parameters>
-                <parameter name="show_block_design" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
-                    <label translate="true">Display block title and link</label>
-                    <description>Disable if you want to use your own title design or link</description>
-                    <value>1</value>
-                </parameter>
-                <parameter name="items_number" xsi:type="text" required="true" visible="true">
-                    <label translate="true">Number of testimonials</label>
-                    <value>5</value>
-                </parameter>
-                <parameter name="view_time" xsi:type="text" required="true" visible="true">
-                    <label translate="true">Show next testimonial after, ms</label>
-                    <value>10000</value>
-                </parameter>
-                <parameter name="anim_duration" xsi:type="text" required="true" visible="true">
-                    <label translate="true">Change animation duration, ms</label>
-                    <value>1000</value>
-                </parameter>
-            </parameters>
+        placeholder_image="Swissup_Testimonials::images/list.png" ttl="86400">
+        <label translate="true">Testimonials: List of testimonials (for side panel)</label>
+        <description>Shows changing testimonials list in side panel</description>
+        <parameters>
+            <parameter name="show_block_design" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Display block title and link</label>
+                <description>Disable if you want to use your own title design or link</description>
+                <value>1</value>
+            </parameter>
+            <parameter name="items_number" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of testimonials</label>
+                <value>5</value>
+            </parameter>
+            <parameter name="view_time" xsi:type="text" required="true" visible="true">
+                <label translate="true">Show next testimonial after, ms</label>
+                <value>10000</value>
+            </parameter>
+            <parameter name="anim_duration" xsi:type="text" required="true" visible="true">
+                <label translate="true">Change animation duration, ms</label>
+                <value>1000</value>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget id="swissup_testimonials_side_review" class="Swissup\Testimonials\Block\Widgets\SideReview" is_email_compatible="false"
+        placeholder_image="Swissup_Testimonials::images/review.png" ttl="86400">
+        <label translate="true">Testimonials: Review block (for side panel)</label>
+        <description>Shows total number of testimonials and average testimonial rating in side panel</description>
+        <parameters>
+            <parameter name="show_block_design" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Display block title and link</label>
+                <description>Disable if you want to use your own title design or link</description>
+                <value>1</value>
+            </parameter>
+        </parameters>
     </widget>
 </widgets>
