@@ -5,7 +5,7 @@ if (!count($testimonials)) {
 }
 ?>
 
-<div class="widget block block-testimonials <?php if (!$block->getShowBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList">
+<div class="widget block block-testimonials <?php if ($block->getHideBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList">
     <div class="block-title">
         <strong><?php echo __('Testimonials') ?></strong>
     </div>
