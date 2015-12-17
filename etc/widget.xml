@@ -32,7 +32,6 @@
             <parameter name="hide_block_design" xsi:type="select" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Hide block title and link</label>
                 <description>Enable if you want to use your own title design or link</description>
-                <value>1</value>
             </parameter>
         </parameters>
     </widget>
@@ -40,5 +39,10 @@
         placeholder_image="Swissup_Testimonials::images/form.png" ttl="86400">
         <label translate="true">Testimonials: Submit Form</label>
         <description>Shows testimonials submit form</description>
+    </widget>
+    <widget id="swissup_testimonials_list" class="Swissup\Testimonials\Block\TestimonialsList" is_email_compatible="false"
+        placeholder_image="Swissup_Testimonials::images/list.png" ttl="86400">
+        <label translate="true">Testimonials: Full testimonials list</label>
+        <description>Shows full testimonials list with load more button</description>
     </widget>
 </widgets>

@@ -6,8 +6,13 @@ use Swissup\Testimonials\Model\Data as TestimonialsModel;
 use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
 
 class TestimonialsList extends \Magento\Framework\View\Element\Template implements
-    \Magento\Framework\DataObject\IdentityInterface
+    \Magento\Framework\DataObject\IdentityInterface,
+    \Magento\Widget\Block\BlockInterface
 {
+    /**
+     * Default template to use for review widget
+     */
+    const DEFAULT_LIST_TEMPLATE = 'list.phtml';
     /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
@@ -37,6 +42,13 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
         $this->_testimonialsCollectionFactory = $testimonialsCollectionFactory;
         $this->configHelper = $configHelper;
         $this->listHelper = $listHelper;
+    }
+    public function _construct()
+    {
+        if (!$this->hasData('template')) {
+            $this->setData('template', self::DEFAULT_LIST_TEMPLATE);
+        }
+        return parent::_construct();
     }
      /**
      * @return \Swissup\Testimonials\Model\ResourceModel\Data\Collection
