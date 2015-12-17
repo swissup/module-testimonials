@@ -36,4 +36,9 @@
             </parameter>
         </parameters>
     </widget>
+    <widget id="swissup_testimonials_form" class="Swissup\Testimonials\Block\Widgets\Form" is_email_compatible="false"
+        placeholder_image="Swissup_Testimonials::images/form.png" ttl="86400">
+        <label translate="true">Testimonials: Submit Form</label>
+        <description>Shows testimonials submit form</description>
+    </widget>
 </widgets>

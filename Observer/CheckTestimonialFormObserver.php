@@ -77,7 +77,7 @@ class CheckTestimonialFormObserver implements ObserverInterface
                 $this->_testimonialSession->setFormData($controller->getRequest()->getPost());
                 $this->messageManager->addError(__('Incorrect CAPTCHA.'));
                 $this->_actionFlag->set('', \Magento\Framework\App\Action\Action::FLAG_NO_DISPATCH, true);
-                $this->redirect->redirect($controller->getResponse(), 'testimonials/index/new');
+                $this->redirect->redirect($controller->getResponse(), $this->redirect->getRefererUrl());
             }
         }
     }
