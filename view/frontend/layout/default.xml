@@ -2,4 +2,22 @@
     <head>
         <css src="Swissup_Testimonials::css/testimonials.css"/>
     </head>
+    <body>
+        <referenceBlock name="top.links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="testimonials/general/top_links" name="testimonials-list-link-header">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Testimonials</argument>
+                    <argument name="path" xsi:type="string">testimonials/index/index</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="footer_links">
+            <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="testimonials/general/footer_links" name="testimonials-list-link-footer">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Testimonials</argument>
+                    <argument name="path" xsi:type="string">testimonials/index/index</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
 </page>
