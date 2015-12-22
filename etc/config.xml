@@ -12,7 +12,7 @@
                 <items_per_page>10</items_per_page>
                 <image_width>100</image_width>
                 <image_height>100</image_height>
-                <placeholder_image>default/empty.gif</placeholder_image>
+                <placeholder_image></placeholder_image>
                 <show_email>0</show_email>
             </list>
             <form>

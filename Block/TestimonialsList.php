@@ -100,7 +100,8 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
      */
     public function getProfileImageUrl($testimonial)
     {
-        return $this->listHelper->resize($testimonial);
+        $image = $this->listHelper->resize($testimonial);
+        return $image ? $image : $this->getViewFileUrl('Swissup_Testimonials::images/empty.svg');
     }
     /**
      * Check if social block enabled

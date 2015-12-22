@@ -14,13 +14,11 @@
         <?php /** @var $_testimonial \Swissup\Testimonials\Model\Data */ ?>
         <?php foreach ($_testimonials as $_testimonial): ?>
             <div class="testimonial">
-                <?php if ($image = $_listHelper->getImagePath($_testimonial)): ?>
                 <div class="testimonial-image" style="width: <?php echo ($_width + 10) ?>px">
                     <img src="<?php echo $block->getProfileImageUrl($_testimonial); ?>"
                     alt="Profile image" />
                 </div>
-                <?php endif ?>
-                <div class="container" style="width: auto; margin-left: <?php echo $image ? ($_width + 10) : 0 ?>px">
+                <div class="container" style="width: auto; margin-left: <?php echo $_width + 10 ?>px">
                     <div class="content-wrapper">
                         <div class="message-wrapper">
                             <div class="message"><?php echo $_testimonial->getMessage() ?>
@@ -56,7 +54,7 @@
                                 <?php endif ?>
                             </div>
                         </div>
-                        <div style="margin: 10px 0 0 <?php echo $image ? 40 : 80 ?>px">
+                        <div style="margin: 10px 0 0 40px">
                             <?php if ($_testimonial->getRating()): ?>
                             <?php $ratingPercent = $block->getRatingPercent($_testimonial); ?>
                             <div class="review-ratings">
