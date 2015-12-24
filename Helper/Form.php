@@ -131,6 +131,6 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRating()
     {
-        return $this->_data['rating'];
+        return isset($this->_data['rating']) ? $this->_data['rating'] : -1;
     }
 }

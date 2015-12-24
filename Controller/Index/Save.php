@@ -96,6 +96,7 @@ class Save extends \Magento\Framework\App\Action\Action
             $model->setData($post);
             $imageName = $this->_uploadModel->uploadFileAndGetName('image', $this->_imageModel->getBaseDir(), $post);
             $model->setImage($imageName);
+            $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
             $model->save();
             $this->messageManager->addSuccess(__($this->_configHelper->getSentMessage()));
             $this->_redirectReferer();

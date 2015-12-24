@@ -1,49 +1,63 @@
-<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
-<table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
-    <tr>
-        <td align="center" valign="top" style="padding:20px 0 20px 0">
-            <!-- [ header starts here] -->
-            <table bgcolor="FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
-                <tr>
-                    <td valign="top">
-                        <a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px;" border="0"/></a></td>
-                </tr>
-                <!-- [ middle starts here] -->
-                <tr>
-                    <td valign="top">
-                        <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">{{var admin_subject}}</h1>
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Testimonial data:</strong></p>
+<!--@subject New testimonial was added on {{var store.getFrontendName()}} @-->
+<!--@vars {
+"var admin_subject":"Admin email subject",
+"var user_name":"User name",
+"var user_email":"User email",
+"var store_view":"Store view",
+"var message":"User message",
+"var company":"User company",
+"var website":"User website",
+"var facebook":"User facebook",
+"var twitter":"User twitter",
+"var rating":"User rating",
+"var image":"User profile image",
+"var status":"Testimonial status"
+} @-->
 
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>User Name : </strong> {{var user_name}}</p>
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>User Email : </strong> {{var user_email}}</p>
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Store View : </strong> {{var store_view}}</p>
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Message : </strong> {{var message}}</p>
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{var admin_subject}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <p>{{trans "Testimonial data:"}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            <table class="message-info">
+                <tr>
+                    <td>
+                        <p><strong>{{trans "User Name : "}}</strong>{{var user_name}}</p>
+                        <p><strong>{{trans "User Email : "}}</strong>{{var user_email}}</p>
+                        <p><strong>{{trans "Store View : "}}</strong>{{var store_view}}</p>
+                        <p><strong>{{trans "Message : "}}</strong>{{var message}}</p>
                         {{depend company}}
-                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Company : </strong> {{var company}}</p>
+                        <p><strong>{{trans "Company : "}}</strong>{{var company}}</p>
                         {{/depend}}
                         {{depend website}}
-                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Website : </strong> {{var website}}</p>
+                        <p><strong>{{trans "Website : "}}</strong>{{var website}}</p>
                         {{/depend}}
                         {{depend facebook}}
-                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Facebook : </strong> {{var facebook}}</p>
+                        <p><strong>{{trans "Facebook : "}}</strong>{{var facebook}}</p>
                         {{/depend}}
                         {{depend twitter}}
-                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Twitter : </strong> {{var twitter}}</p>
+                        <p><strong>{{trans "Twitter : "}}</strong>{{var twitter}}</p>
                         {{/depend}}
                         {{depend rating}}
-                            <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Rating : </strong> {{var rating}}</p>
+                        <p><strong>{{trans "Rating : "}}</strong>{{var rating}}</p>
                         {{/depend}}
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Has image : </strong> {{var image}}</p>
-                        <p style="font-size:12px; line-height:16px; margin:0 0 8px 0;"><strong>Status : </strong> {{var status}}</p>
+                        <p><strong>{{trans "Has image : "}}</strong>{{var image}}</p>
+                        <p><strong>{{trans "Status : "}}</strong>{{var status}}</p>
                     </td>
-                </tr>
-                <tr>
-                    <td bgcolor="#EAEAEA" align="center" style="background:#EAEAEA; text-align:center;"><center><p style="font-size:12px; margin:0;"><strong>{{var store.getFrontendName()}}</strong></p></center></td>
                 </tr>
             </table>
         </td>
     </tr>
 </table>
-</div>
-</body>
+
+{{template config_path="design/email/footer_template"}}
