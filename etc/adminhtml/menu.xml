@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Swissup_Testimonials::testimonials" title="Testimonials" module="Swissup_Testimonials" sortOrder="900" parent="Swissup_Core::swissup" action="testimonials/index" resource="Swissup_Testimonials::testimonials"/>
     </menu>
