@@ -26,10 +26,11 @@ class Upload
      * @param $input
      * @param $destinationFolder
      * @param $data
+     * @param array $allowedExtensions
      * @return string
      * @throws \Magento\Framework\Model\Exception
      */
-    public function uploadFileAndGetName($input, $destinationFolder, $data)
+    public function uploadFileAndGetName($input, $destinationFolder, $data, $allowedExtensions = [])
     {
         try {
             if (isset($data[$input]['delete'])) {
@@ -39,6 +40,7 @@ class Upload
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(true);
                 $uploader->setAllowCreateFolders(true);
+                $uploader->setAllowedExtensions($allowedExtensions);
                 $result = $uploader->save($destinationFolder);
                 return $result['file'];
             }

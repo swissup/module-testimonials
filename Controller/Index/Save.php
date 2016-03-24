@@ -94,7 +94,12 @@ class Save extends \Magento\Framework\App\Action\Action
                 TestimonialsModel:: STATUS_AWAITING_APPROVAL;
             $model = $this->_objectManager->create('Swissup\Testimonials\Model\Data');
             $model->setData($post);
-            $imageName = $this->_uploadModel->uploadFileAndGetName('image', $this->_imageModel->getBaseDir(), $post);
+            $imageName = $this->_uploadModel
+                ->uploadFileAndGetName('image',
+                    $this->_imageModel->getBaseDir(),
+                    $post,
+                    ['jpg','jpeg','gif','png', 'bmp']
+                );
             $model->setImage($imageName);
             $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
             $model->save();
@@ -102,9 +107,7 @@ class Save extends \Magento\Framework\App\Action\Action
             $this->_redirectReferer();
             return;
         } catch (\Exception $e) {
-            $this->messageManager->addError(
-                __($e->getMessage())
-            );
+            $this->messageManager->addError(__($e->getMessage()));
             $this->_testimonialSession->setFormData(
                 $post
             )->setRedirectUrl(
