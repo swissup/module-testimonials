@@ -22,10 +22,10 @@ define(["jquery"], function($) {
                     if (!showMoreActive) clearInterval(changeInterval);
                 });
                 $('#testimonialsList').on('mouseleave', self.startChangeTimer);
-                if ($('#testimonial_0 .read-more')) {
-                    $('#testimonial_0 .read-more').on('click', self.showMore);
-                    $('#testimonial_0 .read-less').on('click', self.showLess);
-                }
+            }
+            if ($('#testimonial_0 .read-more')) {
+                $('#testimonial_0 .read-more').on('click', self.showMore);
+                $('#testimonial_0 .read-less').on('click', self.showLess);
             }
         },
         showMore: function() {
