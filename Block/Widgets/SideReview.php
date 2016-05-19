@@ -14,27 +14,21 @@ class SideReview extends \Magento\Framework\View\Element\Template
      * Default template to use for review widget
      */
     const DEFAULT_REVIEW_TEMPLATE = 'widgets/sidereview.phtml';
-    /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
-     */
-    protected $scopeConfig;
+
     /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->_testimonialsCollectionFactory = $testimonialsCollectionFactory;
-        $this->scopeConfig = $scopeConfig;
     }
 
     public function _construct()
@@ -67,7 +61,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
     }
     public function getStoreName()
     {
-        $storeName = $this->scopeConfig->getValue(
+        $storeName = $this->_scopeConfig->getValue(
             'general/store_information/name',
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
