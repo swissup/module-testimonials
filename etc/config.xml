@@ -50,5 +50,10 @@
                 </areas>
             </frontend>
         </captcha>
+        <subscriptionchecker>
+            <ignore>
+                <testimonials/>
+            </ignore>
+        </subscriptionchecker>
     </default>
 </config>
