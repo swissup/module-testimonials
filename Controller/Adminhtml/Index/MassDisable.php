@@ -9,6 +9,10 @@ use Swissup\Testimonials\Controller\Adminhtml\AbstractMassStatus;
 class MassDisable extends AbstractMassStatus
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::approve';
+    /**
      * Field id
      */
     const ID_FIELD = 'testimonial_id';

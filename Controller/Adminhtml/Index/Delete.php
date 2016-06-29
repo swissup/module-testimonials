@@ -4,6 +4,10 @@ namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 class Delete extends \Magento\Backend\App\Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::delete';
+    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -19,13 +23,6 @@ class Delete extends \Magento\Backend\App\Action
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
-    }
-    /**
-     * {@inheritdoc}
-     */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Swissup_Testimonials::delete');
     }
     /**
      * Delete action

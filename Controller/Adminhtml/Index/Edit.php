@@ -6,6 +6,10 @@ use Magento\Backend\App\Action;
 class Edit extends Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::testimonials';
+    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -30,14 +34,6 @@ class Edit extends Action
         $this->resultPageFactory = $resultPageFactory;
         $this->_coreRegistry = $registry;
         parent::__construct($context);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Swissup_Testimonials::save');
     }
 
     /**

@@ -12,6 +12,11 @@ use Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory;
 class MassDelete extends \Magento\Backend\App\Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::delete';
+
+    /**
      * @var Filter
      */
     protected $filter;

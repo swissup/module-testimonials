@@ -7,6 +7,11 @@ use Magento\TestFramework\ErrorLog\Logger;
 class Save extends \Magento\Backend\App\Action
 {
     /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::save';
+
+    /**
      * upload model
      *
      * @var \Swissup\Testimonials\Model\Upload
@@ -29,14 +34,6 @@ class Save extends \Magento\Backend\App\Action
         $this->uploadModel = $uploadModel;
         $this->imageModel = $imageModel;
         parent::__construct($context);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Swissup_Testimonials::save');
     }
 
     /**
