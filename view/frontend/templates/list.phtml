@@ -21,21 +21,21 @@
                 <div class="container" style="width: auto; margin-left: <?php echo $_width + 10 ?>px">
                     <div class="content-wrapper">
                         <div class="message-wrapper">
-                            <div class="message"><?php echo $_testimonial->getMessage() ?>
+                            <div class="message"><?php echo $block->escapeHtml($_testimonial->getMessage()) ?>
                                 <span class="author-info">
-                                    <?php echo $_testimonial->getName();
+                                    <?php echo $block->escapeHtml($_testimonial->getName());
                                         if ($_testimonial->getCompany() &&
                                             $_configHelper->isCompanyEnabled()): ?>,
                                         <?php if ($_testimonial->getWebsite() &&
                                                   $_configHelper->isWebsiteEnabled()): ?>
-                                            <a href="<?php echo $_testimonial->getWebsite() ?>" target="_blank">
-                                            <?php echo $_testimonial->getCompany(); ?></a><?php
+                                            <a href="<?php echo $block->escapeUrl($_testimonial->getWebsite()) ?>" target="_blank">
+                                            <?php echo $block->escapeHtml($_testimonial->getCompany()); ?></a><?php
                                             else:
-                                                echo $_testimonial->getCompany();
+                                                echo $block->escapeHtml($_testimonial->getCompany());
                                             endif;
                                         endif; ?>
                                         <?php if ($_configHelper->showUserEmail()):
-                                            echo ', ' . $_testimonial->getEmail();
+                                            echo ', ' . $block->escapeHtml($_testimonial->getEmail());
                                         endif ?>
                                 </span>
                                 <?php if ($block->canShowSocial($_testimonial)): ?>
@@ -43,12 +43,12 @@
                                     <?php echo __('Find us on'); ?>
                                     <?php if ($_testimonial->getFacebook() &&
                                               $_configHelper->isFacebookEnabled()): ?>
-                                        <a href="<?php echo $_testimonial->getFacebook() ?>" target="_blank">
+                                        <a href="<?php echo $block->escapeUrl($_testimonial->getFacebook()) ?>" target="_blank">
                                         <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/facebook.png'); ?>" /><?php echo __('Facebook') ?></a>
                                     <?php endif ?>
                                     <?php if ($_testimonial->getTwitter() &&
                                               $_configHelper->isTwitterEnabled()): ?>
-                                    , <a href="<?php echo $_testimonial->getTwitter() ?>" target="_blank">
+                                    , <a href="<?php echo $block->escapeUrl($_testimonial->getTwitter()) ?>" target="_blank">
                                     <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/twitter.png'); ?>" /><?php echo __('Twitter') ?></a><?php endif ?>
                                 </div>
                                 <?php endif ?>

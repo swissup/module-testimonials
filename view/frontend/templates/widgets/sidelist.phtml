@@ -29,9 +29,9 @@ if (!count($testimonials)) {
                                 </div>
                             </div>
                         <?php endif ?>
-                        <div class="message"><?php echo $testimonial->getMessage(); ?></div>
+                        <div class="message"><?php echo $block->escapeHtml($testimonial->getMessage()); ?></div>
                     </div>
-                    <div class="name"><?php echo $testimonial->getName(); ?></div>
+                    <div class="name"><?php echo $block->escapeHtml($testimonial->getName()); ?></div>
                     <a class="read-more" href="#"><?php echo __('Read more') ?></a>
                     <a class="read-less" href="#" style="display: none;"><?php echo __('Read less') ?></a>
                 </div>
