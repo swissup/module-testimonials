@@ -3,9 +3,9 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Swissup_Core::swissup" title="Swissup">
-                    <resource id="Swissup_Core::general" title="General">
-                        <resource id="Swissup_Testimonials::testimonials" title="Testimonials" sortOrder="0">
+                <resource id="Swissup_Core::swissup">
+                    <resource id="Swissup_Core::general">
+                        <resource id="Swissup_Testimonials::testimonials" title="Testimonials" sortOrder="2021">
                             <resource id="Swissup_Testimonials::save" title="Save" sortOrder="10" />
                             <resource id="Swissup_Testimonials::delete" title="Delete" sortOrder="20" />
                             <resource id="Swissup_Testimonials::approve" title="Approve" sortOrder="30" />
@@ -15,8 +15,8 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Swissup_Core::config" title="Swissup">
-                                <resource id="Swissup_Testimonials::config_testimonials" title="Testimonials" />
+                            <resource id="Swissup_Core::swissup_config">
+                                <resource id="Swissup_Testimonials::config_testimonials" title="Testimonials" sortOrder="2021"/>
                             </resource>
                         </resource>
                     </resource>
