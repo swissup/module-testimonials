@@ -6,6 +6,7 @@
             <item name="deps" xsi:type="string">testimonials_index_listing.testimonials_index_listing_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">testimonials_index_columns</item>
+        <item name="acl" xsi:type="string">Swissup_Testimonials::testimonials</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
