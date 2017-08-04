@@ -100,7 +100,14 @@ class Admin implements ObserverInterface
                 'status' => $status,
                 'store_view' => $store->getFrontendName()
             ];
-            $this->_sendEmail($from, $to, $templateId, $vars, $store);
+
+            try {
+                $this->_sendEmail($from, $to, $templateId, $vars, $store);
+            } catch (\Magento\Framework\Exception\MailException $e) {
+                \Magento\Framework\App\ObjectManager::getInstance()
+                    ->get('Psr\Log\LoggerInterface')
+                    ->error($e->getMessage());
+            }
         }
         return $this;
     }
