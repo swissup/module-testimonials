@@ -82,4 +82,38 @@ class SideReview extends \Magento\Framework\View\Element\Template
         }
         return number_format($avgRating, 2);
     }
+
+    public function getStoreImage()
+    {
+        $logo = $this->getLayout()->getBlock('logo');
+        return $logo ? $logo->getLogoSrc() : '';
+    }
+
+    public function getStoreAddress()
+    {
+        $addressConfig = ['postcode', 'city', 'street_line1', 'street_line2'];
+
+        $address = '';
+        foreach ($addressConfig as $value) {
+            $addressItem = $this->_scopeConfig->getValue(
+                'general/store_information/' . $value,
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            );
+            if ($addressItem) {
+                $address .= $addressItem . ', ';
+            }
+        }
+
+        return trim($address, ', ');
+    }
+
+    public function getStorePhone()
+    {
+        $storePhone = $this->_scopeConfig->getValue(
+            'general/store_information/phone',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        return $storePhone;
+    }
 }
