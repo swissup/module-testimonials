@@ -26,7 +26,7 @@ class Collection extends DataCollection implements SearchResultInterface
      * @param string $eventObject
      * @param string $resourceModel
      * @param string $model
-     * @param string|null $connection
+     * @param \Magento\Framework\DB\Adapter\AdapterInterface|null $connection
      * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -42,7 +42,7 @@ class Collection extends DataCollection implements SearchResultInterface
         $eventObject,
         $resourceModel,
         $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
-        $connection = null,
+        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
     ) {
         parent::__construct(
