@@ -6,7 +6,7 @@
         "reviews"
     ],
     "type": "magento2-module",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "license": "OSL-3.0",
     "require": {
         "swissup/core": "*"
