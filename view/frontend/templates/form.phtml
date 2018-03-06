@@ -81,7 +81,7 @@
             <?php endfor; ?>
             </div>
         </div>
-        <div class="field message required">
+        <div class="field testimonial-message required">
             <label class="label" for="message"><span><?php /* @escapeNotVerified */ echo __('Message') ?></span></label>
             <div class="control">
                 <textarea name="message" id="message" title="<?php /* @escapeNotVerified */ echo __('Message') ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Swissup\Testimonials\Helper\Form')->getMessage()) ?></textarea>

@@ -84,7 +84,7 @@
     width: 100%;
 }
 
-.testimonials-list .testimonial .message {
+.testimonials-list .testimonial .testimonial-message {
     font-style: italic;
     position: relative;
     padding: 15px;
@@ -95,7 +95,7 @@
     background: #fff;
 }
 
-.testimonials-list .testimonial .message:before {
+.testimonials-list .testimonial .testimonial-message:before {
     content: "";
     position: absolute;
     top: 15px;
@@ -108,7 +108,7 @@
     width: 0;
 }
 
-.testimonials-list .testimonial .message:after {
+.testimonials-list .testimonial .testimonial-message:after {
     content: "";
     position: absolute;
     top: 16px;
@@ -174,7 +174,7 @@
     color: #e26703;
 }
 
-.block-testimonials .block-content .content .message {
+.block-testimonials .block-content .content .testimonial-message {
     clear: both;
 }
 
@@ -224,11 +224,11 @@
         margin-top: 20px;
     }
 
-    .testimonials-list .testimonial .message {
+    .testimonials-list .testimonial .testimonial-message {
         margin: 0;
     }
 
-    .testimonials-list .testimonial .message:before {
+    .testimonials-list .testimonial .testimonial-message:before {
         content: "";
         position: absolute;
         top: -23px;
@@ -242,7 +242,7 @@
         height: 0;
     }
 
-    .testimonials-list .testimonial .message:after {
+    .testimonials-list .testimonial .testimonial-message:after {
         content: "";
         position: absolute;
         top: -21px;
