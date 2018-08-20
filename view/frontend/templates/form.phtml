@@ -61,7 +61,7 @@
                 <input name="image" id="image" title="<?= __('Profile image') ?>" value="" class="input-text" type="file" data-validate="{required:false}"/>
             </div>
         </div>
-        <div class="field choice review-field-rating">
+        <div class="field choice review-field-rating<?php if ($configHelper->isRatingRequired()): ?> required<?php endif; ?>">
             <label class="label" id="rating"><span><?= __('Rating') ?></span></label>
             <div class="control review-control-vote">
             <?php for ($i = 1; $i <= 5; ++$i): ?>
@@ -74,7 +74,7 @@
                     <?php if ($formHelper->getRating() == $i): ?>
                     checked="checked"
                     <?php endif; ?>
-                    data-validate="{required:false}"/>
+                    data-validate="{required:<?= $configHelper->isRatingRequired()?'true':'false'?>}"/>
                 <label
                     class="rating-<?= $i ?>"
                     for="rating_<?= $i ?>"

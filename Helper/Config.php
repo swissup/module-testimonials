@@ -79,6 +79,12 @@ class Config extends AbstractHelper
      */
     const XML_PATH_FACEBOOK_ENABLED            = 'testimonials/form/enable_facebook';
     /**
+     * Path to store config rating field required
+     *
+     * @var string
+     */
+    const XML_PATH_RATING_REQUIRED            = 'testimonials/form/rating_required';
+    /**
      * Path to store config sent message
      *
      * @var string
@@ -178,6 +184,11 @@ class Config extends AbstractHelper
     public function isFacebookEnabled()
     {
         return (bool)$this->getConfig(self::XML_PATH_FACEBOOK_ENABLED);
+    }
+
+    public function isRatingRequired()
+    {
+        return (bool)$this->getConfig(self::XML_PATH_RATING_REQUIRED);
     }
 
     public function getSentMessage()

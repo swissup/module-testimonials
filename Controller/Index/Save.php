@@ -85,8 +85,13 @@ class Save extends \Magento\Framework\App\Action\Action
             if (!\Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
                 $error = true;
             }
+            if ($this->_configHelper->isRatingRequired() && (!isset($post['rating']) ||
+                !\Zend_Validate::is(trim($post['rating']), 'NotEmpty')))
+            {
+                $error = true;
+            }
             if ($error) {
-                throw new \Exception();
+                throw new \Exception(__('Please fill all required fields.'));
             }
             $post['store_id'] = $this->_storeManager->getStore()->getId();
             $post['status'] = $this->_configHelper->isAutoApprove() ?

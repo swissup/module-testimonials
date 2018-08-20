@@ -146,6 +146,15 @@
     display: inline;
 }
 
+.form.testimonial .review-field-rating .field-error,
+.form.testimonial .review-field-rating div.mage-error[generated] {
+    margin-top: 38px;
+}
+
+.form.testimonial .review-field-rating .label {
+    font-weight: 600;
+}
+
 /** widgets styles */
 .block-testimonials .block-content .testimonial-container {
     min-height: 130px;
