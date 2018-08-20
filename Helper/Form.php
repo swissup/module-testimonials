@@ -14,15 +14,17 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var \Magento\Customer\Model\Session
      */
-    protected $_customerSession;
+    protected $customerSession;
+
     /**
      * @var \Magento\Customer\Helper\View
      */
-    protected $_customerViewHelper;
+    protected $customerViewHelper;
+
     /**
      * Testimonials form data
      */
-    protected $_data;
+    protected $data;
 
     /**
      * @param \Magento\Framework\App\Helper\Context $context
@@ -36,11 +38,12 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
         CustomerViewHelper $customerViewHelper,
         \Magento\Framework\Session\Generic $testimonialSession
     ) {
-        $this->_customerSession = $customerSession;
-        $this->_customerViewHelper = $customerViewHelper;
-        $this->_data = $testimonialSession->getFormData(true);
+        $this->customerSession = $customerSession;
+        $this->customerViewHelper = $customerViewHelper;
+        $this->data = $testimonialSession->getFormData(true);
         parent::__construct($context);
     }
+
     /**
      * Get user name
      *
@@ -48,18 +51,20 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getUserName()
     {
-        if (!empty($this->_data['name'])) {
-            return $this->_data['name'];
+        if (!empty($this->data['name'])) {
+            return $this->data['name'];
         }
-        if (!$this->_customerSession->isLoggedIn()) {
+        if (!$this->customerSession->isLoggedIn()) {
             return '';
         }
         /**
          * @var \Magento\Customer\Api\Data\CustomerInterface $customer
          */
-        $customer = $this->_customerSession->getCustomerDataObject();
-        return trim($this->_customerViewHelper->getCustomerName($customer));
+        $customer = $this->customerSession->getCustomerDataObject();
+
+        return trim($this->customerViewHelper->getCustomerName($customer));
     }
+
     /**
      * Get user email
      *
@@ -67,18 +72,20 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getUserEmail()
     {
-        if (!empty($this->_data['email'])) {
-            return $this->_data['email'];
+        if (!empty($this->data['email'])) {
+            return $this->data['email'];
         }
-        if (!$this->_customerSession->isLoggedIn()) {
+        if (!$this->customerSession->isLoggedIn()) {
             return '';
         }
         /**
          * @var CustomerInterface $customer
          */
-        $customer = $this->_customerSession->getCustomerDataObject();
+        $customer = $this->customerSession->getCustomerDataObject();
+
         return $customer->getEmail();
     }
+
     /**
      * Get company
      *
@@ -86,8 +93,9 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCompany()
     {
-        return $this->_data['company'];
+        return $this->data['company'];
     }
+
     /**
      * Get website
      *
@@ -95,8 +103,9 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getWebsite()
     {
-        return $this->_data['website'];
+        return $this->data['website'];
     }
+
     /**
      * Get twitter
      *
@@ -104,8 +113,9 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getTwitter()
     {
-        return $this->_data['twitter'];
+        return $this->data['twitter'];
     }
+
     /**
      * Get facebook
      *
@@ -113,8 +123,9 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getFacebook()
     {
-        return $this->_data['facebook'];
+        return $this->data['facebook'];
     }
+
     /**
      * Get message
      *
@@ -122,8 +133,9 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getMessage()
     {
-        return $this->_data['message'];
+        return $this->data['message'];
     }
+
     /**
      * Get rating
      *
@@ -131,6 +143,6 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRating()
     {
-        return isset($this->_data['rating']) ? $this->_data['rating'] : -1;
+        return isset($this->data['rating']) ? $this->data['rating'] : -1;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace Swissup\Testimonials\Helper;
 
-use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
 
@@ -116,80 +115,98 @@ class Config extends AbstractHelper
      */
     const XML_PATH_ADMIN_EMAIL_TEMPLATE              = 'testimonials/email_admin/email_template';
 
-    protected function _getConfig($key)
+    protected function getConfig($key)
     {
         return $this->scopeConfig->getValue($key, ScopeInterface::SCOPE_STORE);
     }
+
     public function isAutoApprove()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_APPROVE);
+        return (bool)$this->getConfig(self::XML_PATH_APPROVE);
     }
+
     public function getListLayout()
     {
-        return (String)$this->_getConfig(self::XML_PATH_LIST_LAYOUT);
+        return (String)$this->getConfig(self::XML_PATH_LIST_LAYOUT);
     }
+
     public function getTestimonialsPerPage()
     {
-        return abs((int)$this->_getConfig(self::XML_PATH_ITEMS_PER_PAGE));
+        return abs((int)$this->getConfig(self::XML_PATH_ITEMS_PER_PAGE));
     }
+
     public function getImageWidth()
     {
-        return abs((int)$this->_getConfig(self::XML_PATH_IMAGE_W));
+        return abs((int)$this->getConfig(self::XML_PATH_IMAGE_W));
     }
+
     public function getImageHeight()
     {
-        return abs((int)$this->_getConfig(self::XML_PATH_IMAGE_H));
+        return abs((int)$this->getConfig(self::XML_PATH_IMAGE_H));
     }
+
     public function getPlaceholderImage()
     {
-        return (String)$this->_getConfig(self::XML_PATH_PLACEHOLDER_IMAGE);
+        return (String)$this->getConfig(self::XML_PATH_PLACEHOLDER_IMAGE);
     }
+
     public function showUserEmail()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_LIST_EMAIL);
+        return (bool)$this->getConfig(self::XML_PATH_LIST_EMAIL);
     }
+
     public function getFormLayout()
     {
-        return (String)$this->_getConfig(self::XML_PATH_FORM_LAYOUT);
+        return (String)$this->getConfig(self::XML_PATH_FORM_LAYOUT);
     }
+
     public function isCompanyEnabled()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_COMPANY_ENABLED);
+        return (bool)$this->getConfig(self::XML_PATH_COMPANY_ENABLED);
     }
+
     public function isWebsiteEnabled()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_WEBSITE_ENABLED);
+        return (bool)$this->getConfig(self::XML_PATH_WEBSITE_ENABLED);
     }
+
     public function isTwitterEnabled()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_TWITTER_ENABLED);
+        return (bool)$this->getConfig(self::XML_PATH_TWITTER_ENABLED);
     }
+
     public function isFacebookEnabled()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_FACEBOOK_ENABLED);
+        return (bool)$this->getConfig(self::XML_PATH_FACEBOOK_ENABLED);
     }
+
     public function getSentMessage()
     {
-        return (String)$this->_getConfig(self::XML_PATH_SENT_MESSAGE);
+        return (String)$this->getConfig(self::XML_PATH_SENT_MESSAGE);
     }
+
     public function isAdminNotificationEnabled()
     {
-        return (bool)$this->_getConfig(self::XML_PATH_ADMIN_EMAIL_ENABLED);
+        return (bool)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_ENABLED);
     }
+
     public function getAdminNotificationSendFrom()
     {
-        return (String)$this->_getConfig(self::XML_PATH_ADMIN_EMAIL_SEND_FROM);
+        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SEND_FROM);
     }
+
     public function getAdminEmail()
     {
-        return (String)$this->_getConfig(self::XML_PATH_ADMIN_EMAIL);
+        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL);
     }
+
     public function getAdminEmailSubject()
     {
-        return (String)$this->_getConfig(self::XML_PATH_ADMIN_EMAIL_SUBJECT);
+        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SUBJECT);
     }
+
     public function getAdminEmailTemplate()
     {
-        return (String)$this->_getConfig(self::XML_PATH_ADMIN_EMAIL_TEMPLATE);
+        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_TEMPLATE);
     }
 }
