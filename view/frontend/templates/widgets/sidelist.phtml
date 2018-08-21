@@ -47,10 +47,13 @@ if (!count($testimonials)) {
 </div>
 <script type="text/javascript">
     require([
-        'testimonials-side-list-widget'
+        'Swissup_Testimonials/js/Swissup/testimonials/testimonials-side-list-widget'
     ], function (sideListWidget) {
-        sideListWidget.init(<?php echo count($testimonials); ?>,
-            <?php echo $block->getViewTime(); ?>,
-            <?php echo $block->getAnimDuration(); ?>);
+        'use strict';
+        /* jshint ignore:start */
+        sideListWidget.init(<?= count($testimonials); ?>,
+            <?= $block->getViewTime(); ?>,
+            <?= $block->getAnimDuration(); ?>);
+        /* jshint ignore:end */
     });
 </script>

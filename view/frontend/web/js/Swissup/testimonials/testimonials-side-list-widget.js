@@ -1,4 +1,6 @@
 define(["jquery"], function($) {
+    'use strict';
+
     var self,
         curTestimonial = 0,
         showMoreActive = false,
@@ -29,7 +31,8 @@ define(["jquery"], function($) {
             }
         },
         showMore: function() {
-            $this = $(this);
+            var $this = $(this);
+
             showMoreActive = true;
             $this.hide();
             $this.parent().find('.read-less').show();
@@ -37,7 +40,8 @@ define(["jquery"], function($) {
             return false;
         },
         showLess: function() {
-            $this = $(this);
+            var $this = $(this);
+
             showMoreActive = false;
             $this.hide();
             $this.parent().find('.read-more').show();
@@ -64,5 +68,5 @@ define(["jquery"], function($) {
                 }
             });
         }
-    }
+    };
 });

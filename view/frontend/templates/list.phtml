@@ -85,6 +85,7 @@
         require([
             'jquery'
         ], function ($) {
+            'use strict';
             $('#viewMore').hide();
         });
         </script>
@@ -98,13 +99,16 @@
 <script type="text/javascript">
     require([
         'jquery',
-        'testimonials-list'
+        'Swissup_Testimonials/js/Swissup/testimonials/testimonials-list'
     ], function ($, testimonialsList) {
-        testimonialsList.init("<?php echo $block->getLoadAction() ?>", '.testimonials');
+        'use strict';
+        testimonialsList.init("<?= $block->getLoadAction() ?>", '.testimonials');
         $('#viewMore').on('click', testimonialsList.makeAjaxCall);
+        /* jshint ignore:start */
         <?php if ($_configHelper->getTestimonialsPerPage() >= $_testimonials->getSize()): ?>
         $('#viewMore').hide();
-        <?php endif ?>
+        <?php endif; ?>
+        /* jshint ignore:end */
     });
 </script>
 <?php endif; ?>

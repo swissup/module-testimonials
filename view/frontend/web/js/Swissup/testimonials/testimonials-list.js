@@ -1,4 +1,6 @@
 define(["jquery"], function($) {
+    'use strict';
+
     var url,
         div,
         currentPage = 1;
@@ -8,7 +10,7 @@ define(["jquery"], function($) {
             url = ajaxCallUrl;
             div = $(divToUpdate);
         },
-        makeAjaxCall: function(event) {
+        makeAjaxCall: function() {
             if ($('.more-button a').hasClass('disabled')) return;
 
             $('.more-button a').addClass('disabled');
@@ -23,5 +25,5 @@ define(["jquery"], function($) {
 
             return false;
         }
-    }
+    };
 });
