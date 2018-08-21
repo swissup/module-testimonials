@@ -13,6 +13,12 @@ class Config extends AbstractHelper
      */
     const XML_PATH_APPROVE            = 'testimonials/general/approve';
     /**
+     * Path to store config guest allowed to submit testimonials
+     *
+     * @var string
+     */
+    const XML_PATH_ALLOW_GUEST            = 'testimonials/general/allow_guest_submit';
+    /**
      * Path to store config for testimonials list layout
      *
      * @var string
@@ -129,6 +135,11 @@ class Config extends AbstractHelper
     public function isAutoApprove()
     {
         return (bool)$this->getConfig(self::XML_PATH_APPROVE);
+    }
+
+    public function guestSubmitAllowed()
+    {
+        return (bool)$this->getConfig(self::XML_PATH_ALLOW_GUEST);
     }
 
     public function getListLayout()

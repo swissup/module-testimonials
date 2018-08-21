@@ -12,28 +12,43 @@ class Save extends \Magento\Framework\App\Action\Action
      *
      * @var \Magento\Framework\Session\Generic
      */
-    protected $_testimonialSession;
+    protected $testimonialSession;
+
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-    protected $_storeManager;
+    protected $storeManager;
+
     /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    protected $_configHelper;
+    protected $configHelper;
+
     /**
      * upload model
      *
      * @var \Swissup\Testimonials\Model\Upload
      */
-    protected $_uploadModel;
+    protected $uploadModel;
+
     /**
      * image model
      *
      * @var \Swissup\Testimonials\Model\Data\Image
      */
-    protected $_imageModel;
+    protected $imageModel;
+
+    /**
+     * @var \Magento\Customer\Model\Session
+     */
+    private $customerSession;
+
+    /**
+     * @var \Swissup\Testimonials\Model\DataFactory
+     */
+    protected $testimonialsFactory;
+
     /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
@@ -41,6 +56,8 @@ class Save extends \Magento\Framework\App\Action\Action
      * @param \Magento\Framework\Session\Generic $testimonialSession
      * @param \Swissup\Testimonials\Model\Data\Image $imageModel
      * @param \Swissup\Testimonials\Model\Upload $uploadModel
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -48,19 +65,46 @@ class Save extends \Magento\Framework\App\Action\Action
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Magento\Framework\Session\Generic $testimonialSession,
         \Swissup\Testimonials\Model\Data\Image $imageModel,
-        \Swissup\Testimonials\Model\Upload $uploadModel
+        \Swissup\Testimonials\Model\Upload $uploadModel,
+        \Magento\Customer\Model\Session $customerSession,
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
     ) {
         parent::__construct($context);
-        $this->_storeManager = $storeManager;
-        $this->_configHelper = $configHelper;
-        $this->_testimonialSession = $testimonialSession;
-        $this->_uploadModel = $uploadModel;
-        $this->_imageModel = $imageModel;
+        $this->storeManager = $storeManager;
+        $this->configHelper = $configHelper;
+        $this->testimonialSession = $testimonialSession;
+        $this->uploadModel = $uploadModel;
+        $this->imageModel = $imageModel;
+        $this->customerSession = $customerSession;
+        $this->testimonialsFactory = $testimonialsFactory;
     }
-    protected function _redirectReferer()
+
+    /**
+     * Check customer authentication
+     *
+     * @param \Magento\Framework\App\RequestInterface $request
+     * @return \Magento\Framework\App\ResponseInterface
+     */
+    public function dispatch(\Magento\Framework\App\RequestInterface $request)
+    {
+        if (!$request->isDispatched()) {
+            return parent::dispatch($request);
+        }
+
+        if (!$this->configHelper->guestSubmitAllowed() &&
+            !$this->customerSession->authenticate()
+        ) {
+            $this->_actionFlag->set('', self::FLAG_NO_DISPATCH, true);
+        }
+
+        return parent::dispatch($request);
+    }
+
+    protected function redirectReferer()
     {
         $this->_redirect($this->_redirect->getRedirectUrl());
     }
+
     /**
      * Save user testimonial
      *
@@ -71,7 +115,8 @@ class Save extends \Magento\Framework\App\Action\Action
     {
         $post = $this->getRequest()->getPostValue();
         if (!$post) {
-            $this->_redirectReferer();
+            $this->redirectReferer();
+
             return;
         }
         try {
@@ -85,7 +130,7 @@ class Save extends \Magento\Framework\App\Action\Action
             if (!\Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
                 $error = true;
             }
-            if ($this->_configHelper->isRatingRequired() && (!isset($post['rating']) ||
+            if ($this->configHelper->isRatingRequired() && (!isset($post['rating']) ||
                 !\Zend_Validate::is(trim($post['rating']), 'NotEmpty')))
             {
                 $error = true;
@@ -93,32 +138,34 @@ class Save extends \Magento\Framework\App\Action\Action
             if ($error) {
                 throw new \Exception(__('Please fill all required fields.'));
             }
-            $post['store_id'] = $this->_storeManager->getStore()->getId();
-            $post['status'] = $this->_configHelper->isAutoApprove() ?
+            $post['store_id'] = $this->storeManager->getStore()->getId();
+            $post['status'] = $this->configHelper->isAutoApprove() ?
                 TestimonialsModel::STATUS_ENABLED :
                 TestimonialsModel:: STATUS_AWAITING_APPROVAL;
-            $model = $this->_objectManager->create('Swissup\Testimonials\Model\Data');
+            $model = $this->testimonialsFactory->create();
             $model->setData($post);
-            $imageName = $this->_uploadModel
+            $imageName = $this->uploadModel
                 ->uploadFileAndGetName('image',
-                    $this->_imageModel->getBaseDir(),
+                    $this->imageModel->getBaseDir(),
                     $post,
                     ['jpg','jpeg','gif','png', 'bmp']
                 );
             $model->setImage($imageName);
             $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
             $model->save();
-            $this->messageManager->addSuccess(__($this->_configHelper->getSentMessage()));
-            $this->_redirectReferer();
+            $this->messageManager->addSuccess(__($this->configHelper->getSentMessage()));
+            $this->redirectReferer();
+
             return;
         } catch (\Exception $e) {
             $this->messageManager->addError(__($e->getMessage()));
-            $this->_testimonialSession->setFormData(
+            $this->testimonialSession->setFormData(
                 $post
             )->setRedirectUrl(
                 $this->_redirect->getRefererUrl()
             );
-            $this->_redirectReferer();
+            $this->redirectReferer();
+
             return;
         }
     }

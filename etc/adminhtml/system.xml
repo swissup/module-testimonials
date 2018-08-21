@@ -21,6 +21,10 @@
                     <label>Add link to footer links</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="allow_guest_submit" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow guests to submit testimonials</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
 
             <group id="list" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">

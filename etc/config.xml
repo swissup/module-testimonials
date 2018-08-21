@@ -6,6 +6,7 @@
                 <approve>0</approve>
                 <top_links>0</top_links>
                 <footer_links>0</footer_links>
+                <allow_guest_submit>1</allow_guest_submit>
             </general>
             <list>
                 <layout>1column</layout>
