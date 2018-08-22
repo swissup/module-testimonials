@@ -70,7 +70,7 @@ class Data extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
-        if (!$object->getId() || !$object->getDate()) {
+        if (!$object->getId() && !$object->getDate()) {
             $object->setDate($this->_date->gmtDate());
         }
         return parent::_beforeSave($object);
