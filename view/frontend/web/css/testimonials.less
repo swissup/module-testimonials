@@ -224,6 +224,125 @@
     }
 }
 
+.testimonials-slider {
+    .content-heading {
+        text-align: center;
+    }
+
+    .block-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    figure.testimonial {
+        position: relative;
+        float: left;
+        margin: 10px 1%;
+        padding: 0 20px;
+        text-align: left;
+        box-shadow: none !important;
+
+        blockquote {
+            background-color: #fff;
+            display: block;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1.5em;
+            margin: 0;
+            padding: 25px 50px 30px;
+            position: relative;
+
+            -webkit-filter: drop-shadow(0 3px 15px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 3px 15px rgba(0, 0, 0, 0.1));
+
+            &::before, &::after {
+                content: "\201C";
+                position: absolute;
+                color: #2b00f7;
+                font-size: 50px;
+                font-style: normal;
+            }
+
+            &::before {
+                top: 25px;
+                left: 20px;
+            }
+
+            &::after {
+                content: "\201D";
+                right: 20px;
+                bottom: 0;
+            }
+        }
+
+        img {
+            max-width: 100%;
+            vertical-align: middle;
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+            margin: 40px 0 0 10px;
+        }
+
+        .arrow {
+            top: 100%;
+            width: 0;
+            height: 0;
+            border-left: 0 solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 25px solid #fff;
+            margin: 0;
+            position: absolute;
+        }
+
+        .author {
+            position: absolute;
+            bottom: 45px;
+            padding: 0 10px 0 120px;
+            margin: 0;
+            -webkit-transform: translateY(50%);
+            transform: translateY(50%);
+
+            h5 {
+                font-family: sans-serif;
+                font-weight: 400;
+                font-size: 1.4em;
+                line-height: 1.4em;
+                opacity: 0.9;
+                margin: 0;
+            }
+        }
+    }
+
+    .slick-slider {
+        .slick-prev, .slick-next {
+            background: none;
+            opacity: 0.5;
+
+            &::before {
+                content: '';
+                background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWdvbiBwb2ludHM9IjM5Ni42LDE2MCA0MTYsMTgwLjcgMjU2LDM1MiA5NiwxODAuNyAxMTUuMywxNjAgMjU2LDMxMC41ICIvPg0KPC9zdmc+DQo=');
+                background-size: 25px 25px;
+                background-position: 50% 50%;
+                display: block;
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        .slick-prev {
+            left: 5px;
+            transform: rotate(90deg);
+        }
+
+        .slick-next {
+            right: 5px;
+            transform: rotate(-90deg);
+        }
+    }
+}
+
 .std .testimonialForm li {
     list-style: none;
 }
@@ -280,6 +399,20 @@
         .container {
             margin-left: 0 !important;
             margin-top: 20px;
+        }
+    }
+
+    .testimonials-slider {
+        figure.testimonial {
+            blockquote {
+                padding: 25px 0 30px;
+                -webkit-filter: none;
+                filter: none;
+
+                &::before, &::after {
+                    content: '';
+                }
+            }
         }
     }
 }

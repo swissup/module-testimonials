@@ -1,0 +1,33 @@
+<?php
+    $testimonials = $block->getTestimonials();
+    if (!count($testimonials)) {
+        return;
+    }
+?>
+
+<div class="widget block testimonials-slider">
+    <div class="content-heading">
+        <h2 class="title"><?= __('What Clients Say') ?></h2>
+    </div>
+    <div class="block-content">
+        <div class="slick-slider" data-mage-init='{"slick": {"slidesToShow": 2, "slidesToScroll": 1, "responsive": [{"breakpoint": 850, "settings": {"slidesToShow": 1, "slidesToScroll": 1, "infinite": true}}]}}'>
+            <?php foreach ($testimonials as $testimonial): ?>
+            <div>
+                <figure class="testimonial">
+                    <blockquote>
+                        <?= $block->escapeHtml($testimonial->getMessage()); ?>
+                        <div class="arrow"></div>
+                    </blockquote>
+                    <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
+                    <div class="author">
+                        <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
+                        <?php if ($testimonial->getCompany()): ?>
+                        <p><?= $block->escapeHtml($testimonial->getCompany()) ?></p>
+                        <?php endif; ?>
+                    </div>
+                </figure>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>

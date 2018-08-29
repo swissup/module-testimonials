@@ -9,7 +9,8 @@
     "version": "1.0.10",
     "license": "OSL-3.0",
     "require": {
-        "swissup/core": "*"
+        "swissup/core": "*",
+        "swissup/slick-carousel": "*"
     },
     "autoload": {
         "files": [ "registration.php" ],

@@ -11,7 +11,7 @@ Twitter,Twitter
 star,star
 stars,stars
 "Profile Image","Profile Image"
-"Display in side list widget","Display in side list widget"
+"Display in widget","Display in widget"
 "Created date","Created date"
 "Submit Your Testimonial","Submit Your Testimonial"
 "Please select item(s).","Please select item(s)."
@@ -87,3 +87,4 @@ Status:,Status:
 "Enable items","Enable items"
 "Disable items","Disable items"
 "Created Date","Created Date"
+"What Clients Say","What Clients Say"

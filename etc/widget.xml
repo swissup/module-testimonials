@@ -45,4 +45,15 @@
         <label translate="true">Testimonials: Full testimonials list</label>
         <description>Shows full testimonials list with load more button</description>
     </widget>
+    <widget id="swissup_testimonials_slider" class="Swissup\Testimonials\Block\Widgets\Slider" is_email_compatible="false"
+        placeholder_image="Swissup_Testimonials::images/review.png" ttl="86400">
+        <label translate="true">Testimonials: Slider (for content area)</label>
+        <description>Shows full width testimonials slider</description>
+        <parameters>
+            <parameter name="items_number" xsi:type="text" required="true" visible="true">
+                <label translate="true">Number of testimonials</label>
+                <value>6</value>
+            </parameter>
+        </parameters>
+    </widget>
 </widgets>
