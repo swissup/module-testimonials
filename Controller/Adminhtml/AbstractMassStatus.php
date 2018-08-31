@@ -1,7 +1,6 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml;
 
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\Controller\ResultFactory;
 
 /**
@@ -9,6 +8,11 @@ use Magento\Framework\Controller\ResultFactory;
  */
 class AbstractMassStatus extends \Magento\Backend\App\Action
 {
+    /**
+     * Admin resource
+     */
+    const ADMIN_RESOURCE = 'Swissup_Testimonials::approve';
+
     /**
      * Field id
      */
@@ -20,26 +24,37 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     const REDIRECT_URL = '*/*/';
 
     /**
-     * Resource collection
-     *
-     * @var string
+     * @var \Swissup\Testimonials\Model\DataFactory
      */
-    protected $collection = 'Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection';
+    protected $testimonialsFactory;
 
     /**
-     * Model
-     *
-     * @var string
+     * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
      */
-    protected $model = 'Magento\Framework\Model\AbstractModel';
-
+    protected $testimonialsCollectionFactory;
 
     /**
      * Item status
      *
-     * @var bool
+     * @var int
      */
     protected $status = 1;
+
+    /**
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collection
+     */
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory
+    ) {
+        parent::__construct($context);
+        $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialsCollectionFactory = $testimonialsCollectionFactory;
+    }
+
     /**
      * Execute action
      *
@@ -48,6 +63,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     public function execute()
     {
+        $success = true;
         $selected = $this->getRequest()->getParam('selected');
         $excluded = $this->getRequest()->getParam('excluded');
         try {
@@ -60,14 +76,21 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
             } elseif (!empty($selected)) {
                 $this->selectedSetStatus($selected);
             } else {
+                $success = false;
                 $this->messageManager->addError(__('Please select item(s).'));
             }
         } catch (\Exception $e) {
+            $success = false;
             $this->messageManager->addError($e->getMessage());
+        }
+
+        if ($success) {
+            $this->messageManager->addSuccess(__('Testimonial(s) status was changed successfully'));
         }
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+
         return $resultRedirect->setPath(static::REDIRECT_URL);
     }
 
@@ -79,13 +102,12 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     protected function setStatusAll()
     {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
+        $collection = $this->testimonialsCollectionFactory->create();
         $this->setStatus($collection);
     }
 
     /**
-     * Set status to all but the not selected
+     * Set status to all but not selected
      *
      * @param array $excluded
      * @return void
@@ -93,8 +115,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     protected function excludedSetStatus(array $excluded)
     {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
+        $collection = $this->testimonialsCollectionFactory->create();
         $collection->addFieldToFilter(static::ID_FIELD, ['nin' => $excluded]);
         $this->setStatus($collection);
     }
@@ -108,8 +129,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     protected function selectedSetStatus(array $selected)
     {
-        /** @var AbstractCollection $collection */
-        $collection = $this->_objectManager->get($this->collection);
+        $collection = $this->testimonialsCollectionFactory->create();
         $collection->addFieldToFilter(static::ID_FIELD, ['in' => $selected]);
         $this->setStatus($collection);
     }
@@ -117,14 +137,14 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     /**
      * Set status to collection items
      *
-     * @param AbstractCollection $collection
+     * @param \Swissup\Testimonials\Model\ResourceModel\Data\Collection $collection
      * @return void
      */
-    protected function setStatus(AbstractCollection $collection)
-    {
+    protected function setStatus(
+        \Swissup\Testimonials\Model\ResourceModel\Data\Collection $collection
+    ) {
         foreach ($collection->getAllIds() as $id) {
-            /** @var \Magento\Framework\Model\AbstractModel $model */
-            $model = $this->_objectManager->get($this->model);
+            $model = $this->testimonialsFactory->create();
             $model->load($id);
             $model->setStatus($this->status);
             $model->save();

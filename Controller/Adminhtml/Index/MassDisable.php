@@ -1,40 +1,17 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
-use Swissup\Testimonials\Controller\Adminhtml\AbstractMassStatus;
+use Swissup\Testimonials\Model\Data as TestimonialsModel;
 
 /**
  * Class MassDisable
  */
-class MassDisable extends AbstractMassStatus
+class MassDisable extends \Swissup\Testimonials\Controller\Adminhtml\AbstractMassStatus
 {
-    /**
-     * Admin resource
-     */
-    const ADMIN_RESOURCE = 'Swissup_Testimonials::approve';
-    /**
-     * Field id
-     */
-    const ID_FIELD = 'testimonial_id';
-
-    /**
-     * Resource collection
-     *
-     * @var string
-     */
-    protected $collection = 'Swissup\Testimonials\Model\ResourceModel\Data\Collection';
-
-    /**
-     * Testimonials model
-     *
-     * @var string
-     */
-    protected $model = 'Swissup\Testimonials\Model\Data';
-
     /**
      * Testimonial disable status
      *
      * @var int
      */
-    protected $status = 3;
+    protected $status = TestimonialsModel::STATUS_DISABLED;
 }

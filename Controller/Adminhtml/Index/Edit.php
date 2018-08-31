@@ -1,20 +1,19 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
-use Magento\Backend\App\Action;
-
-class Edit extends Action
+class Edit extends \Magento\Backend\App\Action
 {
     /**
      * Admin resource
      */
     const ADMIN_RESOURCE = 'Swissup_Testimonials::testimonials';
+
     /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry = null;
+    protected $coreRegistry;
 
     /**
      * @var \Magento\Framework\View\Result\PageFactory
@@ -22,17 +21,25 @@ class Edit extends Action
     protected $resultPageFactory;
 
     /**
-     * @param Action\Context $context
+     * @var \Swissup\Testimonials\Model\DataFactory
+     */
+    protected $testimonialsFactory;
+
+    /**
+     * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      */
     public function __construct(
-        Action\Context $context,
+        \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\Registry $coreRegistry,
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-        $this->_coreRegistry = $registry;
+        $this->coreRegistry = $coreRegistry;
+        $this->testimonialsFactory = $testimonialsFactory;
         parent::__construct($context);
     }
 
@@ -49,6 +56,7 @@ class Edit extends Action
         $resultPage->setActiveMenu('Swissup_Testimonials::testimonials')
             ->addBreadcrumb(__('Testimonials'), __('Testimonials'))
             ->addBreadcrumb(__('Manage Testimonials'), __('Manage Testimonials'));
+
         return $resultPage;
     }
 
@@ -61,7 +69,7 @@ class Edit extends Action
     public function execute()
     {
         $id = $this->getRequest()->getParam('testimonial_id');
-        $model = $this->_objectManager->create('Swissup\Testimonials\Model\Data');
+        $model = $this->testimonialsFactory->create();
 
         if ($id) {
             $model->load($id);
@@ -74,12 +82,12 @@ class Edit extends Action
             }
         }
 
-        $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+        $data = $this->_getSession()->getFormData(true);
         if (!empty($data)) {
             $model->setData($data);
         }
 
-        $this->_coreRegistry->register('testimonial', $model);
+        $this->coreRegistry->register('testimonial', $model);
 
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_initAction();
