@@ -114,10 +114,13 @@ class MassSaveReview extends \Magento\Backend\App\Action
             $customerEmail = self::GUEST_EMAIL;
         }
 
+        $rating = -1;
         $ratingSummary = $this->ratingFactory->create()
             ->getReviewSummary($review->getId());
-        $rating = ceil($ratingSummary->getSum() / $ratingSummary->getCount());
-        $rating = round(5 * ($rating / 100));
+        if ($ratingSummary->getCount()) {
+            $rating = ceil($ratingSummary->getSum() / $ratingSummary->getCount());
+            $rating = round(5 * ($rating / 100));
+        }
 
         $model->setName($review->getNickname());
         $model->setMessage($review->getDetail());
