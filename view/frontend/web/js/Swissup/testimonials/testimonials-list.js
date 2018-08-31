@@ -1,29 +1,29 @@
 define(["jquery"], function($) {
     'use strict';
 
-    var url,
-        div,
-        currentPage = 1;
+    return function (config, element) {
+        var currentPage = 1,
+            viewMore = $('#viewMore');
 
-    return {
-        init: function(ajaxCallUrl, divToUpdate) {
-            url = ajaxCallUrl;
-            div = $(divToUpdate);
-        },
-        makeAjaxCall: function() {
-            if ($('.more-button a').hasClass('disabled')) return;
+        function makeAjaxCall() {
+            if (viewMore.hasClass('disabled')) return;
 
-            $('.more-button a').addClass('disabled');
+            viewMore.addClass('disabled');
             ++currentPage;
-            $.post(url, { page: currentPage },
+            $.post(config.loadAction, { page: currentPage },
                 function(data) {
-                    div.append(data.outputHtml);
-                    $('.more-button a').removeClass('disabled');
+                    $(element).append(data.outputHtml);
+                    viewMore.removeClass('disabled');
+                    if (data.lastPage) viewMore.hide();
                 },
                 'json'
             );
 
             return false;
+        }
+
+        if (viewMore) {
+            viewMore.on('click', makeAjaxCall);
         }
     };
 });

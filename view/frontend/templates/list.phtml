@@ -1,114 +1,58 @@
 <?php /** @var $block \Swissup\Testimonials\Block\TestimonialsList */ ?>
+<?php $testimonials = $block->getTestimonials(); ?>
 <?php if (!$block->getIsAjax()): ?>
 <div class="testimonials-list">
-    <div class="testimonials">
+    <div class="testimonials" data-mage-init='<?= $block->getJsConfig() ?>'>
 <?php endif; ?>
-    <?php
-        $_testimonials = $block->getTestimonials();
-        $_configHelper = $block->configHelper;
-        $_listHelper = $block->listHelper;
-        $_width = $_configHelper->getImageWidth();
-        $_height = $_configHelper->getImageHeight();
-    ?>
-    <?php if($_testimonials->getSize()): ?>
-        <?php /** @var $_testimonial \Swissup\Testimonials\Model\Data */ ?>
-        <?php foreach ($_testimonials as $_testimonial): ?>
-            <div class="testimonial">
-                <div class="testimonial-image" style="width: <?php echo ($_width + 10) ?>px">
-                    <img src="<?php echo $block->getProfileImageUrl($_testimonial); ?>"
-                    alt="Profile image" />
-                </div>
-                <div class="container" style="width: auto; margin-left: <?php echo $_width + 10 ?>px">
-                    <div class="content-wrapper">
-                        <div class="message-wrapper">
-                            <div class="testimonial-message"><?php echo $block->escapeHtml($_testimonial->getMessage()) ?>
-                                <span class="author-info">
-                                    <?php echo $block->escapeHtml($_testimonial->getName());
-                                        if ($_testimonial->getCompany() &&
-                                            $_configHelper->isCompanyEnabled()): ?>,
-                                        <?php if ($_testimonial->getWebsite() &&
-                                                  $_configHelper->isWebsiteEnabled()): ?>
-                                            <a href="<?php echo $block->escapeUrl($_testimonial->getWebsite()) ?>" target="_blank">
-                                            <?php echo $block->escapeHtml($_testimonial->getCompany()); ?></a><?php
-                                            else:
-                                                echo $block->escapeHtml($_testimonial->getCompany());
-                                            endif;
-                                        endif; ?>
-                                        <?php if ($_configHelper->showUserEmail()):
-                                            echo ', ' . $block->escapeHtml($_testimonial->getEmail());
-                                        endif ?>
-                                </span>
-                                <?php if ($block->canShowSocial($_testimonial)): ?>
-                                <div class="socialInfo">
-                                    <?php echo __('Find us on'); ?>
-                                    <?php if ($_testimonial->getFacebook() &&
-                                              $_configHelper->isFacebookEnabled()): ?>
-                                        <a href="<?php echo $block->escapeUrl($_testimonial->getFacebook()) ?>" target="_blank">
-                                        <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/facebook.png'); ?>" /><?php echo __('Facebook') ?></a>
-                                    <?php endif ?>
-                                    <?php if ($_testimonial->getTwitter() &&
-                                              $_configHelper->isTwitterEnabled()): ?>
-                                    , <a href="<?php echo $block->escapeUrl($_testimonial->getTwitter()) ?>" target="_blank">
-                                    <img src="<?php echo $block->getViewFileUrl('Swissup_Testimonials::images/twitter.png'); ?>" /><?php echo __('Twitter') ?></a><?php endif ?>
-                                </div>
-                                <?php endif ?>
-                            </div>
-                        </div>
-                        <div style="margin: 10px 0 0 40px">
-                            <?php if ($_testimonial->getRating()): ?>
-                            <?php $ratingPercent = $block->getRatingPercent($_testimonial); ?>
+    <?php if($testimonials->getSize()): ?>
+        <?php /** @var $testimonial \Swissup\Testimonials\Model\Data */ ?>
+        <?php foreach ($testimonials as $testimonial): ?>
+            <figure class="testimonial<?php if ($block->getIsAjax()): ?> loaded<?php endif;?>">
+                <blockquote>
+                    <?= $block->escapeHtml($testimonial->getMessage()); ?>
+                    <div class="arrow"></div>
+                    <div class="extra-info">
+                        <small class="date nobr"><?= $block->formatDate($testimonial->getDate(), \IntlDateFormatter::LONG) ?></small>
+                        <?php if ($testimonial->getRating()): ?>
+                        <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
+                        <small class="rating nobr">
                             <div class="review-ratings">
                                 <div class="rating-summary item">
-                                    <span class="label rating-label"><span>Rating</span></span>
-                                    <div class="rating-result" title="<?php echo $ratingPercent ?>%">
-                                        <span style="width:<?php echo $ratingPercent ?>%">
-                                            <span><?php echo $ratingPercent ?>%</span>
+                                    <span class="label rating-label"><span><?= __('Rating') ?></span></span>
+                                    <div class="rating-result" title="<?= $ratingPercent ?>%">
+                                        <span style="width:<?= $ratingPercent ?>%">
+                                            <span><?= $ratingPercent ?>%</span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-                            <?php endif ?>
-                            <div class="testimonial-date">
-                                <span><?php echo __('Placed on') ?></span>
-                                <span class="nobr"><?php /* @escapeNotVerified */ echo $block->formatDate($_testimonial->getDate(), \IntlDateFormatter::LONG) ?></span>
-                            </div>
-                        </div>
+                        </small>
+                    </div>
+                    <?php endif; ?>
+                </blockquote>
+                <div class="info">
+                    <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
+                    <div class="author">
+                        <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
+                        <?php if ($companyHtml = $block->getCompanyHtml($testimonial)): ?>
+                        <p><?= $companyHtml ?></p>
+                        <?php endif; ?>
+                        <?php if ($contacts = $block->getContactsHtml($testimonial)): ?>
+                        <p class="contacts-info"><?= $contacts ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
-            </div>
+            </figure>
         <?php endforeach; ?>
     <?php else: ?>
-        <p><?php echo __('No testimonials found.'); ?></p>
-    <?php endif ?>
-    <?php if ($_testimonials->getCurPage() * $_testimonials->getPageSize() >= $_testimonials->getSize()): ?>
-        <script type="text/javascript">
-        require([
-            'jquery'
-        ], function ($) {
-            'use strict';
-            $('#viewMore').hide();
-        });
-        </script>
-    <?php endif ?>
+        <p><?= __('No testimonials found.'); ?></p>
+    <?php endif; ?>
 <?php if (!$block->getIsAjax()): ?>
     </div>
+    <?php if (!$block->isLastPage()): ?>
     <div class="more-button">
-        <a id="viewMore" target="blank" href=""><?php echo __('Show more testimonials') ?></a>
+        <a id="viewMore" target="blank" href=""><?= __('Show more testimonials') ?></a>
     </div>
+    <?php endif; ?>
 </div>
-<script type="text/javascript">
-    require([
-        'jquery',
-        'Swissup_Testimonials/js/Swissup/testimonials/testimonials-list'
-    ], function ($, testimonialsList) {
-        'use strict';
-        testimonialsList.init("<?= $block->getLoadAction() ?>", '.testimonials');
-        $('#viewMore').on('click', testimonialsList.makeAjaxCall);
-        /* jshint ignore:start */
-        <?php if ($_configHelper->getTestimonialsPerPage() >= $_testimonials->getSize()): ?>
-        $('#viewMore').hide();
-        <?php endif; ?>
-        /* jshint ignore:end */
-    });
-</script>
 <?php endif; ?>

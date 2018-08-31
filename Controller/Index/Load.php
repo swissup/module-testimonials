@@ -8,12 +8,14 @@ class Load extends \Magento\Framework\App\Action\Action
      * @var \Magento\Framework\View\LayoutFactory
      */
     protected $layoutFactory;
+
     /**
      * Json encoder
      *
      * @var \Magento\Framework\Json\EncoderInterface
      */
     protected $jsonEncoder;
+
     /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\View\LayoutFactory $layoutFactory
@@ -33,15 +35,17 @@ class Load extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         $currentPage = (int)$this->getRequest()->getParam('page', 1);
-        $testimonialsListBlockHtml = $this->layoutFactory->create()
+        $testimonialsListBlock = $this->layoutFactory->create()
             ->createBlock('Swissup\Testimonials\Block\TestimonialsList')
             ->setTemplate('Swissup_Testimonials::list.phtml')
             ->setCurrentPage($currentPage)
-            ->setIsAjax(true)
-            ->toHtml();
+            ->setIsAjax(true);
 
         $this->getResponse()->setBody(
-            $this->jsonEncoder->encode(array('outputHtml' => $testimonialsListBlockHtml))
+            $this->jsonEncoder->encode([
+                'outputHtml' => $testimonialsListBlock->toHtml(),
+                'lastPage' => $testimonialsListBlock->isLastPage()
+            ])
         );
     }
 }
