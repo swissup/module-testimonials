@@ -8,6 +8,8 @@ use Swissup\Testimonials\Model\Data as TestimonialsModel;
  */
 class MassDisable extends \Swissup\Testimonials\Controller\Adminhtml\AbstractMassStatus
 {
+    const SUCCESS_MESSAGE = 'A total of %1 record(s) have been disabled.';
+
     /**
      * Testimonial disable status
      *
