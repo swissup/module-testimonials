@@ -9,18 +9,14 @@ class Save extends \Magento\Backend\App\Action
     const ADMIN_RESOURCE = 'Swissup_Testimonials::save';
 
     /**
-     * upload model
-     *
-     * @var \Swissup\Testimonials\Model\Upload
+     * @var \Magento\Framework\App\Request\DataPersistorInterface
      */
-    protected $uploadModel;
+    protected $dataPersistor;
 
     /**
-     * image model
-     *
-     * @var \Swissup\Testimonials\Model\Data\Image
+     * @var \Swissup\Testimonials\ImageUpload
      */
-    protected $imageModel;
+    protected $imageUploader;
 
     /**
      * @var \Swissup\Testimonials\Model\DataFactory
@@ -29,18 +25,18 @@ class Save extends \Magento\Backend\App\Action
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Swissup\Testimonials\Model\Data\Image $imageModel
-     * @param \Swissup\Testimonials\Model\Upload $uploadModel
+     * @param \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
+     * @param \Swissup\Testimonials\ImageUpload $imageUploader
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Swissup\Testimonials\Model\Data\Image $imageModel,
-        \Swissup\Testimonials\Model\Upload $uploadModel,
+        \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
+        \Magento\Catalog\Model\ImageUploader $imageUploader,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
     ) {
-        $this->uploadModel = $uploadModel;
-        $this->imageModel = $imageModel;
+        $this->dataPersistor = $dataPersistor;
+        $this->imageUploader = $imageUploader;
         $this->testimonialsFactory = $testimonialsFactory;
         parent::__construct($context);
     }
@@ -53,11 +49,16 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
+        $this->dataPersistor->set('testimonial_data', $data);
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
             /** @var \Swissup\Testimonials\Model\Data $model */
             $model = $this->testimonialsFactory->create();
+
+            if (empty($data['testimonial_id'])) {
+                $data['testimonial_id'] = null;
+            }
 
             $id = $this->getRequest()->getParam('testimonial_id');
             if ($id) {
@@ -71,17 +72,23 @@ class Save extends \Magento\Backend\App\Action
                 ['testimonial' => $model, 'request' => $this->getRequest()]
             );
 
-            $imageName = $this->uploadModel->uploadFileAndGetName(
-                'image',
-                $this->imageModel->getBaseDir(),
-                $data
-            );
-            $model->setImage($imageName);
+            $imageName = '';
+            if (isset($data["image"]) && is_array($data["image"])) {
+                $imageName = isset($data["image"][0]['name'])
+                    ? $data["image"][0]['name']
+                    : '';
+                if (isset($data["image"][0]['tmp_name'])) {
+                    try {
+                        $this->imageUploader->moveFileFromTmp($imageName);
+                    } catch (\Exception $e) { }
+                }
+            }
+            $model->setData("image", $imageName);
 
             try {
                 $model->save();
                 $this->messageManager->addSuccess(__('Testimonial has been saved.'));
-                $this->_getSession()->setFormData(false);
+                $this->dataPersistor->clear('testimonial_data');
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath(
                         '*/*/edit',
@@ -95,12 +102,11 @@ class Save extends \Magento\Backend\App\Action
             } catch (\RuntimeException $e) {
                 $this->messageManager->addError($e->getMessage());
             } catch (\Exception $e) {
+                $this->messageManager->addError($e->getMessage());
                 $this->messageManager->addException(
                     $e, __('Something went wrong while saving the testimonial.')
                 );
             }
-
-            $this->_getSession()->setFormData($data);
 
             return $resultRedirect->setPath(
                 '*/*/edit',

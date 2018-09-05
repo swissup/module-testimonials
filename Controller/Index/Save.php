@@ -35,7 +35,7 @@ class Save extends \Magento\Framework\App\Action\Action
     /**
      * image model
      *
-     * @var \Swissup\Testimonials\Model\Data\Image
+     * @var \Swissup\Testimonials\Model\Data\FileInfo
      */
     protected $imageModel;
 
@@ -54,7 +54,7 @@ class Save extends \Magento\Framework\App\Action\Action
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Framework\Session\Generic $testimonialSession
-     * @param \Swissup\Testimonials\Model\Data\Image $imageModel
+     * @param \Swissup\Testimonials\Model\Data\FileInfo $imageModel
      * @param \Swissup\Testimonials\Model\Upload $uploadModel
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
@@ -64,7 +64,7 @@ class Save extends \Magento\Framework\App\Action\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Magento\Framework\Session\Generic $testimonialSession,
-        \Swissup\Testimonials\Model\Data\Image $imageModel,
+        \Swissup\Testimonials\Model\Data\FileInfo $imageModel,
         \Swissup\Testimonials\Model\Upload $uploadModel,
         \Magento\Customer\Model\Session $customerSession,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory

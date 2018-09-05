@@ -1,5 +1,6 @@
 <?php
 namespace Swissup\Testimonials\Helper;
+
 /**
  * Testimonials list helper
  */
@@ -10,38 +11,42 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @var \Magento\Framework\Filesystem\Io\File
      */
-    protected $_ioFile;
+    protected $ioFile;
+
     /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    public $_configHelper;
+    public $configHelper;
+
     /**
      * image model
      *
-     * @var \Swissup\Testimonials\Model\Data\Image
+     * @var \Swissup\Testimonials\Model\Data\FileInfo
      */
-    protected $_imageModel;
+    protected $imageModel;
+
     /**
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Filesystem\Io\File $ioFile
      * @param \Magento\Framework\Image\Factory $imageFactory
      * @param \Swissup\Testimonials\Helper\Config $configHelper
-     * @param \Swissup\Testimonials\Model\Data\Image $imageModel
+     * @param \Swissup\Testimonials\Model\Data\FileInfo $imageModel
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Filesystem\Io\File $ioFile,
         \Magento\Framework\Image\Factory $imageFactory,
         \Swissup\Testimonials\Helper\Config $configHelper,
-        \Swissup\Testimonials\Model\Data\Image $imageModel
+        \Swissup\Testimonials\Model\Data\FileInfo $imageModel
     ) {
-        $this->_ioFile = $ioFile;
-        $this->_imageFactory = $imageFactory;
-        $this->_configHelper = $configHelper;
-        $this->_imageModel = $imageModel;
+        $this->ioFile = $ioFile;
+        $this->imageFactory = $imageFactory;
+        $this->configHelper = $configHelper;
+        $this->imageModel = $imageModel;
         parent::__construct($context);
     }
+
     /**
      * Return URL for resized image
      *
@@ -53,26 +58,31 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
         if (!$this->getImagePath($testimonial)) {
             return false;
         }
-        $width = $this->_configHelper->getImageWidth();
-        $height = $this->_configHelper->getImageHeight();
+
+        $width = $this->configHelper->getImageWidth();
+        $height = $this->configHelper->getImageHeight();
         $imageFile = $this->getImagePath($testimonial);
         $cacheDir  = $this->getBaseDir() . '/' . 'cache' . '/' . $width;
         $cacheUrl  = $this->getBaseUrl() . '/' . 'cache' . '/' . $width . '/';
-        $io = $this->_ioFile;
+
+        $io = $this->ioFile;
         $io->checkAndCreateFolder($cacheDir);
-        $io->open(array('path' => $cacheDir));
+        $io->open(['path' => $cacheDir]);
         if ($io->fileExists($imageFile)) {
             return $cacheUrl . $imageFile;
         }
+
         try {
-            $image = $this->_imageFactory->create($this->getBaseDir() . '/' . $imageFile);
+            $image = $this->imageFactory->create($this->getBaseDir() . '/' . $imageFile);
             $image->resize($width, $height);
             $image->save($cacheDir . '/' . $imageFile);
+
             return $cacheUrl . $imageFile;
         } catch (\Exception $e) {
             return false;
         }
     }
+
     /**
      * Return the base media directory testimonial images
      *
@@ -80,8 +90,9 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getBaseDir()
     {
-        return $this->_imageModel->getBaseDir();
+        return $this->imageModel->getBaseDir();
     }
+
     /**
      * Return the Base URL for News Item images
      *
@@ -89,8 +100,9 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getBaseUrl()
     {
-        return $this->_imageModel->getBaseUrl();
+        return $this->imageModel->getBaseUrl();
     }
+
     /**
      * Get profile image path or placeholder
      * @param \Swissup\Testimonials\Model\Data $testimonial
@@ -99,9 +111,10 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
     public function getImagePath($testimonial)
     {
         $image = $testimonial->getImage();
-        if (!$image && $placeholderImage = $this->_configHelper->getPlaceholderImage()) {
+        if (!$image && $placeholderImage = $this->configHelper->getPlaceholderImage()) {
             $image = $placeholderImage;
         }
+
         return $image;
     }
 }
