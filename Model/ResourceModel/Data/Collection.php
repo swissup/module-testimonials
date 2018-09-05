@@ -1,5 +1,8 @@
 <?php
 namespace Swissup\Testimonials\Model\ResourceModel\Data;
+
+use Magento\Store\Model\Store;
+
 /**
  * Testimonials Collection
  */
@@ -61,24 +64,30 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             $connection = $this->getConnection();
             $select = $connection->select()->from(['swissup_testimonials_store' => $this->getTable($tableName)])
                 ->where('swissup_testimonials_store.' . $columnName . ' IN (?)', $items);
-            $result = $connection->fetchPairs($select);
+            $result = $connection->fetchAll($select);
             if ($result) {
+                $storesData = [];
+                foreach ($result as $storeData) {
+                    $storesData[$storeData[$columnName]][] = $storeData['store_id'];
+                }
+
                 foreach ($this as $item) {
                     $entityId = $item->getData($columnName);
-                    if (!isset($result[$entityId])) {
+                    if (!isset($storesData[$entityId])) {
                         continue;
                     }
-                    if ($result[$entityId] == 0) {
+                    $storeIdKey = array_search(Store::DEFAULT_STORE_ID, $storesData[$entityId], true);
+                    if ($storeIdKey !== false) {
                         $stores = $this->storeManager->getStores(false, true);
                         $storeId = current($stores)->getId();
                         $storeCode = key($stores);
                     } else {
-                        $storeId = $result[$item->getData($columnName)];
+                        $storeId = current($storesData[$entityId]);
                         $storeCode = $this->storeManager->getStore($storeId)->getCode();
                     }
                     $item->setData('_first_store_id', $storeId);
                     $item->setData('store_code', $storeCode);
-                    $item->setData('store_id', [$result[$entityId]]);
+                    $item->setData('store_id', $storesData[$entityId]);
                 }
             }
         }
@@ -118,14 +127,14 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function performAddStoreFilter($store, $withAdmin = true)
     {
-        if ($store instanceof \Magento\Store\Model\Store) {
+        if ($store instanceof Store) {
             $store = [$store->getId()];
         }
         if (!is_array($store)) {
             $store = [$store];
         }
         if ($withAdmin) {
-            $store[] = \Magento\Store\Model\Store::DEFAULT_STORE_ID;
+            $store[] = Store::DEFAULT_STORE_ID;
         }
         $this->addFilter('store', ['in' => $store], 'public');
     }

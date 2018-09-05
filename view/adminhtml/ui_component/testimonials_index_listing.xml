@@ -25,6 +25,9 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">testimonial_id</item>
+                    </item>
                 </item>
             </argument>
         </argument>
@@ -75,11 +78,6 @@
         <filters name="listing_filters">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="columnsProvider" xsi:type="string">testimonials_index_listing.testimonials_index_listing.testimonials_index_columns</item>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">testimonials_index_listing.testimonials_index_listing.listing_top.bookmarks</item>
-                        <item name="namespace" xsi:type="string">current.filters</item>
-                    </item>
                     <item name="templates" xsi:type="array">
                         <item name="filters" xsi:type="array">
                             <item name="select" xsi:type="array">
@@ -88,20 +86,18 @@
                             </item>
                         </item>
                     </item>
-                    <item name="childDefaults" xsi:type="array">
-                        <item name="provider" xsi:type="string">testimonials_index_listing.testimonials_index_listing.listing_top.listing_filters</item>
-                        <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">testimonials_index_listing.testimonials_index_listing.testimonials_index_columns.${ $.index }:visible</item>
-                        </item>
-                    </item>
                 </item>
             </argument>
             <filterSelect name="store_id">
                 <argument name="optionsProvider" xsi:type="configurableObject">
-                    <argument name="class" xsi:type="string">Swissup\Testimonials\Ui\Component\Listing\Column\Testimonials\Options</argument>
+                    <argument name="class" xsi:type="string">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</argument>
                 </argument>
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">componentType = column, index = ${ $.index }:visible</item>
+                        </item>
                         <item name="dataScope" xsi:type="string">store_id</item>
                         <item name="label" xsi:type="string" translate="true">Store View</item>
                         <item name="captionValue" xsi:type="string">0</item>
