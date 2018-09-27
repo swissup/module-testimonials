@@ -1,16 +1,16 @@
 {
-    "name": "swissup/testimonials",
+    "name": "swissup/module-testimonials",
     "description": "Testimonials extension from Swissup",
     "keywords": [
         "testimonials",
         "reviews"
     ],
     "type": "magento2-module",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "license": "OSL-3.0",
     "require": {
-        "swissup/core": "*",
-        "swissup/slick-carousel": "*"
+        "swissup/module-core": "^1.7.0",
+        "swissup/module-slick-carousel": "^1.2.0"
     },
     "autoload": {
         "files": [ "registration.php" ],

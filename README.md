@@ -4,8 +4,9 @@
 
 ```bash
 cd <magento_root>
-composer config repositories.swissup/testimonials vcs git@github.com:swissup/testimonials.git
-composer require swissup/testimonials
+composer config repositories.swissup composer https://docs.swissuplabs.com/packages/
+composer require swissup/module-testimonials --prefer-source
+git checkout master
 bin/magento module:enable Swissup_Testimonials
 bin/magento setup:upgrade
 ```
