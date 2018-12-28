@@ -22,7 +22,7 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * image model
      *
-     * @var \Swissup\Testimonials\Model\Data\FileInfo
+     * @var \Swissup\Core\Api\Media\FileInfoInterface
      */
     protected $imageModel;
 
@@ -31,14 +31,14 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      * @param \Magento\Framework\Filesystem\Io\File $ioFile
      * @param \Magento\Framework\Image\Factory $imageFactory
      * @param \Swissup\Testimonials\Helper\Config $configHelper
-     * @param \Swissup\Testimonials\Model\Data\FileInfo $imageModel
+     * @param \Swissup\Core\Api\Media\FileInfoInterface $imageModel
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Framework\Filesystem\Io\File $ioFile,
         \Magento\Framework\Image\Factory $imageFactory,
         \Swissup\Testimonials\Helper\Config $configHelper,
-        \Swissup\Testimonials\Model\Data\FileInfo $imageModel
+        \Swissup\Core\Api\Media\FileInfoInterface $imageModel
     ) {
         $this->ioFile = $ioFile;
         $this->imageFactory = $imageFactory;

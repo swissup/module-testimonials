@@ -24,7 +24,7 @@ class TestimonialDataProvider extends AbstractDataProvider
     protected $loadedData;
 
     /**
-     * @var \Swissup\Testimonials\Model\Data\FileInfo
+     * @var \Swissup\Core\Api\Media\FileInfoInterface
      */
     protected $fileInfo;
 
@@ -34,7 +34,7 @@ class TestimonialDataProvider extends AbstractDataProvider
      * @param string $requestFieldName
      * @param CollectionFactory $collectionFactory
      * @param DataPersistorInterface $dataPersistor
-     * @param \Swissup\Testimonials\Model\Data\FileInfo $fileInfo
+     * @param \Swissup\Core\Api\Media\FileInfoInterface $fileInfo
      * @param array $meta
      * @param array $data
      */
@@ -44,7 +44,7 @@ class TestimonialDataProvider extends AbstractDataProvider
         $requestFieldName,
         CollectionFactory $collectionFactory,
         DataPersistorInterface $dataPersistor,
-        \Swissup\Testimonials\Model\Data\FileInfo $fileInfo,
+        \Swissup\Core\Api\Media\FileInfoInterface $fileInfo,
         array $meta = [],
         array $data = []
     ) {
@@ -71,7 +71,7 @@ class TestimonialDataProvider extends AbstractDataProvider
             // prepare image data for ui element
             $image = $testimonial->getData('image');
             if ($image && is_string($image)) {
-                $data['image'] = $this->prepareImageData($image);
+                $data['image'] = [ $this->fileInfo->getImageData($image) ];
             }
 
             $this->loadedData[$testimonial->getId()] = $data;
@@ -85,7 +85,9 @@ class TestimonialDataProvider extends AbstractDataProvider
                 && isset($data['image'][0]['name'])
                 && isset($data['image'][0]['tmp_name'])) {
 
-                $data['image'] = $this->prepareImageData($data['image'][0]['name']);
+                $data['image'] = [
+                    $this->fileInfo->getImageData($data['image'][0]['name'])
+                ];
             }
 
             $testimonial = $this->collection->getNewEmptyItem();
@@ -95,21 +97,5 @@ class TestimonialDataProvider extends AbstractDataProvider
         }
 
         return $this->loadedData;
-    }
-
-    private function prepareImageData($imageName)
-    {
-        $url  = $this->fileInfo->getBaseUrl() . '/' . ltrim($imageName, '/');
-        $stat = $this->fileInfo->getStat($imageName);
-        $mime = $this->fileInfo->getMimeType($imageName);
-
-        return [
-            [
-                'name' => $imageName,
-                'url'  => $url,
-                'size' => isset($stat['size']) ? $stat['size'] : 0,
-                'type' => $mime,
-            ]
-        ];
     }
 }

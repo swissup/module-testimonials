@@ -53,4 +53,28 @@
             <argument name="imageUploader" xsi:type="object">Swissup\Testimonials\ImageUpload</argument>
         </arguments>
     </type>
+
+    <virtualType name="Swissup\Testimonials\MediaFileInfo" type="Swissup\Core\Model\Media\FileInfo">
+        <arguments>
+            <argument name="mediaPath" xsi:type="string">/testimonials/image</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Swissup\Testimonials\Ui\DataProvider\Form\TestimonialDataProvider">
+        <arguments>
+            <argument name="fileInfo" xsi:type="object">Swissup\Testimonials\MediaFileInfo</argument>
+        </arguments>
+    </type>
+
+    <type name="Swissup\Testimonials\Controller\Index\Save">
+        <arguments>
+            <argument name="imageModel" xsi:type="object">Swissup\Testimonials\MediaFileInfo</argument>
+        </arguments>
+    </type>
+
+    <type name="Swissup\Testimonials\Helper\ListHelper">
+        <arguments>
+            <argument name="imageModel" xsi:type="object">Swissup\Testimonials\MediaFileInfo</argument>
+        </arguments>
+    </type>
 </config>
