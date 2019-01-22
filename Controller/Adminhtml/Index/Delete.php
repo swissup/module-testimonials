@@ -15,9 +15,10 @@ class Delete extends \Magento\Backend\App\Action
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context,
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
     ) {
         $this->testimonialsFactory = $testimonialsFactory;
