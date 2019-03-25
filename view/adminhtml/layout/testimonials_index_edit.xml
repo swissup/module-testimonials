@@ -3,6 +3,20 @@
     <body>
         <referenceContainer name="content">
             <uiComponent name="testimonials_index_form"/>
+
+            <!-- Fix issue with file uploader on Magento 2.3 for images.  -->
+            <!-- Base64 variable is declared in prototype.js.  -->
+            <block class="Magento\Framework\View\Element\Text" name="fix.fileUploader">
+                <arguments>
+                    <argument name="text" xsi:type="string">
+<![CDATA[
+<script type="text/javascript">
+    require(['prototype'], function(){});
+</script>
+]]>
+                    </argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>
