@@ -60,7 +60,7 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
         }
 
         $width = $this->configHelper->getImageWidth();
-        $height = $this->configHelper->getImageHeight();
+        $height = $this->configHelper->getImageHeight() ?: null;
         $imageFile = $this->getImagePath($testimonial);
         $cacheDir  = $this->getBaseDir() . '/' . 'cache' . '/' . $width;
         $cacheUrl  = $this->getBaseUrl() . '/' . 'cache' . '/' . $width . '/';
