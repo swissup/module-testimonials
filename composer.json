@@ -19,12 +19,13 @@
         }
     },
     "extra": {
-        "swissup": {
+        "marketplace": {
+            "gallery": [
+                "https://docs.swissuplabs.com/images/marketplace/module-testimonials.png"
+            ],
             "links": {
-                "store"      : "https://swissuplabs.com/testimonials-for-magento-2.html",
-                "download"   : "https://swissuplabs.com/subscription/customer/products/",
-                "docs"       : "http://docs.swissuplabs.com/m2/extensions/testimonials/",
-                "changelog"  : "http://docs.swissuplabs.com/m2/extensions/testimonials/changelog/"
+                "docs": "https://docs.swissuplabs.com/m2/extensions/testimonials/",
+                "changelog": "https://docs.swissuplabs.com/m2/extensions/testimonials/changelog/"
             }
         }
     }
