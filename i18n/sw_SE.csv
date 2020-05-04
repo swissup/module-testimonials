@@ -1,1 +1,90 @@
- 
+Testimonials,Rekommendationer
+"Add New Testimonial","Lägg till nya omdömen"
+"Save Testimonial","Spara omdöme"
+"Delete Testimonial","Ta bort omdöme"
+"Edit Testimonial '%1'","Redigera omdöme ""%1"""
+"New Testimonial","Nya Omdöme"
+"Testimonial Information","Omdöme Information"
+Facebook,Facebook
+Twitter,Twitter
+"No rating","Inget betyg"
+star,Stjärniga
+stars,Stjärnor
+"Profile Image",Profilbild
+"Display in widget","Visa i widget"
+"Created date","Skapat datum"
+"Submit Your Testimonial","Skicka in ditt omdöme"
+"Please select item(s).","Välj objekt."
+"Testimonial was deleted.","Omdömet togs bort."
+"Can't find a testimonial to delete.","Det går inte att hitta ett omdöme att ta bort."
+"Manage Testimonials","Hantera omdömen"
+"This testimonial no longer exists.","Detta omdöme existerar inte längre."
+"Edit Testimonial","Redigera omdöme"
+"Testimonial has been saved.","Vittnesmål har räddats."
+"Something went wrong while saving the testimonial.","Något gick fel när han räddade omdömet."
+"Awaiting approval","Väntar på godkännande"
+"Delete ""${ $.$data.name }""","Ta bort ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Är du säker på att du inte vill ta bort en post på ""${ $.$data.name }""?"
+"Submit your testimonial","Skicka in ditt omdöme"
+"Profile image",Profilbild
+"Back to testimonials","Tillbaka till vittnesmål"
+"Find us on","Hitta oss på"
+"Placed on","Placeras på"
+"No testimonials found.","Inga vittnesmål hittades."
+"Show more testimonials","Visa fler omdömen"
+"Read more","Läs mer"
+"Read less","Läs mindre"
+"View all testimonials","Visa alla omdömen"
+"Store Review",Arkivbild.
+"out of",ur
+votes,Röster
+"Testimonial data:","Omdöme data:"
+"User Name:",Användarnamn:
+"User Email:","E-post för användare:"
+"Store View:",Butiksvy:
+Message:,Meddelande:
+Company:,Företag:
+Website:,Webbplats:
+Facebook:,Facebook:
+Twitter:,Twitter:
+Rating:,Betyg:
+"Has image:","Har bild:"
+Status:,Status:
+"Automatically approve testimonials","Godkänn vittnesmål automatiskt"
+"Add link to top links","Lägg till länk till de vanligaste länkarna"
+"Add link to footer links","Lägg till länkar till sidfotslänkar"
+"Testimonials List","Omdömen Lista"
+"Testimonials list layout","Layouten Omdömeslista"
+"Testimonials per page","Omdömen per sida"
+"Image width",Bildbredd
+"Image height",Bildhöjd
+"Image placeholder","Platshållare för bild"
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.","Tillåtna filtyper:PNG, GIF, JPG, JPEG, SVG."
+"Show user email in testimonials list","Visa e-post för användare i omdömeslistan"
+"Testimonials Submit Form","Vittnesmål Skicka form"
+"Testimonials form layout","Formulärlayout för omdömen"
+"Enable company field","Aktivera företagsfält"
+"Enable website field","Aktivera webbplatsfält"
+"Enable twitter field","Aktivera twitter-fältet"
+"Enable facebook field","Aktivera facebook-fält"
+"Message shown after testimonial sent","Meddelande som visas efter att omdömet skickats"
+"Administrator Email Notifications","E-postmeddelanden för administratör"
+"Email notification for admin on new testimonial","E-postmeddelande för admin på nya omdöme"
+"Send email from","Skicka e-post från"
+"Administrator email",Administratörs-e-post
+"Administrator email subject","Administratörse-ämne för e-post"
+"Administrator email template","E-postmall för administratör"
+"Testimonials: List of testimonials (for side panel)","Vittnesmål: Lista över vittnesmål (för sidopanelen)"
+"Hide block title and link","Dölj blockrubrik och länk"
+"Number of testimonials","Antal vittnesmål"
+"Show next testimonial after, ms","Visa nästa omdöme efter, ms"
+"Change animation duration, ms","Ändra animeringslängd, ms"
+"Testimonials: Review block (for side panel)","Vittnesmål: Granska block (för sidopanel)"
+"Testimonials: Submit Form","Omdömen: Skicka formulär"
+"Testimonials: Full testimonials list","Omdömen: Fullständig omdömeslista"
+"Delete items","Ta bort objekt"
+"Are you sure you wan't to delete selected items?","Är du säker på att du inte vill ta bort markerade objekt?"
+"Enable items","Aktivera objekt"
+"Disable items","Inaktivera objekt"
+"Created Date","Skapat datum"
+"What Clients Say","Vad kunderna säger"
