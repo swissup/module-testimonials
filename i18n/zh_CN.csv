@@ -1,1 +1,90 @@
- 
+Testimonials,推荐
+"Add New Testimonial",添加新推荐
+"Save Testimonial",保存见证
+"Delete Testimonial",删除推荐
+"Edit Testimonial '%1'","编辑推荐""%1"""
+"New Testimonial",新见证
+"Testimonial Information",推荐信息
+Facebook,Facebook
+Twitter,Twitter
+"No rating",无评级
+star,明星
+stars,星星
+"Profile Image",配置文件图像
+"Display in widget",显示在小部件中
+"Created date",创建日期
+"Submit Your Testimonial",提交您的推荐
+"Please select item(s).",请选择项目。
+"Testimonial was deleted.",证词被删除。
+"Can't find a testimonial to delete.",找不到要删除的推荐。
+"Manage Testimonials",管理推荐
+"This testimonial no longer exists.",这个见证不再存在。
+"Edit Testimonial",编辑推荐
+"Testimonial has been saved.",证词已保存。
+"Something went wrong while saving the testimonial.",在保存推荐书时出了问题。
+"Awaiting approval",等待批准
+"Delete ""${ $.$data.name }""","删除""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","是否确实不想删除""${ $.$data.name }""记录？"
+"Submit your testimonial",提交您的推荐
+"Profile image",配置文件图像
+"Back to testimonials",回到推荐
+"Find us on",查找我们
+"Placed on",放置在
+"No testimonials found.",未找到推荐人。
+"Show more testimonials",显示更多推荐
+"Read more",阅读更多
+"Read less",阅读更少
+"View all testimonials",查看所有推荐
+"Store Review",商店评论
+"out of",出
+votes,票
+"Testimonial data:",推荐数据：
+"User Name:",用户名：
+"User Email:",用户电子邮件：
+"Store View:",商店视图：
+Message:,消息：
+Company:,公司：
+Website:,网站：
+Facebook:,Facebook：
+Twitter:,Twitter：
+Rating:,评级：
+"Has image:",具有图像：
+Status:,地位：
+"Automatically approve testimonials",自动批准推荐
+"Add link to top links",添加指向顶部链接的链接
+"Add link to footer links",添加指向页脚链接的链接
+"Testimonials List",推荐名单
+"Testimonials list layout",推荐列表布局
+"Testimonials per page",每页推荐
+"Image width",图像宽度
+"Image height",图像高度
+"Image placeholder",图像占位符
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.",允许的文件类型：PNG、GIF、JPG、JPEG、SVG。
+"Show user email in testimonials list",在推荐列表中显示用户电子邮件
+"Testimonials Submit Form",推荐提交表格
+"Testimonials form layout",推荐表单布局
+"Enable company field",启用公司字段
+"Enable website field",启用网站字段
+"Enable twitter field",启用推特字段
+"Enable facebook field",启用脸谱字段
+"Message shown after testimonial sent",发送推荐后显示的消息
+"Administrator Email Notifications",管理员电子邮件通知
+"Email notification for admin on new testimonial",关于新推荐的管理员的电子邮件通知
+"Send email from",发送电子邮件来自
+"Administrator email",管理员电子邮件
+"Administrator email subject",管理员电子邮件主题
+"Administrator email template",管理员电子邮件模板
+"Testimonials: List of testimonials (for side panel)",推荐：推荐名单（侧面板）
+"Hide block title and link",隐藏块标题和链接
+"Number of testimonials",推荐次数
+"Show next testimonial after, ms",显示下一个推荐后，ms
+"Change animation duration, ms",更改动画持续时间，毫秒
+"Testimonials: Review block (for side panel)",推荐：审阅块（用于侧面板）
+"Testimonials: Submit Form",推荐：提交表格
+"Testimonials: Full testimonials list",推荐：完整推荐名单
+"Delete items",删除项目
+"Are you sure you wan't to delete selected items?",是否确实不想删除选定的项目？
+"Enable items",启用项目
+"Disable items",禁用项目
+"Created Date",创建日期
+"What Clients Say",客户说什么
