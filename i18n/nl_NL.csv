@@ -1,1 +1,90 @@
- 
+Testimonials,Getuigenissen
+"Add New Testimonial","Nieuwe testimonial toevoegen"
+"Save Testimonial","Testimonial opslaan"
+"Delete Testimonial","Testimonial verwijderen"
+"Edit Testimonial '%1'","Testimonial bewerken '%1'"
+"New Testimonial","Nieuwe Testimonial"
+"Testimonial Information","Testimonial Informatie"
+Facebook,Facebook
+Twitter,Twitter
+"No rating","Geen beoordeling"
+star,Star
+stars,Sterren
+"Profile Image",Profielafbeelding
+"Display in widget","Weergeven in widget"
+"Created date","Gemaakte datum"
+"Submit Your Testimonial","Stuur uw getuigenis in"
+"Please select item(s).","Selecteer object(en)."
+"Testimonial was deleted.","Testimonial is verwijderd."
+"Can't find a testimonial to delete.","Kan niet vinden van een getuigenis te verwijderen."
+"Manage Testimonials","Testimonials beheren"
+"This testimonial no longer exists.","Deze getuigenis bestaat niet meer."
+"Edit Testimonial","Testimonial bewerken"
+"Testimonial has been saved.","Testimonial is opgeslagen."
+"Something went wrong while saving the testimonial.","Er ging iets mis tijdens het opslaan van de getuigenis."
+"Awaiting approval","In afwachting van goedkeuring"
+"Delete ""${ $.$data.name }""","Verwijder ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Weet je zeker dat je niet om een ""${ $.$data.name }"" record te verwijderen?"
+"Submit your testimonial","Stuur uw getuigenis in"
+"Profile image",Profielafbeelding
+"Back to testimonials","Terug naar getuigenissen"
+"Find us on","Vind ons op"
+"Placed on","Geplaatst op"
+"No testimonials found.","Geen getuigenissen gevonden."
+"Show more testimonials","Toon meer getuigenissen"
+"Read more","Lees meer"
+"Read less","Lees minder"
+"View all testimonials","Bekijk alle getuigenissen"
+"Store Review",Winkelcontrole
+"out of",uit
+votes,Stemmen
+"Testimonial data:","Testimonial gegevens:"
+"User Name:",Gebruikersnaam:
+"User Email:","E-mail van gebruiker:"
+"Store View:",Winkelweergave:
+Message:,Bericht:
+Company:,Bedrijf:
+Website:,Website:
+Facebook:,Facebook:
+Twitter:,Twitter:
+Rating:,Rating:
+"Has image:","Heeft afbeelding:"
+Status:,Status:
+"Automatically approve testimonials","Keurt getuigenissen automatisch goed"
+"Add link to top links","Koppeling toevoegen aan bovenste koppelingen"
+"Add link to footer links","Koppeling toevoegen aan voettekstkoppelingen"
+"Testimonials List","Testimonials Lijst"
+"Testimonials list layout","Testimonials lijst lay-out"
+"Testimonials per page","Getuigenissen per pagina"
+"Image width",Afbeeldingsbreedte
+"Image height",Afbeeldingshoogte
+"Image placeholder","Tijdelijke aanduiding voor afbeeldingen"
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.","Toegestane bestandstypen:PNG, GIF, JPG, JPEG, SVG."
+"Show user email in testimonials list","Gebruikerse-mail weergeven in de lijst met getuigenissen"
+"Testimonials Submit Form","Getuigenissen Indienen Formulier"
+"Testimonials form layout","Testimonials formulier lay-out"
+"Enable company field","Bedrijfsveld inschakelen"
+"Enable website field","Websiteveld inschakelen"
+"Enable twitter field","Twitter-veld inschakelen"
+"Enable facebook field","Facebook-veld inschakelen"
+"Message shown after testimonial sent","Bericht weergegeven na verzonden getuigenis"
+"Administrator Email Notifications","E-mailmeldingen van beheerders"
+"Email notification for admin on new testimonial","E-mailmelding voor beheerder over nieuwe getuigenis"
+"Send email from","E-mail verzenden vanaf"
+"Administrator email","E-mail beheerder"
+"Administrator email subject","Onderwerp van e-mail beheerder"
+"Administrator email template","E-mailsjabloon beheerder"
+"Testimonials: List of testimonials (for side panel)","Getuigenissen: Lijst van getuigenissen (voor zijpaneel)"
+"Hide block title and link","Bloktitel en koppeling verbergen"
+"Number of testimonials","Aantal getuigenissen"
+"Show next testimonial after, ms","Toon volgende getuigenis na, ms"
+"Change animation duration, ms","Animatieduur wijzigen, ms"
+"Testimonials: Review block (for side panel)","Getuigenissen: Review blok (voor zijpaneel)"
+"Testimonials: Submit Form","Getuigenissen: Formulier indienen"
+"Testimonials: Full testimonials list","Getuigenissen: Volledige getuigenissen lijst"
+"Delete items","Items verwijderen"
+"Are you sure you wan't to delete selected items?","Weet je zeker dat je bepaalde items niet wilt verwijderen?"
+"Enable items","Items inschakelen"
+"Disable items","Objecten uitschakelen"
+"Created Date","Gemaakte datum"
+"What Clients Say","Wat klanten zeggen"
