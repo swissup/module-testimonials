@@ -1,1 +1,90 @@
- 
+Testimonials,声
+"Add New Testimonial",新しい証言を追加
+"Save Testimonial",証言を保存
+"Delete Testimonial",証言の削除
+"Edit Testimonial '%1'","証言 '%1' の編集"
+"New Testimonial",新しい証言
+"Testimonial Information",証言情報
+Facebook,Facebook
+Twitter,Twitter
+"No rating",評価なし
+star,"つ 星"
+stars,星
+"Profile Image",プロフィール画像
+"Display in widget",ウィジェットに表示
+"Created date",作成日
+"Submit Your Testimonial",あなたの証言を提出する
+"Please select item(s).",項目を選択してください。
+"Testimonial was deleted.",証言が削除されました。
+"Can't find a testimonial to delete.",削除する証言が見つかりません。
+"Manage Testimonials",声の管理
+"This testimonial no longer exists.",この証言はもはや存在しない。
+"Edit Testimonial",証言の編集
+"Testimonial has been saved.",証言が保存されました。
+"Something went wrong while saving the testimonial.",証言を保存している間に何かがうまくいかなかった。
+"Awaiting approval",承認待ち
+"Delete ""${ $.$data.name }""","""${ $.$data.name }"" を削除します。"
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","""${ $.$data.name }"" レコードを削除しないですか?"
+"Submit your testimonial",あなたの証言を提出する
+"Profile image",プロフィール画像
+"Back to testimonials",証言に戻る
+"Find us on",私たちを見つける
+"Placed on",上に配置
+"No testimonials found.",証言は見つかりませんでした。
+"Show more testimonials",より多くの声を表示する
+"Read more",続きを読む
+"Read less",読むを減らす
+"View all testimonials",すべての証言を表示
+"Store Review",店舗レビュー
+"out of",アウト・
+votes,投票
+"Testimonial data:",証言データ:
+"User Name:",ユーザー名:
+"User Email:",ユーザーの電子メール:
+"Store View:","ストア ビュー:"
+Message:,メッセージ：
+Company:,会社：
+Website:,ウェブサイト：
+Facebook:,Facebook：
+Twitter:,Twitter：
+Rating:,評価：
+"Has image:",イメージを持っています:
+Status:,ステータス：
+"Automatically approve testimonials",証言を自動的に承認する
+"Add link to top links","トップ リンクへのリンクの追加"
+"Add link to footer links","フッター リンクへのリンクの追加"
+"Testimonials List",証言リスト
+"Testimonials list layout","[声のリスト] レイアウト"
+"Testimonials per page",ページごとの声
+"Image width",画像の幅
+"Image height",画像の高さ
+"Image placeholder",画像プレースホルダー
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.",許可されるファイルの種類:PNG、GIF、JPG、JPEG、SVG。
+"Show user email in testimonials list","[テスト] リストにユーザーの電子メールを表示する"
+"Testimonials Submit Form",証言提出書
+"Testimonials form layout","[声のフォーム レイアウト]"
+"Enable company field",会社フィールドの有効化
+"Enable website field","Web サイトフィールドを有効にする"
+"Enable twitter field",ツイッターフィールドを有効にする
+"Enable facebook field",フェイスブックのフィールドを有効にする
+"Message shown after testimonial sent",証言送信後に表示されるメッセージ
+"Administrator Email Notifications",管理者の電子メール通知
+"Email notification for admin on new testimonial",新しい証言に管理者のための電子メール通知
+"Send email from",から電子メールを送信
+"Administrator email",管理者の電子メール
+"Administrator email subject",管理者の電子メールの件名
+"Administrator email template","管理者の電子メール テンプレート"
+"Testimonials: List of testimonials (for side panel)",証言:声のリスト(サイドパネル用)
+"Hide block title and link",ブロックのタイトルとリンクを非表示にする
+"Number of testimonials",証言の数
+"Show next testimonial after, ms",次の証言の後に表示する、ミリ秒
+"Change animation duration, ms",アニメーションの継続時間を変更する(ミリ秒)
+"Testimonials: Review block (for side panel)",証言:レビューブロック(サイドパネル用)
+"Testimonials: Submit Form",証言:提出フォーム
+"Testimonials: Full testimonials list",証言:完全な証言リスト
+"Delete items",アイテムの削除
+"Are you sure you wan't to delete selected items?",選択したアイテムを削除しませんか?
+"Enable items",アイテムを有効にする
+"Disable items",アイテムを無効にする
+"Created Date",作成日
+"What Clients Say",クライアントの言うこと
