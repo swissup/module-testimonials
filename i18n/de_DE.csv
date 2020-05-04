@@ -1,1 +1,90 @@
- 
+Testimonials,Testimonials
+"Add New Testimonial","Neues Testimonial hinzufügen"
+"Save Testimonial","Speichern Testimonial"
+"Delete Testimonial","Löschen Testimonial"
+"Edit Testimonial '%1'","Testimonial bearbeiten '%1'"
+"New Testimonial","Neues Testimonial"
+"Testimonial Information",Testimonial-Informationen
+Facebook,Facebook
+Twitter,Twitter
+"No rating","Keine Bewertung"
+star,Sterne
+stars,Sternen
+"Profile Image",Profilbild
+"Display in widget","Anzeige im Widget"
+"Created date","Erstelltes Datum"
+"Submit Your Testimonial","Senden Sie Ihr Testimonial"
+"Please select item(s).","Bitte wählen Sie Artikel(e) aus."
+"Testimonial was deleted.","Das Testimonial wurde gelöscht."
+"Can't find a testimonial to delete.","Es kann kein Testimonial zum Löschen gefunden werden."
+"Manage Testimonials","Verwalten von Testimonials"
+"This testimonial no longer exists.","Dieses Zeugnis existiert nicht mehr."
+"Edit Testimonial","Edit Testimonial"
+"Testimonial has been saved.","Zeugnis wurde gespeichert."
+"Something went wrong while saving the testimonial.","Etwas ging schief, während das Zeugnis gespeichert wurde."
+"Awaiting approval","Warten auf Genehmigung"
+"Delete ""${ $.$data.name }""","Löschen Sie das Löschen von ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Sind Sie sicher, dass Sie nicht versuchen, einen Datensatz mit dem Namen ""${ $.$data.name }"" zu löschen?"
+"Submit your testimonial","Senden Sie Ihr Testimonial"
+"Profile image",Profilbild
+"Back to testimonials","Zurück zu Testimonials"
+"Find us on","Finden Sie uns auf"
+"Placed on","Platziert auf"
+"No testimonials found.","Keine Zeugnisse gefunden."
+"Show more testimonials","Weitere Testimonials anzeigen"
+"Read more","Lesen Sie mehr"
+"Read less","Weniger lesen"
+"View all testimonials","Alle Testimonials anzeigen"
+"Store Review",Store-Bewertung
+"out of",aus
+votes,Stimmen
+"Testimonial data:",Erfahrungsdaten:
+"User Name:",Benutzername:
+"User Email:",Benutzer-E-Mail:
+"Store View:",Store-Ansicht:
+Message:,Nachricht:
+Company:,Unternehmen:
+Website:,Website:
+Facebook:,Facebook:
+Twitter:,Twitter:
+Rating:,Bewertung:
+"Has image:","Hat Bild:"
+Status:,Status:
+"Automatically approve testimonials","Automatischegenehmigung von Testimonials"
+"Add link to top links","Link zu oberen Links hinzufügen"
+"Add link to footer links","Link zu Fußzeilenlinks hinzufügen"
+"Testimonials List","Liste der Testimonials"
+"Testimonials list layout","Layout der Testimonials-Liste"
+"Testimonials per page","Erfahrungsberichte pro Seite"
+"Image width",Bildbreite
+"Image height",Bildhöhe
+"Image placeholder",Bildplatzhalter
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.","Zulässige Dateitypen: PNG, GIF, JPG, JPEG, SVG."
+"Show user email in testimonials list","Benutzer-E-Mail in der Testimonialsliste anzeigen"
+"Testimonials Submit Form","Testimonials Senden Formular"
+"Testimonials form layout","Testimonials Formularlayout"
+"Enable company field","Firmenfeld aktivieren"
+"Enable website field","Website-Feld aktivieren"
+"Enable twitter field","Twitter-Feld aktivieren"
+"Enable facebook field","Facebook-Feld aktivieren"
+"Message shown after testimonial sent","Meldung, die nach dem Senden des Testimonials angezeigt wurde"
+"Administrator Email Notifications",Administrator-E-Mail-Benachrichtigungen
+"Email notification for admin on new testimonial","E-Mail-Benachrichtigung für Admin auf neuem Testimonial"
+"Send email from","Senden Sie E-Mails von"
+"Administrator email",Administrator-E-Mail
+"Administrator email subject",Administrator-E-Mail-Betreff
+"Administrator email template",Administrator-E-Mail-Vorlage
+"Testimonials: List of testimonials (for side panel)","Testimonials: Liste der Testimonials (für Seitenwand)"
+"Hide block title and link","Blocktitel und Verknüpfung ausblenden"
+"Number of testimonials","Anzahl der Testimonials"
+"Show next testimonial after, ms","Nächster Testimonial nach, ms"
+"Change animation duration, ms","Ändern der Animationsdauer, ms"
+"Testimonials: Review block (for side panel)","Testimonials: Bewertungsblock (für Seitenwand)"
+"Testimonials: Submit Form","Testimonials: Formular einreichen"
+"Testimonials: Full testimonials list","Testimonials: Vollständige Testimonials Liste"
+"Delete items","Löschen von Elementen"
+"Are you sure you wan't to delete selected items?","Sind Sie sicher, dass Sie ausgewählte Elemente nicht löschen möchten?"
+"Enable items","Aktivieren von Elementen"
+"Disable items","Deaktivieren von Elementen"
+"Created Date","Erstelltes Datum"
+"What Clients Say","Was Kunden sagen"
