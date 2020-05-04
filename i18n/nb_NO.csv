@@ -1,1 +1,90 @@
- 
+Testimonials,Attester
+"Add New Testimonial","Legg til ny anbefaling"
+"Save Testimonial","Lagre attester"
+"Delete Testimonial","Slett testimonial"
+"Edit Testimonial '%1'","Rediger testimonial '%1'"
+"New Testimonial","Ny anbefaling"
+"Testimonial Information",Anbefalingsinformasjon
+Facebook,Facebook
+Twitter,Twitter
+"No rating","Ingen vurdering"
+star,Stjerners
+stars,Stjerner
+"Profile Image",Profilbilde
+"Display in widget","Vis i widget"
+"Created date","Opprettet dato"
+"Submit Your Testimonial","Send inn din anbefaling"
+"Please select item(s).","Velg element(er)."
+"Testimonial was deleted.","Testimonial ble slettet."
+"Can't find a testimonial to delete.","Finner ikke en attestering å slette."
+"Manage Testimonials","Administrere attester"
+"This testimonial no longer exists.","Denne attesteringen eksisterer ikke lenger."
+"Edit Testimonial","Rediger anbefaling"
+"Testimonial has been saved.","Vitnesbyrd har blitt frelst."
+"Something went wrong while saving the testimonial.","Noe gikk galt mens du reddet attesteringen."
+"Awaiting approval","Venter på godkjenning"
+"Delete ""${ $.$data.name }""","Slett ""${ $.$data.name }"""
+"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Er du sikker på at du ikke vil slette en ""${ $.$data.name }"" post?"
+"Submit your testimonial","Send inn din anbefaling"
+"Profile image",Profilbilde
+"Back to testimonials","Tilbake til attester"
+"Find us on","Finn oss på"
+"Placed on","Plassert på"
+"No testimonials found.","Ingen attester funnet."
+"Show more testimonials","Vis flere attester"
+"Read more","Les mer"
+"Read less","Les mindre"
+"View all testimonials","Se alle attester"
+"Store Review","Lagre gjennomgang"
+"out of","ut av"
+votes,Stemmer
+"Testimonial data:","Testimonial data:"
+"User Name:",Brukernavn:
+"User Email:",Bruker-e-post:
+"Store View:",Butikkvisning:
+Message:,Melding:
+Company:,Selskapet:
+Website:,Nettsted:
+Facebook:,Facebook:
+Twitter:,Twitter:
+Rating:,Vurdering:
+"Has image:","Har bilde:"
+Status:,Status:
+"Automatically approve testimonials","Godkjenne attester automatisk"
+"Add link to top links","Legg til kobling til de øverste koblingene"
+"Add link to footer links","Legge til kobling til bunntekstkoblinger"
+"Testimonials List","Uttalelser Liste"
+"Testimonials list layout","Oppsett av testimonialer"
+"Testimonials per page","Uttalelser per side"
+"Image width",Bildebredde
+"Image height",Bildehøyde
+"Image placeholder","Plassholder for bilde"
+"Allowed file types:PNG, GIF, JPG, JPEG, SVG.","Tillatte filtyper: PNG, GIF, JPG, JPEG, SVG."
+"Show user email in testimonials list","Vis bruker-e-post i testimonialsliste"
+"Testimonials Submit Form","Uttalelser Sende skjema"
+"Testimonials form layout","Testimonials skjema layout"
+"Enable company field","Aktivere firmafelt"
+"Enable website field","Aktivere nettstedsfelt"
+"Enable twitter field","Aktiver twitter-feltet"
+"Enable facebook field","Aktivere facebook-feltet"
+"Message shown after testimonial sent","Melding vist etter atatisjon sendte"
+"Administrator Email Notifications","Varsler om administrator-e-post"
+"Email notification for admin on new testimonial","E-postvarsling for admin på ny attestering"
+"Send email from","Send e-post fra"
+"Administrator email","E-post for administrator"
+"Administrator email subject","Emnet for administrator-e-post"
+"Administrator email template","Mal for administrator-e-post"
+"Testimonials: List of testimonials (for side panel)","Attester: Liste over attester (for sidepanel)"
+"Hide block title and link","Skjul blokktittel og -kobling"
+"Number of testimonials","Antall attester"
+"Show next testimonial after, ms","Vis neste anbefaling etter, ms"
+"Change animation duration, ms","Endre animasjonsvarighet, ms"
+"Testimonials: Review block (for side panel)","Attester: Gjennomgangsblokk (for sidepanel)"
+"Testimonials: Submit Form","Uttalelser: Send inn skjema"
+"Testimonials: Full testimonials list","Attester: Fullstendig attester liste"
+"Delete items","Slette elementer"
+"Are you sure you wan't to delete selected items?","Er du sikker på at du ikke sletter valgte elementer?"
+"Enable items","Aktivere elementer"
+"Disable items","Deaktivere elementer"
+"Created Date","Opprettet dato"
+"What Clients Say","Hva kundene sier"
