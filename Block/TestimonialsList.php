@@ -184,9 +184,7 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
      */
     public function getRatingPercent($testimonial)
     {
-        $ratingPercent = $testimonial->getRating() / 5 * 100;
-
-        return (String)$ratingPercent;
+        return $this->listHelper->getRatingPercent($testimonial);
     }
 
     /**

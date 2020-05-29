@@ -17,7 +17,8 @@ if (!count($testimonials)) {
                 <?php if ($itemId > 0): ?> style="display: none;"<?php endif ?>>
                     <div class="content-wrapper">
                         <?php if ($testimonial->getRating()): ?>
-                            <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
+                            <?php $helper = $this->helper(\Swissup\Testimonials\Helper\ListHelper::class); ?>
+                            <?php $ratingPercent = $helper->getRatingPercent($testimonial); ?>
                             <div class="review-ratings">
                                 <div class="rating-summary item">
                                     <span class="label rating-label"><span>Rating</span></span>

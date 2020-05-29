@@ -7,14 +7,28 @@
 
 <div class="widget block testimonials-slider">
     <div class="content-heading">
-        <h2 class="title"><?= __('What Clients Say') ?></h2>
+        <h2 class="title" role="heading"><?= $block->escapeHtml($block->getBlockTitle()) ?></h2>
     </div>
     <div class="block-content">
-        <div class="slick-slider" data-mage-init='{"slick": {"slidesToShow": 2, "slidesToScroll": 1, "rows": 0, "responsive": [{"breakpoint": 850, "settings": {"slidesToShow": 1, "slidesToScroll": 1, "infinite": true}}]}}'>
+        <div class="slick-slider" data-mage-init='{"slick": <?= $block->getSliderConfig() ?>}'>
             <?php foreach ($testimonials as $testimonial): ?>
-            <div>
+            <div class="slick-slide">
                 <figure class="testimonial">
                     <blockquote>
+                        <?php if ($ratingPercent = $block->getRatingPercent($testimonial)): ?>
+                        <div class="rating nobr">
+                            <div class="review-ratings">
+                                <div class="rating-summary item">
+                                    <span class="label rating-label"><span><?= __('Rating') ?></span></span>
+                                    <div class="rating-result" title="<?= $ratingPercent ?>%">
+                                        <span style="width:<?= $ratingPercent ?>%">
+                                            <span><?= $ratingPercent ?>%</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <?= $block->escapeHtml($testimonial->getMessage()); ?>
                         <div class="arrow"></div>
                     </blockquote>

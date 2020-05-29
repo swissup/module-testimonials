@@ -7,6 +7,8 @@ class Slider extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
 {
     const DEFAULT_TEMPLATE = 'widgets/slider.phtml';
+    const DEFAULT_TITLE = 'What Clients Say';
+    const DEFAULT_VISIBLE_SLIDES = 2;
 
     /**
      * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
@@ -78,5 +80,62 @@ class Slider extends \Magento\Framework\View\Element\Template
         $image = $this->listHelper->resize($testimonial);
 
         return $image ? $image : $this->getViewFileUrl('Swissup_Testimonials::images/empty.svg');
+    }
+
+    /**
+     * Get block title
+     * @return String
+     */
+    public function getBlockTitle()
+    {
+        return $this->getTitle() ? __($this->getTitle()) : __(self::DEFAULT_TITLE);
+    }
+
+    /**
+     * Get slides to show
+     * @return int
+     */
+    public function getVisibleSlides()
+    {
+        return $this->getSlidesToShow() ? : self::DEFAULT_VISIBLE_SLIDES;
+    }
+
+    /**
+     * Get slider config
+     * @return String
+     */
+    public function getSliderConfig()
+    {
+        $params = [
+            "slidesToShow" => $this->getVisibleSlides(),
+            "slidesToScroll" => 1,
+            "rows" => 0,
+            "responsive" => [
+                [
+                    "breakpoint" => 1024,
+                    "settings" => [
+                        "slidesToShow" => 1,
+                        "slidesToScroll" => 1,
+                        "infinite" => true
+                    ]
+                ]
+            ]
+        ];
+
+        return json_encode($params, JSON_HEX_APOS);
+    }
+
+    /**
+     * Get rating value in percents
+     * @param  \Swissup\Testimonials\Model\Data $testimonial
+     * @return String|bool
+     */
+    public function getRatingPercent($testimonial)
+    {
+        if ($this->getShowRating() && $testimonial->getRating()) {
+            return $this->listHelper->getRatingPercent($testimonial);
+        }
+
+        return false;
     }
 }

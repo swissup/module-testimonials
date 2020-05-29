@@ -117,4 +117,16 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $image;
     }
+
+    /**
+     * Get rating value in percents
+     * @param  \Swissup\Testimonials\Model\Data $testimonial
+     * @return String
+     */
+    public function getRatingPercent($testimonial)
+    {
+        $ratingPercent = $testimonial->getRating() / 5 * 100;
+
+        return (String)$ratingPercent;
+    }
 }

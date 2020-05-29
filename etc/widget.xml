@@ -54,6 +54,27 @@
                 <label translate="true">Number of testimonials</label>
                 <value>6</value>
             </parameter>
+            <parameter name="title" xsi:type="text" required="false" visible="true">
+                <label translate="true">Block title</label>
+                <value>What Clients Say</value>
+            </parameter>
+            <parameter name="slides_to_show" xsi:type="select" required="false" visible="true">
+                <label translate="true">Visible Slides Number</label>
+                <options>
+                    <option name="1" value="1" selected="true">
+                        <label>1</label>
+                    </option>
+                    <option name="2" value="2">
+                        <label>2</label>
+                    </option>
+                    <option name="3" value="3">
+                        <label>3</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="show_rating" xsi:type="select" required="false" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
+                <label translate="true">Show rating stars</label>
+            </parameter>
         </parameters>
     </widget>
 </widgets>

@@ -59,14 +59,4 @@ class SideList extends \Magento\Framework\View\Element\Template
     {
         return $this->getUrl('testimonials/index/index');
     }
-    /**
-     * Get rating value in percents
-     * @param  \Swissup\Testimonials\Model\Data $testimonial
-     * @return String
-     */
-    public function getRatingPercent($testimonial)
-    {
-        $ratingPercent = $testimonial->getRating() / 5 * 100;
-        return (String)$ratingPercent;
-    }
 }
