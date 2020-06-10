@@ -85,7 +85,9 @@ class Admin implements \Magento\Framework\Event\ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $item = $observer->getEvent()->getItem();
-        if ($item->getId() == null && $this->configHelper->isAdminNotificationEnabled()) {
+        if ($item->getId() == null && $this->configHelper->isAdminNotificationEnabled() &&
+            !empty($this->configHelper->getAdminEmail())
+        ) {
             $store = $this->storeManager->getStore($item->getStoreId());
             $from = $this->configHelper->getAdminNotificationSendFrom();
             $to = [
