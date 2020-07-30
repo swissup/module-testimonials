@@ -131,9 +131,6 @@
                         <item name="type" xsi:type="string">enable</item>
                         <item name="label" xsi:type="string" translate="true">Enable</item>
                         <item name="url" xsi:type="url" path="testimonials/index/massEnable"/>
-                        <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Enable items</item>
-                        </item>
                     </item>
                 </argument>
             </action>
@@ -143,9 +140,6 @@
                         <item name="type" xsi:type="string">disable</item>
                         <item name="label" xsi:type="string" translate="true">Disable</item>
                         <item name="url" xsi:type="url" path="testimonials/index/massDisable"/>
-                        <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Disable items</item>
-                        </item>
                     </item>
                 </argument>
             </action>
