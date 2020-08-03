@@ -23,8 +23,6 @@ stars,星
 "Testimonial has been saved.",証言が保存されました。
 "Something went wrong while saving the testimonial.",証言を保存している間に何かがうまくいかなかった。
 "Awaiting approval",承認待ち
-"Delete ""${ $.$data.name }""","""${ $.$data.name }"" を削除します。"
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","""${ $.$data.name }"" レコードを削除しないですか?"
 "Submit your testimonial",あなたの証言を提出する
 "Profile image",プロフィール画像
 "Back to testimonials",証言に戻る
@@ -83,7 +81,6 @@ Status:,ステータス：
 "Testimonials: Submit Form",証言:提出フォーム
 "Testimonials: Full testimonials list",証言:完全な証言リスト
 "Delete items",アイテムの削除
-"Are you sure you wan't to delete selected items?",選択したアイテムを削除しませんか?
 "Enable items",アイテムを有効にする
 "Disable items",アイテムを無効にする
 "Created Date",作成日

@@ -23,8 +23,6 @@ stars,星星
 "Testimonial has been saved.",证词已保存。
 "Something went wrong while saving the testimonial.",在保存推荐书时出了问题。
 "Awaiting approval",等待批准
-"Delete ""${ $.$data.name }""","删除""${ $.$data.name }"""
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","是否确实不想删除""${ $.$data.name }""记录？"
 "Submit your testimonial",提交您的推荐
 "Profile image",配置文件图像
 "Back to testimonials",回到推荐
@@ -83,7 +81,6 @@ Status:,地位：
 "Testimonials: Submit Form",推荐：提交表格
 "Testimonials: Full testimonials list",推荐：完整推荐名单
 "Delete items",删除项目
-"Are you sure you wan't to delete selected items?",是否确实不想删除选定的项目？
 "Enable items",启用项目
 "Disable items",禁用项目
 "Created Date",创建日期

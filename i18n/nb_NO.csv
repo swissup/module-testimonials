@@ -23,8 +23,6 @@ stars,Stjerner
 "Testimonial has been saved.","Vitnesbyrd har blitt frelst."
 "Something went wrong while saving the testimonial.","Noe gikk galt mens du reddet attesteringen."
 "Awaiting approval","Venter på godkjenning"
-"Delete ""${ $.$data.name }""","Slett ""${ $.$data.name }"""
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Er du sikker på at du ikke vil slette en ""${ $.$data.name }"" post?"
 "Submit your testimonial","Send inn din anbefaling"
 "Profile image",Profilbilde
 "Back to testimonials","Tilbake til attester"
@@ -83,7 +81,6 @@ Status:,Status:
 "Testimonials: Submit Form","Uttalelser: Send inn skjema"
 "Testimonials: Full testimonials list","Attester: Fullstendig attester liste"
 "Delete items","Slette elementer"
-"Are you sure you wan't to delete selected items?","Er du sikker på at du ikke sletter valgte elementer?"
 "Enable items","Aktivere elementer"
 "Disable items","Deaktivere elementer"
 "Created Date","Opprettet dato"

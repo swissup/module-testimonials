@@ -23,8 +23,6 @@ stars,Sternen
 "Testimonial has been saved.","Zeugnis wurde gespeichert."
 "Something went wrong while saving the testimonial.","Etwas ging schief, während das Zeugnis gespeichert wurde."
 "Awaiting approval","Warten auf Genehmigung"
-"Delete ""${ $.$data.name }""","Löschen Sie das Löschen von ""${ $.$data.name }"""
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Sind Sie sicher, dass Sie nicht versuchen, einen Datensatz mit dem Namen ""${ $.$data.name }"" zu löschen?"
 "Submit your testimonial","Senden Sie Ihr Testimonial"
 "Profile image",Profilbild
 "Back to testimonials","Zurück zu Testimonials"
@@ -83,7 +81,6 @@ Status:,Status:
 "Testimonials: Submit Form","Testimonials: Formular einreichen"
 "Testimonials: Full testimonials list","Testimonials: Vollständige Testimonials Liste"
 "Delete items","Löschen von Elementen"
-"Are you sure you wan't to delete selected items?","Sind Sie sicher, dass Sie ausgewählte Elemente nicht löschen möchten?"
 "Enable items","Aktivieren von Elementen"
 "Disable items","Deaktivieren von Elementen"
 "Created Date","Erstelltes Datum"

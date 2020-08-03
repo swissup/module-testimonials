@@ -23,8 +23,6 @@ stars,Stjärnor
 "Testimonial has been saved.","Vittnesmål har räddats."
 "Something went wrong while saving the testimonial.","Något gick fel när han räddade omdömet."
 "Awaiting approval","Väntar på godkännande"
-"Delete ""${ $.$data.name }""","Ta bort ""${ $.$data.name }"""
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Är du säker på att du inte vill ta bort en post på ""${ $.$data.name }""?"
 "Submit your testimonial","Skicka in ditt omdöme"
 "Profile image",Profilbild
 "Back to testimonials","Tillbaka till vittnesmål"
@@ -83,7 +81,6 @@ Status:,Status:
 "Testimonials: Submit Form","Omdömen: Skicka formulär"
 "Testimonials: Full testimonials list","Omdömen: Fullständig omdömeslista"
 "Delete items","Ta bort objekt"
-"Are you sure you wan't to delete selected items?","Är du säker på att du inte vill ta bort markerade objekt?"
 "Enable items","Aktivera objekt"
 "Disable items","Inaktivera objekt"
 "Created Date","Skapat datum"

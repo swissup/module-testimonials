@@ -23,8 +23,6 @@ stars,Sterren
 "Testimonial has been saved.","Testimonial is opgeslagen."
 "Something went wrong while saving the testimonial.","Er ging iets mis tijdens het opslaan van de getuigenis."
 "Awaiting approval","In afwachting van goedkeuring"
-"Delete ""${ $.$data.name }""","Verwijder ""${ $.$data.name }"""
-"Are you sure you wan't to delete a ""${ $.$data.name }"" record?","Weet je zeker dat je niet om een ""${ $.$data.name }"" record te verwijderen?"
 "Submit your testimonial","Stuur uw getuigenis in"
 "Profile image",Profielafbeelding
 "Back to testimonials","Terug naar getuigenissen"
@@ -83,7 +81,6 @@ Status:,Status:
 "Testimonials: Submit Form","Getuigenissen: Formulier indienen"
 "Testimonials: Full testimonials list","Getuigenissen: Volledige getuigenissen lijst"
 "Delete items","Items verwijderen"
-"Are you sure you wan't to delete selected items?","Weet je zeker dat je bepaalde items niet wilt verwijderen?"
 "Enable items","Items inschakelen"
 "Disable items","Objecten uitschakelen"
 "Created Date","Gemaakte datum"
