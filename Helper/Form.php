@@ -93,7 +93,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCompany()
     {
-        return $this->data['company'];
+        if (!empty($this->data['company'])) {
+            return $this->data['company'];
+        }
+        return '';
     }
 
     /**
@@ -103,7 +106,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getWebsite()
     {
-        return $this->data['website'];
+        if (!empty($this->data['website'])) {
+            return $this->data['website'];
+        }
+        return '';
     }
 
     /**
@@ -113,7 +119,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getTwitter()
     {
-        return $this->data['twitter'];
+        if (!empty($this->data['twitter'])) {
+            return $this->data['twitter'];
+        }
+        return '';
     }
 
     /**
@@ -123,7 +132,11 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getFacebook()
     {
-        return $this->data['facebook'];
+        if (!empty($this->data['facebook'])) {
+            return $this->data['facebook'];
+        }
+        return '';
+
     }
 
     /**
@@ -133,7 +146,11 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getMessage()
     {
-        return $this->data['message'];
+        if (!empty($this->data['message'])) {
+            return $this->data['message'];
+        }
+        return '';
+
     }
 
     /**
