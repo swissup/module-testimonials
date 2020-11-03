@@ -104,20 +104,20 @@ class Slider extends \Magento\Framework\View\Element\Template
      * Get slider config
      * @return String
      */
-    public function getSliderConfig()
+    public function getSwiperConfig()
     {
         $params = [
-            "slidesToShow" => $this->getVisibleSlides(),
+            "slidesPerView" => $this->getVisibleSlides(),
             "slidesToScroll" => 1,
-            "rows" => 0,
-            "responsive" => [
-                [
-                    "breakpoint" => 1024,
-                    "settings" => [
-                        "slidesToShow" => 1,
-                        "slidesToScroll" => 1,
-                        "infinite" => true
-                    ]
+            "freeMode" => true,
+            "loop" => true,
+            'navigation' => [
+                'nextEl' => '.swiper-button-next',
+                'prevEl' => '.swiper-button-prev'
+            ],
+            "breakpoints" => [
+                '1024' => [
+                    "slidesPerView" => 1
                 ]
             ]
         ];
