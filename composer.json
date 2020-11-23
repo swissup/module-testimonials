@@ -6,10 +6,10 @@
         "reviews"
     ],
     "type": "magento2-module",
-    "version": "1.2.12",
+    "version": "1.2.13",
     "license": "OSL-3.0",
     "require": {
-        "swissup/module-core": "^1.10.5",
+        "swissup/module-core": "^1.11.1",
         "swissup/module-swiper": "^1.0.1"
     },
     "autoload": {
