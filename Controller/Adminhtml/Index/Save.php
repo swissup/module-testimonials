@@ -79,7 +79,7 @@ class Save extends \Magento\Backend\App\Action
                     : '';
                 if (isset($data["image"][0]['tmp_name'])) {
                     try {
-                        $this->imageUploader->moveFileFromTmp($imageName);
+                        $this->imageUploader->moveFileFromTmp($imageName, true);
                     } catch (\Exception $e) { }
                 }
             }
