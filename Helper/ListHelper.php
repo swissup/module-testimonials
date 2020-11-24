@@ -51,16 +51,21 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      * Return URL for resized image
      *
      * @param \Swissup\Testimonials\Model\Data $testimonial
+     * @param int $imgWidth
+     * @param int $imgHeight
      * @return bool|string
      */
-    public function resize(\Swissup\Testimonials\Model\Data $testimonial)
-    {
+    public function resize(
+        \Swissup\Testimonials\Model\Data $testimonial,
+        $imgWidth = 0,
+        $imgHeight = 0
+    ) {
         if (!$this->getImagePath($testimonial)) {
             return false;
         }
 
-        $width = $this->configHelper->getImageWidth();
-        $height = $this->configHelper->getImageHeight() ?: null;
+        $width = $imgWidth ?: $this->configHelper->getImageWidth();
+        $height = $imgHeight ?: $this->configHelper->getImageHeight() ?: null;
         $imageFile = $this->getImagePath($testimonial);
         $cacheDir  = $this->getBaseDir() . '/' . 'cache' . '/' . $width;
         $cacheUrl  = $this->getBaseUrl() . '/' . 'cache' . '/' . $width . '/';
@@ -68,7 +73,7 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
         $io = $this->ioFile;
         $io->checkAndCreateFolder($cacheDir);
         $io->open(['path' => $cacheDir]);
-        if ($io->fileExists($imageFile)) {
+        if ($io->fileExists($cacheDir . '/' . $imageFile)) {
             return $cacheUrl . $imageFile;
         }
 

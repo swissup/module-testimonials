@@ -77,7 +77,8 @@ class Slider extends \Magento\Framework\View\Element\Template
      */
     public function getProfileImageUrl($testimonial)
     {
-        $image = $this->listHelper->resize($testimonial);
+        $image = $this->listHelper
+            ->resize($testimonial, $this->getImgWidth(), $this->getImgHeight());
 
         return $image ? $image : $this->getViewFileUrl('Swissup_Testimonials::images/empty.svg');
     }

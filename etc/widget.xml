@@ -75,6 +75,14 @@
             <parameter name="show_rating" xsi:type="select" required="false" visible="true" source_model="Magento\Config\Model\Config\Source\Yesno">
                 <label translate="true">Show rating stars</label>
             </parameter>
+            <parameter name="img_width" xsi:type="text" required="false" visible="true">
+                <label translate="true">Image Width, px</label>
+                <description>If empty, value from testimonials list configuration will be used</description>
+            </parameter>
+            <parameter name="img_height" xsi:type="text" required="false" visible="true">
+                <label translate="true">Image Height, px</label>
+                <description>If empty, value from testimonials list configuration will be used</description>
+            </parameter>
         </parameters>
     </widget>
 </widgets>
