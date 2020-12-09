@@ -110,7 +110,7 @@ class Slider extends \Magento\Framework\View\Element\Template
         $params = [
             "slidesPerView" => $this->getVisibleSlides(),
             "slidesToScroll" => 1,
-            "freeMode" => true,
+            "freeMode" => false,
             "loop" => true,
             'navigation' => [
                 'nextEl' => '.swiper-button-next',
