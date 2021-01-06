@@ -57,6 +57,6 @@ class SideList extends \Magento\Framework\View\Element\Template
     }
     public function getListUrl()
     {
-        return $this->getUrl('testimonials/index/index');
+        return $this->getUrl('testimonials');
     }
 }

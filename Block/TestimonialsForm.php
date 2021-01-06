@@ -69,7 +69,7 @@ class TestimonialsForm extends \Magento\Framework\View\Element\Template implemen
      */
     public function getListAction()
     {
-        return $this->getUrl('testimonials/index/index');
+        return $this->getUrl('testimonials');
     }
 
     /**
