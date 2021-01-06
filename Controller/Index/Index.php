@@ -36,6 +36,12 @@ class Index extends \Magento\Framework\App\Action\Action
         $pageConfig = $resultPage->getConfig();
         $pageConfig->setPageLayout($layout);
 
+        $pageConfig->addRemotePageAsset(
+            $this->_url->getUrl('testimonials'),
+            'canonical',
+            ['attributes' => ['rel' => 'canonical']]
+        );
+
         return $resultPage;
     }
 }
