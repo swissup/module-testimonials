@@ -16,12 +16,12 @@ class Data extends \Magento\Framework\Model\AbstractModel implements DataInterfa
     /**
      * cache tag
      */
-    const CACHE_TAG = 'testimonials_data';
+    const CACHE_TAG = 'testimonial';
 
     /**
      * @var string
      */
-    protected $_cacheTag = 'testimonials_data';
+    protected $_cacheTag = 'testimonial';
 
     /**
      * Prefix of model events names

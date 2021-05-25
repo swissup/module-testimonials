@@ -125,13 +125,15 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
      */
     public function getIdentities()
     {
-        $result = [];
+        $identities = [];
         $testimonials = $this->getTestimonials();
         foreach ($testimonials as $testimonial) {
-            $result[] = TestimonialsModel::CACHE_TAG . '_' . $testimonial->getId();
+            $identities[] = $testimonial->getIdentities();
         }
 
-        return $result;
+        $identities[] = [TestimonialsModel::CACHE_TAG];
+
+        return array_unique(array_merge([], ...$identities));
     }
 
     /**
