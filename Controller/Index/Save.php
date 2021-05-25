@@ -1,19 +1,12 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
-use Swissup\Testimonials\Api\Data\DataInterface;
-use Magento\Store\Model\ScopeInterface;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\App\Request\DataPersistorInterface;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 
 class Save extends \Magento\Framework\App\Action\Action
 {
-    /**
-     * Generic session
-     *
-     * @var \Magento\Framework\Session\Generic
-     */
-    protected $testimonialSession;
-
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
@@ -40,43 +33,48 @@ class Save extends \Magento\Framework\App\Action\Action
     protected $imageModel;
 
     /**
-     * @var \Magento\Customer\Model\Session
-     */
-    private $customerSession;
-
-    /**
      * @var \Swissup\Testimonials\Model\DataFactory
      */
     protected $testimonialsFactory;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    private $customerSession;
+
+    /**
+     * @var DataPersistorInterface
+     */
+    private $dataPersistor;
+
+    /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
-     * @param \Magento\Framework\Session\Generic $testimonialSession
      * @param \Swissup\Core\Api\Media\FileInfoInterface $imageModel
      * @param \Swissup\Testimonials\Model\Upload $uploadModel
-     * @param \Magento\Customer\Model\Session $customerSession
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param DataPersistorInterface $dataPersistor
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
-        \Magento\Framework\Session\Generic $testimonialSession,
         \Swissup\Core\Api\Media\FileInfoInterface $imageModel,
         \Swissup\Testimonials\Model\Upload $uploadModel,
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
         \Magento\Customer\Model\Session $customerSession,
-        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+        DataPersistorInterface $dataPersistor
     ) {
         parent::__construct($context);
         $this->storeManager = $storeManager;
         $this->configHelper = $configHelper;
-        $this->testimonialSession = $testimonialSession;
         $this->uploadModel = $uploadModel;
         $this->imageModel = $imageModel;
-        $this->customerSession = $customerSession;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->customerSession = $customerSession;
+        $this->dataPersistor = $dataPersistor;
     }
 
     /**
@@ -100,42 +98,21 @@ class Save extends \Magento\Framework\App\Action\Action
         return parent::dispatch($request);
     }
 
-    protected function redirectReferer()
-    {
-        $this->_redirect($this->_redirect->getRedirectUrl());
-    }
-
     /**
      * Save user testimonial
      *
-     * @return void
-     * @throws \Exception
+     * @return \Magento\Framework\Controller\Result\Redirect
      */
     public function execute()
     {
         $post = $this->getRequest()->getPostValue();
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         if (!$post) {
-            $this->redirectReferer();
-
-            return;
+            return $resultRedirect->setRefererUrl();
         }
+
         try {
-            $error = false;
-            if (!\Zend_Validate::is(trim($post['name']), 'NotEmpty')) {
-                $error = true;
-            }
-            if (!\Zend_Validate::is(trim($post['message']), 'NotEmpty')) {
-                $error = true;
-            }
-            if (!\Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                $error = true;
-            }
-            if ($this->configHelper->isRatingRequired() && (!isset($post['rating']) ||
-                !\Zend_Validate::is(trim($post['rating']), 'NotEmpty')))
-            {
-                $error = true;
-            }
-            if ($error) {
+            if (!$this->validate($post)) {
                 throw new \Exception(__('Please fill all required fields.'));
             }
             $post['store_id'] = $this->storeManager->getStore()->getId();
@@ -154,19 +131,39 @@ class Save extends \Magento\Framework\App\Action\Action
             $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
             $model->save();
             $this->messageManager->addSuccess(__($this->configHelper->getSentMessage()));
-            $this->redirectReferer();
-
-            return;
+            $this->dataPersistor->clear('testimonials_form_data');
         } catch (\Exception $e) {
             $this->messageManager->addError(__($e->getMessage()));
-            $this->testimonialSession->setFormData(
-                $post
-            )->setRedirectUrl(
-                $this->_redirect->getRefererUrl()
-            );
-            $this->redirectReferer();
-
-            return;
+            $this->dataPersistor->set('testimonials_form_data', $post);
         }
+
+        return $resultRedirect->setRefererUrl();
+    }
+
+    /**
+     * Validate form data
+     *
+     * @param  array $data
+     * @return bool
+     */
+    protected function validate($data)
+    {
+        $valid = true;
+        if (!\Zend_Validate::is(trim($data['name']), 'NotEmpty')) {
+            $valid = false;
+        }
+        if (!\Zend_Validate::is(trim($data['message']), 'NotEmpty')) {
+            $valid = false;
+        }
+        if (!\Zend_Validate::is(trim($data['email']), 'EmailAddress')) {
+            $valid = false;
+        }
+        if ($this->configHelper->isRatingRequired() && (!isset($data['rating']) ||
+            !\Zend_Validate::is(trim($data['rating']), 'NotEmpty')))
+        {
+            $valid = false;
+        }
+
+        return $valid;
     }
 }

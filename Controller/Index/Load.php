@@ -1,6 +1,8 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\Controller\ResultFactory;
+
 class Load extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -10,42 +12,34 @@ class Load extends \Magento\Framework\App\Action\Action
     protected $layoutFactory;
 
     /**
-     * Json encoder
-     *
-     * @var \Magento\Framework\Json\EncoderInterface
-     */
-    protected $jsonEncoder;
-
-    /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Framework\View\LayoutFactory $layoutFactory
-     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\LayoutFactory $layoutFactory,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder
-    )
-    {
+        \Magento\Framework\View\LayoutFactory $layoutFactory
+    ) {
         $this->layoutFactory = $layoutFactory;
-        $this->jsonEncoder = $jsonEncoder;
         parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\Controller\Result\Json
+     */
     public function execute()
     {
         $currentPage = (int)$this->getRequest()->getParam('page', 1);
         $testimonialsListBlock = $this->layoutFactory->create()
-            ->createBlock('Swissup\Testimonials\Block\TestimonialsList')
+            ->createBlock(\Swissup\Testimonials\Block\TestimonialsList::class)
             ->setTemplate('Swissup_Testimonials::list.phtml')
             ->setCurrentPage($currentPage)
             ->setIsAjax(true);
 
-        $this->getResponse()->setBody(
-            $this->jsonEncoder->encode([
-                'outputHtml' => $testimonialsListBlock->toHtml(),
-                'lastPage' => $testimonialsListBlock->isLastPage()
-            ])
-        );
+        $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
+
+        return $resultJson->setData([
+            'outputHtml' => $testimonialsListBlock->toHtml(),
+            'lastPage' => $testimonialsListBlock->isLastPage()
+        ]);
     }
 }

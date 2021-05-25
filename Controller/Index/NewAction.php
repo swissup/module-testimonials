@@ -1,6 +1,8 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\Controller\ResultFactory;
+
 class NewAction extends \Magento\Framework\App\Action\Action
 {
     /**
@@ -10,30 +12,21 @@ class NewAction extends \Magento\Framework\App\Action\Action
     protected $configHelper;
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory;
-
-    /**
      * @var \Magento\Customer\Model\Session
      */
     private $customerSession;
 
     /**
      * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory resultPageFactory
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Magento\Customer\Model\Session $customerSession
-    )
-    {
+    ) {
         $this->configHelper = $configHelper;
-        $this->resultPageFactory = $resultPageFactory;
         $this->customerSession = $customerSession;
         parent::__construct($context);
     }
@@ -59,9 +52,12 @@ class NewAction extends \Magento\Framework\App\Action\Action
         return parent::dispatch($request);
     }
 
+    /**
+     * @return \Magento\Framework\View\Result\Page
+     */
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create(false, ['isIsolated' => true]);
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $layout = $this->configHelper->getFormLayout();
         $pageConfig = $resultPage->getConfig();
         $pageConfig->setPageLayout($layout);

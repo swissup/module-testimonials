@@ -4,8 +4,7 @@ namespace Swissup\Testimonials\Block;
 use Swissup\Testimonials\Api\Data\DataInterface;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 
-class TestimonialsForm extends \Magento\Framework\View\Element\Template implements
-    \Magento\Framework\DataObject\IdentityInterface
+class TestimonialsForm extends \Magento\Framework\View\Element\Template
 {
     /**
      * Get extension configuration helper
@@ -34,6 +33,7 @@ class TestimonialsForm extends \Magento\Framework\View\Element\Template implemen
         array $data = []
     ) {
         parent::__construct($context, $data);
+        $this->_isScopePrivate = true;
         $this->configHelper = $configHelper;
         $this->formHelper = $formHelper;
     }
@@ -70,15 +70,5 @@ class TestimonialsForm extends \Magento\Framework\View\Element\Template implemen
     public function getListAction()
     {
         return $this->getUrl('testimonials');
-    }
-
-    /**
-     * Return identifiers for produced content
-     *
-     * @return array
-     */
-    public function getIdentities()
-    {
-        return [TestimonialsModel::CACHE_TAG . '_' . 'form'];
     }
 }

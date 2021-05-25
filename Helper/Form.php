@@ -3,6 +3,7 @@ namespace Swissup\Testimonials\Helper;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Helper\View as CustomerViewHelper;
+use Magento\Framework\App\Request\DataPersistorInterface;
 
 /**
  * Testimonials form helper
@@ -24,23 +25,23 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Testimonials form data
      */
-    protected $data;
+    protected $data = null;
 
     /**
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param CustomerViewHelper $customerViewHelper
-     * @param \Magento\Framework\Session\Generic $testimonialSession
+     * @param DataPersistorInterface $dataPersistor
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         CustomerViewHelper $customerViewHelper,
-        \Magento\Framework\Session\Generic $testimonialSession
+        DataPersistorInterface $dataPersistor
     ) {
         $this->customerSession = $customerSession;
         $this->customerViewHelper = $customerViewHelper;
-        $this->data = $testimonialSession->getFormData(true);
+        $this->dataPersistor = $dataPersistor;
         parent::__construct($context);
     }
 
@@ -51,8 +52,8 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getUserName()
     {
-        if (!empty($this->data['name'])) {
-            return $this->data['name'];
+        if ($name = $this->getPostValue('name')) {
+            return $name;
         }
         if (!$this->customerSession->isLoggedIn()) {
             return '';
@@ -72,8 +73,8 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getUserEmail()
     {
-        if (!empty($this->data['email'])) {
-            return $this->data['email'];
+        if ($email = $this->getPostValue('email')) {
+            return $email;
         }
         if (!$this->customerSession->isLoggedIn()) {
             return '';
@@ -93,8 +94,8 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getCompany()
     {
-        if (!empty($this->data['company'])) {
-            return $this->data['company'];
+        if ($company = $this->getPostValue('company')) {
+            return $company;
         }
         return '';
     }
@@ -106,8 +107,8 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getWebsite()
     {
-        if (!empty($this->data['website'])) {
-            return $this->data['website'];
+        if ($website = $this->getPostValue('website')) {
+            return $website;
         }
         return '';
     }
@@ -119,8 +120,8 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getTwitter()
     {
-        if (!empty($this->data['twitter'])) {
-            return $this->data['twitter'];
+        if ($twitter = $this->getPostValue('twitter')) {
+            return $twitter;
         }
         return '';
     }
@@ -132,11 +133,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getFacebook()
     {
-        if (!empty($this->data['facebook'])) {
-            return $this->data['facebook'];
+        if ($facebook = $this->getPostValue('facebook')) {
+            return $facebook;
         }
         return '';
-
     }
 
     /**
@@ -146,11 +146,10 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getMessage()
     {
-        if (!empty($this->data['message'])) {
-            return $this->data['message'];
+        if ($message = $this->getPostValue('message')) {
+            return $message;
         }
         return '';
-
     }
 
     /**
@@ -160,6 +159,26 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getRating()
     {
-        return isset($this->data['rating']) ? $this->data['rating'] : -1;
+        return $this->getPostValue('rating') ?? -1;
+    }
+
+    /**
+     * Get value from POST by key
+     *
+     * @param string $key
+     * @return string
+     */
+    protected function getPostValue($key)
+    {
+        if ($this->data === null) {
+            $this->data = (array) $this->dataPersistor->get('testimonials_form_data');
+            $this->dataPersistor->clear('testimonials_form_data');
+        }
+
+        if (isset($this->data[$key])) {
+            return (string) $this->data[$key];
+        }
+
+        return '';
     }
 }

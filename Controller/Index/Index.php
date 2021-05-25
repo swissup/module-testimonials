@@ -1,38 +1,35 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\Controller\ResultFactory;
+
 class Index extends \Magento\Framework\App\Action\Action
 {
     /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    protected $_configHelper;
-    /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory;
+    protected $configHelper;
 
     /**
      * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory resultPageFactory
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Swissup\Testimonials\Helper\Config $configHelper
-    )
-    {
-        $this->_configHelper = $configHelper;
-        $this->resultPageFactory = $resultPageFactory;
+    ) {
+        $this->configHelper = $configHelper;
         parent::__construct($context);
     }
 
+    /**
+     * @return \Magento\Framework\View\Result\Page
+     */
     public function execute()
     {
-        $resultPage = $this->resultPageFactory->create(false, ['isIsolated' => true]);
-        $layout = $this->_configHelper->getListLayout();
+        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+        $layout = $this->configHelper->getListLayout();
         $pageConfig = $resultPage->getConfig();
         $pageConfig->setPageLayout($layout);
 
