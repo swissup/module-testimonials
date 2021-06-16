@@ -24,20 +24,28 @@ class Save extends \Magento\Backend\App\Action
     protected $testimonialsFactory;
 
     /**
+     * @var \Magento\Framework\Stdlib\DateTime\Filter\Date
+     */
+    protected $dateFilter;
+
+    /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
      * @param \Swissup\Testimonials\ImageUpload $imageUploader
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
         \Magento\Catalog\Model\ImageUploader $imageUploader,
-        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
     ) {
         $this->dataPersistor = $dataPersistor;
         $this->imageUploader = $imageUploader;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->dateFilter = $dateFilter;
         parent::__construct($context);
     }
 
@@ -58,6 +66,10 @@ class Save extends \Magento\Backend\App\Action
 
             if (empty($data['testimonial_id'])) {
                 $data['testimonial_id'] = null;
+            }
+
+            if (!empty($data['date'])) {
+                $data['date'] = $this->dateFilter->filter($data['date']);
             }
 
             $id = $this->getRequest()->getParam('testimonial_id');
