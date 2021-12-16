@@ -29,23 +29,15 @@ class Testimonials implements ResolverInterface
     private $storeManager;
 
     /**
-     * @var \Magento\Customer\Model\Session
-     */
-    private $customerSession;
-
-    /**
      * @param DataProvider $dataProvider
      * @param StoreManagerInterface $storeManager
-     * @param \Magento\Customer\Model\Session $customerSession
      */
     public function __construct(
         DataProvider $dataProvider,
-        StoreManagerInterface $storeManager,
-        \Magento\Customer\Model\Session $customerSession
+        StoreManagerInterface $storeManager
     ) {
         $this->dataProvider = $dataProvider;
         $this->storeManager = $storeManager;
-        $this->customerSession = $customerSession;
     }
 
     /**
@@ -91,13 +83,6 @@ class Testimonials implements ResolverInterface
 
             if (isset($args['currentPage'])) {
                 $provider->setCurrentPage((int) $args['currentPage']);
-            }
-
-            if($this->customerSession->isLoggedIn()) {
-                $customer = $this->customerSession->getCustomer();
-                if ($customer && $customer->getId()) {
-                    $provider->setCustomerId((int) $customer->getId());
-                }
             }
 
             $data = $provider->getData();
