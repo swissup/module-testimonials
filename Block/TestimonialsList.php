@@ -211,18 +211,4 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
 
         return $company;
     }
-
-    /**
-     * @return string
-     */
-    public function getJsConfig()
-    {
-        $jsConfig = [
-            'swissupTestimonialsList' => [
-                'loadAction' => $this->getLoadAction()
-            ]
-        ];
-
-        return json_encode($jsConfig);
-    }
 }

@@ -2,7 +2,7 @@
 <?php $testimonials = $block->getTestimonials(); ?>
 <?php if (!$block->getIsAjax()): ?>
 <div class="testimonials-list">
-    <div class="testimonials" data-mage-init='<?= $block->getJsConfig() ?>'>
+    <div class="testimonials" data-mage-init='{"Swissup_Testimonials/js/list":{"loadAction":"<?= $block->escapeUrl($block->getLoadAction()) ?>"}}'>
 <?php endif; ?>
     <?php if($testimonials->getSize()): ?>
         <?php /** @var $testimonial \Swissup\Testimonials\Model\Data */ ?>
@@ -12,13 +12,17 @@
                     <?= $block->escapeHtml($testimonial->getMessage()); ?>
                     <div class="arrow"></div>
                     <div class="extra-info">
-                        <small class="date nobr"><?= $block->formatDate($testimonial->getDate(), \IntlDateFormatter::LONG) ?></small>
+                        <small class="date nobr">
+                            <?= $block->formatDate($testimonial->getDate(), \IntlDateFormatter::LONG) ?>
+                        </small>
                         <?php if ($testimonial->getRating()): ?>
                         <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
                         <small class="rating nobr">
                             <div class="review-ratings">
                                 <div class="rating-summary item">
-                                    <span class="label rating-label"><span><?= __('Rating') ?></span></span>
+                                    <span class="label rating-label">
+                                        <span><?= __('Rating') ?></span>
+                                    </span>
                                     <div class="rating-result" title="<?= $ratingPercent ?>%">
                                         <span style="width:<?= $ratingPercent ?>%">
                                             <span><?= $ratingPercent ?>%</span>

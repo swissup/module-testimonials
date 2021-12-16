@@ -19,7 +19,9 @@
                         <div class="rating nobr">
                             <div class="review-ratings">
                                 <div class="rating-summary item">
-                                    <span class="label rating-label"><span><?= __('Rating') ?></span></span>
+                                    <span class="label rating-label">
+                                        <span><?= __('Rating') ?></span>
+                                    </span>
                                     <div class="rating-result" title="<?= $ratingPercent ?>%">
                                         <span style="width:<?= $ratingPercent ?>%">
                                             <span><?= $ratingPercent ?>%</span>
@@ -29,7 +31,9 @@
                             </div>
                         </div>
                         <?php endif; ?>
-                        <p class="testimonial-message"><?= $block->escapeHtml($testimonial->getMessage()); ?></p>
+                        <p class="testimonial-message">
+                            <?= $block->escapeHtml($testimonial->getMessage()); ?>
+                        </p>
                         <div class="arrow"></div>
                     </blockquote>
                     <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
