@@ -1,7 +1,7 @@
 type Query {
     getTestimonials (
-        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+        pageSize: Int = 6 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
     ): Testimonials
     @resolver(class: "Swissup\\Testimonials\\Model\\Resolver\\Testimonials") @doc(description: ".")
     @cache(cacheIdentity: "Swissup\\Testimonials\\Model\\Resolver\\Testimonials\\Identity")

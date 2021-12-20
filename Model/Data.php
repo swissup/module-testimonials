@@ -47,7 +47,8 @@ class Data extends \Magento\Framework\Model\AbstractModel implements DataInterfa
      */
     public function getAvailableStatuses()
     {
-        return [self::STATUS_ENABLED => __('Enabled'),
+        return [
+            self::STATUS_ENABLED => __('Enabled'),
             self::STATUS_DISABLED => __('Disabled'),
             self::STATUS_AWAITING_APPROVAL => __('Awaiting approval')
         ];

@@ -2,6 +2,7 @@
 namespace Swissup\Testimonials\Block\Widgets;
 
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
+use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonials as DataProvider;
 
 class Slider extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
@@ -11,9 +12,9 @@ class Slider extends \Magento\Framework\View\Element\Template
     const DEFAULT_VISIBLE_SLIDES = 2;
 
     /**
-     * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
+     * @var DataProvider
      */
-    private $testimonialsCollectionFactory;
+    private $dataProvider;
 
     /**
      * Get testimonials list helper
@@ -23,18 +24,18 @@ class Slider extends \Magento\Framework\View\Element\Template
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory
+     * @param DataProvider $dataProvider
      * @param \Swissup\Testimonials\Helper\ListHelper $listHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
+        DataProvider $dataProvider,
         \Swissup\Testimonials\Helper\ListHelper $listHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->testimonialsCollectionFactory = $testimonialsCollectionFactory;
+        $this->dataProvider = $dataProvider;
         $this->listHelper = $listHelper;
     }
 
@@ -54,20 +55,29 @@ class Slider extends \Magento\Framework\View\Element\Template
     {
         if (!$this->hasData('testimonials')) {
             $storeId = $this->_storeManager->getStore()->getId();
-            $testimonials = $this->testimonialsCollectionFactory
-                ->create()
+
+            $dataProvider = $this->dataProvider
                 ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
-                ->addWidgetFilter(1)
-                ->addStoreFilter($storeId);
+                ->addWidgetFilter(true)
+                ->addStoreFilter([\Magento\Store\Model\Store::DEFAULT_STORE_ID, $storeId])
+                ->setRandomOrder(true)
+                ->setCurPage(1)
+                ->setPageSize($this->getItemsNumber())
+            ;
+            $collection = $dataProvider->getCollection();
 
-            $testimonials->getSelect()
-                    ->order(new \Zend_Db_Expr('RAND()'))
-                    ->limit($this->getItemsNumber());
-
-            $this->setData('testimonials', $testimonials);
+            $this->setData('testimonials', $collection);
         }
 
         return $this->getData('testimonials');
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getDataProviderConfig()
+    {
+       return json_encode($this->dataProvider->getConfig(), JSON_HEX_APOS);
     }
 
     /**

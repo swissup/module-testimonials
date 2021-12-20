@@ -75,14 +75,17 @@ class Testimonials implements ResolverInterface
             $stores = [Store::DEFAULT_STORE_ID];
             $storeId = (int) $this->storeManager->getStore()->getId();
             $stores[] = $storeId;
-            $provider->setStores($stores);
+            $provider->addStoreFilter($stores);
+            $provider->addWidgetFilter(true);
+            $provider->setRandomOrder(true);
+            $provider->addStatusFilter(\Swissup\Testimonials\Model\Data::STATUS_ENABLED);
 
             if (isset($args['pageSize'])) {
                 $provider->setPageSize((int) $args['pageSize']);
             }
 
             if (isset($args['currentPage'])) {
-                $provider->setCurrentPage((int) $args['currentPage']);
+                $provider->setCurPage((int) $args['currentPage']);
             }
 
             $data = $provider->getData();

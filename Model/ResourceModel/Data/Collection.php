@@ -223,4 +223,15 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             ->where('main_table.rating > 0');
         return $this;
     }
+
+    /**
+     * Set random items order
+     *
+     * @return $this
+     */
+    public function setRandomOrder()
+    {
+        $this->getConnection()->orderRand($this->getSelect());
+        return $this;
+    }
 }

@@ -4,6 +4,7 @@ namespace Swissup\Testimonials\Block;
 use Swissup\Testimonials\Api\Data\DataInterface;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
+use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonials as DataProvider;
 
 class TestimonialsList extends \Magento\Framework\View\Element\Template implements
     \Magento\Framework\DataObject\IdentityInterface,
@@ -27,6 +28,11 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     const TWITTER_ICON = 'Swissup_Testimonials::images/twitter.png';
 
     /**
+     * @var DataProvider
+     */
+    private $dataProvider;
+
+    /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
@@ -39,28 +45,23 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     private $listHelper;
 
     /**
-     * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
-     */
-    private $testimonialsCollectionFactory;
-
-    /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory
+     * @param DataProvider $dataProvider
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Swissup\Testimonials\Helper\ListHelper $listHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
+        DataProvider $dataProvider,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Swissup\Testimonials\Helper\ListHelper $listHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->testimonialsCollectionFactory = $testimonialsCollectionFactory;
+        $this->dataProvider = $dataProvider;
         $this->configHelper = $configHelper;
         $this->listHelper = $listHelper;
     }
@@ -81,17 +82,19 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     {
         if (!$this->hasData('testimonials')) {
             $storeId = $this->_storeManager->getStore()->getId();
-            $testimonials = $this->testimonialsCollectionFactory
-                ->create()
+            $dataProvider = $this->dataProvider
                 ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
-                ->addStoreFilter($storeId)
-                ->addOrder(
+                ->addStoreFilter([\Magento\Store\Model\Store::DEFAULT_STORE_ID, $storeId])
+                ->setOrder(
                     DataInterface::DATE,
                     TestimonialsCollection::SORT_ORDER_DESC
                 )
                 ->setCurPage($this->getCurrentPage())
-                ->setPageSize($this->configHelper->getTestimonialsPerPage());
-            $this->setData('testimonials', $testimonials);
+                ->setPageSize($this->configHelper->getTestimonialsPerPage())
+            ;
+            $collection = $dataProvider->getCollection();
+
+            $this->setData('testimonials', $collection);
         }
 
         return $this->getData('testimonials');

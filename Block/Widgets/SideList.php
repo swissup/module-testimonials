@@ -3,6 +3,7 @@ namespace Swissup\Testimonials\Block\Widgets;
 
 use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
+use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonials as DataProvider;
 /**
  * Class side list widget
  * @package Swissup\Testimonials\Block\Widgets
@@ -11,20 +12,26 @@ class SideList extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
 {
     const DEFAULT_LIST_TEMPLATE = 'widgets/sidelist.phtml';
+
+    /**
+     * @var DataProvider
+     */
+    private $dataProvider;
+
     /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
+     * @param DataProvider $dataProvider
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
+        DataProvider $dataProvider,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->_testimonialsCollectionFactory = $testimonialsCollectionFactory;
+        $this->dataProvider = $dataProvider;
     }
 
     public function _construct()
@@ -41,17 +48,17 @@ class SideList extends \Magento\Framework\View\Element\Template
     {
         if (!$this->hasData('testimonials')) {
             $storeId = $this->_storeManager->getStore()->getId();
-            $testimonials = $this->_testimonialsCollectionFactory
-                ->create()
+            $dataProvider = $this->dataProvider
                 ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
                 ->addWidgetFilter(1)
-                ->addStoreFilter($storeId);
+                ->addStoreFilter([\Magento\Store\Model\Store::DEFAULT_STORE_ID, $storeId])
+                ->setRandomOrder()
+                ->setCurPage(1)
+                ->setPageSize($this->getItemsNumber())
+            ;
+            $collection = $dataProvider->getCollection();
 
-            $testimonials->getSelect()
-                    ->order(new \Zend_Db_Expr('RAND()'))
-                    ->limit($this->getItemsNumber());
-
-            $this->setData('testimonials', $testimonials);
+            $this->setData('testimonials', $collection);
         }
         return $this->getData('testimonials');
     }

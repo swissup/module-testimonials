@@ -28,6 +28,31 @@ class Testimonials
     private $currentPage = 1;
 
     /**
+     * @var int|null
+     */
+    private $status = null;
+
+    /**
+     * @var null|bool
+     */
+    private $isWidget = null;
+
+    /**
+     * @var null|bool
+     */
+    private $isRandomOrder = null;
+
+    /**
+     * @var string
+     */
+    private $orderField = DataInterface::DATE;
+
+    /**
+     * @var string
+     */
+    private $orderDirection = \Swissup\Testimonials\Model\ResourceModel\Data\Collection::SORT_ORDER_DESC;
+
+    /**
      *
      * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
      */
@@ -45,9 +70,9 @@ class Testimonials
     /**
      *
      * @param array $stores
-     * @return Messages
+     * @return $this
      */
-    public function setStores(array $stores)
+    public function addStoreFilter(array $stores)
     {
         $this->stores = $stores;
         return $this;
@@ -56,23 +81,115 @@ class Testimonials
     /**
      *
      * @param int $pageSize
-     * @return Messages
+     * @return $this
      */
-    public function setPageSize(int $pageSize)
+    public function setPageSize($pageSize)
     {
-        $this->pageSize = $pageSize;
+        $this->pageSize = (int) $pageSize;
         return $this;
     }
 
     /**
      *
      * @param int $currentPage
-     * @return Messages
+     * @return $this
      */
-    public function setCurrentPage(int $currentPage)
+    public function setCurPage($currentPage)
     {
-        $this->currentPage = $currentPage;
+        $this->currentPage = (int) $currentPage;
         return $this;
+    }
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function addWidgetFilter(bool $status = true)
+    {
+        $this->isWidget = (bool) $status;
+        return $this;
+    }
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function setRandomOrder(bool $status = true)
+    {
+        $this->isRandomOrder = (bool) $status;
+        return $this;
+    }
+
+    /**
+     * @param int $status
+     * @return $this
+     */
+    public function addStatusFilter($status)
+    {
+        $this->status = (int) $status;
+        return $this;
+    }
+
+    /**
+     * @param $field
+     * @param $direction
+     * @return $this
+     */
+    public function setOrder($field, $direction)
+    {
+        $this->orderField = (string) $field;
+        $this->orderDirection = (string) $direction;
+        return $this;
+    }
+
+    /**
+     * @return \Swissup\Testimonials\Model\ResourceModel\Data\Collection
+     */
+    public function getCollection()
+    {
+        $pageSize = $this->pageSize;
+        $currentPage = $this->currentPage;
+
+        /* @var $collection \Swissup\Testimonials\Model\ResourceModel\Data\Collection */
+        $collection = $this->collectionFactory->create()
+            ->setCurPage($currentPage)
+            ->setPageSize($pageSize)
+        ;
+        if ($this->status !== null) {
+             $collection->addStatusFilter($this->status);
+        }
+
+        if ($this->isWidget !== null) {
+            $collection->addWidgetFilter($this->isWidget ? 1 : 0);
+        }
+
+        if (count($this->stores) > 0) {
+            $stores = $this->stores;
+            $collection->addStoreFilter($stores);
+        }
+
+        if ($this->isRandomOrder === true) {
+            $collection->setRandomOrder();
+        } else {
+            $collection->addOrder($this->orderField, $this->orderDirection);
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return [
+            'currentPage' => $this->currentPage,
+            'pageSize' => $this->pageSize,
+//            \Swissup\Testimonials\Model\Data::STATUS => $this->status,
+//            'isWidget' => $this->isWidget,
+//            'isRandomOrder' => $this->isRandomOrder,
+//            'store' => $this->stores,
+        ];
     }
 
     /**
@@ -84,34 +201,8 @@ class Testimonials
         $pageSize = $this->pageSize;
         $currentPage = $this->currentPage;
 
-//        $collection = $this->collectionFactory->create()
-//            ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
-//        ;
-
-//        $testimonials = $this->collectionFactory
-//            ->create()
-//            ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
-//            ->addWidgetFilter(1)
-//;
-//        $testimonials->getSelect()
-//            ->order(new \Zend_Db_Expr('RAND()'))
-//            ->limit($this->getItemsNumber());
-
-        $collection = $this->collectionFactory
-            ->create()
-            ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
-            ->addOrder(
-                DataInterface::DATE,
-                \Swissup\Testimonials\Model\ResourceModel\Data\Collection::SORT_ORDER_DESC
-            )
-            ->setCurPage($currentPage)
-            ->setPageSize($pageSize)
-        ;
-
-        if (count($this->stores) > 0) {
-            $stores = $this->stores;
-            $collection->addStoreFilter($stores);
-        }
+        $collection = $this->getCollection();
+//        ray($collection);
 
         $totalCount = $collection->getSize();
         $totalPages = ceil($totalCount / $pageSize);
