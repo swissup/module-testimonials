@@ -1,5 +1,7 @@
 <?php /** @var $block \Swissup\Testimonials\Block\TestimonialsList */ ?>
-<?php $testimonials = $block->getTestimonials(); ?>
+<?php $testimonials = $block->getTestimonials();
+    $configHelper = $block->getConfigHelper();
+?>
 <?php if (!$block->getIsAjax()): ?>
 <div class="testimonials-list">
     <div class="testimonials" data-mage-init='{"Swissup_Testimonials/js/list":{"loadAction":"<?= $block->escapeUrl($block->getLoadAction()) ?>"}}'>
@@ -38,11 +40,43 @@
                     <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
                     <div class="author">
                         <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
-                        <?php if ($companyHtml = $block->getCompanyHtml($testimonial)): ?>
-                        <p><?= $companyHtml ?></p>
+                        <?php
+                        $company = $testimonial->getCompany();
+                        $isCompanyEnabled = $configHelper->isCompanyEnabled() && $company;
+                        $website = $testimonial->getWebsite();
+                        $isWebsiteEnabled = $configHelper->isWebsiteEnabled() && $website;
+                        if ($isCompanyEnabled && $isWebsiteEnabled): ?>
+                        <p>
+                            <a href="<?= $block->escapeUrl($website) ?>" target='_blank'>
+                                <?= $block->escapeHtml($company) ?>
+                            </a>
+                        </p>
                         <?php endif; ?>
-                        <?php if ($contacts = $block->getContactsHtml($testimonial)): ?>
-                        <p class="contacts-info"><?= $contacts ?></p>
+                        <?php
+                        $email = $testimonial->getEmail();
+                        $isShowUserEmail = $configHelper->showUserEmail() && $email;
+                        $facebook = $testimonial->getFacebook();
+                        $isFacebookEnabled = $configHelper->isFacebookEnabled() && $facebook;
+                        $twitter = $testimonial->getTwitter();
+                        $isTwitterEnabled = $configHelper->isTwitterEnabled() && $twitter;
+                        if ($isShowUserEmail || $isFacebookEnabled || $isTwitterEnabled): ?>
+                        <p class="contacts-info">
+                            <?php if ($isShowUserEmail): ?>
+                            <a title="<?= $block->escapeHtml(__('Email')) ?>" href="mailto:<?= $block->escapeHtml($email) ?>" target="_blank">
+                                <img src="<?= $block->getEmailIconUrl() ?>" />
+                            </a>
+                            <?php endif; ?>
+                            <?php if ($isFacebookEnabled): ?>
+                            <a title="<?= $block->escapeHtml(__('Facebook')) ?>" href="<?= $block->escapeUrl($facebook) ?>" target="_blank">
+                                <img src="<?= $block->getFacebookIconUrl() ?>" />
+                            </a>
+                            <?php endif; ?>
+                            <?php if ($isTwitterEnabled): ?>
+                            <a title="<?= $block->escapeHtml(__('Twitter')) ?>" href="<?= $block->escapeUrl($twitter) ?>" target="_blank">
+                                <img src="<?= $block->getTwitterIconUrl() ?>" />
+                            </a>
+                            <?php endif; ?>
+                        </p>
                         <?php endif; ?>
                     </div>
                 </div>

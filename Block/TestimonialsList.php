@@ -152,40 +152,27 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     }
 
     /**
-     * @param  \Swissup\Testimonials\Model\Data $testimonial
      * @return string
      */
-    public function getContactsHtml($testimonial)
+    public function getEmailIconUrl()
     {
-        $result = '';
-        if ($this->configHelper->showUserEmail()) {
-            $email = $this->escapeHtml($testimonial->getEmail());
-            if ($email) {
-                $icon = $this->getViewFileUrl(self::EMAIL_ICON);
-                $title = __('Email');
-                $result .= "<a title='$title' href='$email' target='_blank'><img src='$icon' /></a>";
-            }
-        }
+        return $this->getViewFileUrl(self::EMAIL_ICON);
+    }
 
-        if ($this->configHelper->isFacebookEnabled()) {
-            $facebook = $this->escapeUrl($testimonial->getFacebook());
-            if ($facebook) {
-                $fbIcon = $this->getViewFileUrl(self::FACEBOOK_ICON);
-                $fbTitle = __('Facebook');
-                $result .= "<a title='$fbTitle' href='$facebook' target='_blank'><img src='$fbIcon' /></a>";
-            }
-        }
+    /**
+     * @return string
+     */
+    public function getFacebookIconUrl()
+    {
+        return $this->getViewFileUrl(self::FACEBOOK_ICON);
+    }
 
-        if ($this->configHelper->isTwitterEnabled()) {
-            $twitter = $this->escapeUrl($testimonial->getTwitter());
-            if ($twitter) {
-                $twtrIcon = $this->getViewFileUrl(self::TWITTER_ICON);
-                $twtrTitle = __('Twitter');
-                $result .= "<a title='$twtrTitle' href='$twitter' target='_blank'><img src='$twtrIcon' /></a>";
-            }
-        }
-
-        return $result;
+    /**
+     * @return string
+     */
+    public function getTwitterIconUrl()
+    {
+        return $this->getViewFileUrl(self::TWITTER_ICON);
     }
 
     /**
@@ -199,19 +186,10 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     }
 
     /**
-     * @param  \Swissup\Testimonials\Model\Data $testimonial
-     * @return string|bool
+     * @return \Swissup\Testimonials\Helper\Config
      */
-    public function getCompanyHtml($testimonial)
+    public function getConfigHelper()
     {
-        $company = $this->escapeHtml($testimonial->getCompany());
-        if (!$this->configHelper->isCompanyEnabled() || !$company) return false;
-
-        $website = $this->escapeUrl($testimonial->getWebsite());
-        if ($website && $this->configHelper->isWebsiteEnabled()) {
-            $company = "<a href='$website' target='_blank'>$company</a>";
-        }
-
-        return $company;
+        return $this->configHelper;
     }
 }
