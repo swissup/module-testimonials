@@ -27,7 +27,7 @@ interface TestimonialInterface @typeResolver(class: "Swissup\\Testimonials\\Mode
     website: String @doc(description: "")
     twitter: String @doc(description: "")
     facebook: String @doc(description: "")
-    image: String @doc(description: "")
+    image: String @doc(description: "URL") @resolver(class: "\\Swissup\\Testimonials\\Model\\Resolver\\Testimonials\\ImageUrl")
     rating: Int @doc(description: "")
     widget: Boolean @doc(description: "")
 }
