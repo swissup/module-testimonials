@@ -19,7 +19,7 @@ type Testimonial implements TestimonialInterface @doc(description: "") {
 interface TestimonialInterface @typeResolver(class: "Swissup\\Testimonials\\Model\\Resolver\\TestimonialTypeResolver") @doc(description: "") {
     testimonial_id: ID @doc(description: "")
     status: ID @doc(description: "")
-    date: String @doc(description: "")
+    date: String @doc(description: "") @resolver(class: "\\Swissup\\Testimonials\\Model\\Resolver\\Testimonials\\DateFormat")
     name: String @doc(description: "")
     email: String @doc(description: "")
     message: String @doc(description: "")
