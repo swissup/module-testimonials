@@ -184,12 +184,4 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     {
         return $this->listHelper->getRatingPercent($testimonial);
     }
-
-    /**
-     * @return \Swissup\Testimonials\Helper\Config
-     */
-    public function getConfigHelper()
-    {
-        return $this->configHelper;
-    }
 }

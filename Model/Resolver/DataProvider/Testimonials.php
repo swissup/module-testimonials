@@ -59,12 +59,21 @@ class Testimonials
     private $collectionFactory;
 
     /**
+     * Get extension configuration helper
+     * @var \Swissup\Testimonials\Helper\Config
+     */
+    private $configHelper;
+
+    /**
      * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory
+     * @param \Swissup\Testimonials\Helper\Config $configHelper
      */
     public function __construct(
-        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory
+        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory,
+        \Swissup\Testimonials\Helper\Config $configHelper
     ) {
         $this->collectionFactory = $collectionFactory;
+        $this->configHelper = $configHelper;
     }
 
     /**
@@ -231,17 +240,18 @@ class Testimonials
      */
     protected function getDataArray(DataInterface $item): array
     {
+        $configHelper = $this->configHelper;
         $data = [
             DataInterface::TESTIMONIAL_ID => $item->getId(),
             DataInterface::STATUS         => $item->getStatus(),
             DataInterface::DATE           => $item->getDate(),
             DataInterface::NAME           => $item->getName(),
-            DataInterface::EMAIL          => $item->getEmail(),
+            DataInterface::EMAIL          => $configHelper->showUserEmail() ? $item->getEmail() : null,
             DataInterface::MESSAGE        => $item->getMessage(),
-            DataInterface::COMPANY        => $item->getCompany(),
-            DataInterface::WEBSITE        => $item->getWebsite(),
-            DataInterface::TWITTER        => $item->getTwitter(),
-            DataInterface::FACEBOOK       => $item->getFacebook(),
+            DataInterface::COMPANY        => $configHelper->isCompanyEnabled() ? $item->getCompany() : null,
+            DataInterface::WEBSITE        => $configHelper->isWebsiteEnabled() ? $item->getWebsite() : null,
+            DataInterface::TWITTER        => $configHelper->isTwitterEnabled() ? $item->getTwitter() : null,
+            DataInterface::FACEBOOK       => $configHelper->isFacebookEnabled() ? $item->getFacebook() : null,
             DataInterface::IMAGE          => $item->getImage(),
             DataInterface::RATING         => $item->getRating(),
             DataInterface::WIDGET         => $item->getWidget()
