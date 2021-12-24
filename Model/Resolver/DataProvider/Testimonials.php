@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Swissup\Testimonials\Model\Resolver\DataProvider;
 
 use Swissup\Testimonials\Api\Data\DataInterface;
-use Swissup\Testimonials\Model\Data as TestimonialsModel;
+use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonial as TestimonialDataProvider;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 class Testimonials
@@ -59,21 +59,20 @@ class Testimonials
     private $collectionFactory;
 
     /**
-     * Get extension configuration helper
-     * @var \Swissup\Testimonials\Helper\Config
+     * @var TestimonialDataProvider
      */
-    private $configHelper;
+    private $testimonialDataProvider;
 
     /**
      * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory
-     * @param \Swissup\Testimonials\Helper\Config $configHelper
+     * @param TestimonialDataProvider $testimonialDataProvider
      */
     public function __construct(
         \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory,
-        \Swissup\Testimonials\Helper\Config $configHelper
+        TestimonialDataProvider $testimonialDataProvider
     ) {
         $this->collectionFactory = $collectionFactory;
-        $this->configHelper = $configHelper;
+        $this->testimonialDataProvider = $testimonialDataProvider;
     }
 
     /**
@@ -240,22 +239,9 @@ class Testimonials
      */
     protected function getDataArray(DataInterface $item): array
     {
-        $configHelper = $this->configHelper;
-        $data = [
-            DataInterface::TESTIMONIAL_ID => $item->getId(),
-            DataInterface::STATUS         => $item->getStatus(),
-            DataInterface::DATE           => $item->getDate(),
-            DataInterface::NAME           => $item->getName(),
-            DataInterface::EMAIL          => $configHelper->showUserEmail() ? $item->getEmail() : null,
-            DataInterface::MESSAGE        => $item->getMessage(),
-            DataInterface::COMPANY        => $configHelper->isCompanyEnabled() ? $item->getCompany() : null,
-            DataInterface::WEBSITE        => $configHelper->isWebsiteEnabled() ? $item->getWebsite() : null,
-            DataInterface::TWITTER        => $configHelper->isTwitterEnabled() ? $item->getTwitter() : null,
-            DataInterface::FACEBOOK       => $configHelper->isFacebookEnabled() ? $item->getFacebook() : null,
-            DataInterface::IMAGE          => $item->getImage(),
-            DataInterface::RATING         => $item->getRating(),
-            DataInterface::WIDGET         => $item->getWidget()
-        ];
+        $data = $this->testimonialDataProvider
+            ->setTestimonial($item)
+            ->getData();
 
         return $data;
     }
