@@ -31,3 +31,16 @@ interface TestimonialInterface @typeResolver(class: "Swissup\\Testimonials\\Mode
     rating: Int @doc(description: "")
     widget: Boolean @doc(description: "")
 }
+
+type Mutation {
+    createTestimonial(
+        email: String!,
+        name: String!,
+        message: String!,
+        rating: Int!,
+        company: String,
+        website: String,
+        facebook: String,
+        twitter: String
+    ): TestimonialInterface @resolver(class: "\\Swissup\\Testimonials\\Model\\Resolver\\CreateTestimonial") @doc(description:"Create testimonial")
+}
