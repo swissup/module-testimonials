@@ -44,3 +44,18 @@ type Mutation {
         twitter: String
     ): TestimonialInterface @resolver(class: "\\Swissup\\Testimonials\\Model\\Resolver\\CreateTestimonial") @doc(description:"Create testimonial")
 }
+
+type StoreConfig {
+    testimonials_general_approve : Int  @doc(description: "Extended Config Data - testimonials/general/approve")
+    testimonials_general_allowGuestSubmit : Int  @doc(description: "Extended Config Data - testimonials/general/allow_guest_submit")
+    testimonials_list_itemsPerPage : Int  @doc(description: "Extended Config Data - testimonials/list/items_per_page")
+    testimonials_list_imageWidth : Int  @doc(description: "Extended Config Data - testimonials/list/image_width")
+    testimonials_list_imageHeight : Int  @doc(description: "Extended Config Data - testimonials/list/image_height")
+    testimonials_list_showEmail : Int  @doc(description: "Extended Config Data - testimonials/list/show_email")
+    testimonials_form_enableCompany : Int  @doc(description: "Extended Config Data - testimonials/form/enable_company")
+    testimonials_form_enableWebsite : Int  @doc(description: "Extended Config Data - testimonials/form/enable_website")
+    testimonials_form_enableTwitter : Int  @doc(description: "Extended Config Data - testimonials/form/enable_twitter")
+    testimonials_form_enableFacebook : Int  @doc(description: "Extended Config Data - testimonials/form/enable_facebook")
+    testimonials_form_ratingRequired : Int  @doc(description: "Extended Config Data - testimonials/form/rating_required")
+    testimonials_form_sentMessage : String  @doc(description: "Extended Config Data - testimonials/form/sent_message")
+}

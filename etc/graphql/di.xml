@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\StoreGraphQl\Model\Resolver\Store\StoreConfigDataProvider">
+        <arguments>
+            <argument name="extendedConfigData" xsi:type="array">
+                <item name="testimonials_general_approve" xsi:type="string">testimonials/general/approve</item>
+<!--                <item name="testimonials/general/top_links" xsi:type="string">testimonials/general/top_links</item>-->
+<!--                <item name="testimonials/general/footer_links" xsi:type="string">testimonials/general/footer_links</item>-->
+                <item name="testimonials_general_allowGuestSubmit" xsi:type="string">testimonials/general/allow_guest_submit</item>
+<!--                <item name="testimonials_list_layout" xsi:type="string">testimonials/list/layout</item>-->
+                <item name="testimonials_list_itemsPerPage" xsi:type="string">testimonials/list/items_per_page</item>
+                <item name="testimonials_list_imageWidth" xsi:type="string">testimonials/list/image_width</item>
+                <item name="testimonials_list_imageHeight" xsi:type="string">testimonials/list/image_height</item>
+                <item name="testimonials_list_showEmail" xsi:type="string">testimonials/list/show_email</item>
+<!--                <item name="testimonials_list_placeholderImage" xsi:type="string">testimonials/list/placeholder_image</item>-->
+<!--                <item name="testimonials/form/layout" xsi:type="string">testimonials/form/layout</item>-->
+                <item name="testimonials_form_enableCompany" xsi:type="string">testimonials/form/enable_company</item>
+                <item name="testimonials_form_enableWebsite" xsi:type="string">testimonials/form/enable_website</item>
+                <item name="testimonials_form_enableTwitter" xsi:type="string">testimonials/form/enable_twitter</item>
+                <item name="testimonials_form_enableFacebook" xsi:type="string">testimonials/form/enable_facebook</item>
+                <item name="testimonials_form_ratingRequired" xsi:type="string">testimonials/form/rating_required</item>
+                <item name="testimonials_form_sentMessage" xsi:type="string">testimonials/form/sent_message</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
