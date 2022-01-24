@@ -10,7 +10,7 @@ define(["jquery"], function($) {
 
             viewMore.addClass('disabled');
             ++currentPage;
-            $.post(config.loadAction, { page: currentPage },
+            $.get(config.loadAction, { page: currentPage },
                 function(data) {
                     $(element).append(data.outputHtml);
                     viewMore.removeClass('disabled');
