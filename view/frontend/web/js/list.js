@@ -1,4 +1,4 @@
-define(["jquery"], function($) {
+define(['jquery'], function ($) {
     'use strict';
 
     return function (config, element) {
@@ -6,18 +6,27 @@ define(["jquery"], function($) {
             viewMore = $('#viewMore');
 
         function makeAjaxCall() {
-            if (viewMore.hasClass('disabled')) return false;
+            if (viewMore.hasClass('disabled')) {
+                return false;
+            }
 
             viewMore.addClass('disabled');
-            ++currentPage;
-            $.get(config.loadAction, { page: currentPage },
-                function(data) {
+
+            $.get({
+                url: config.loadAction,
+                dataType: 'json',
+                data: {
+                    page: ++currentPage
+                },
+                success: function (data) {
                     $(element).append(data.outputHtml);
                     viewMore.removeClass('disabled');
-                    if (data.lastPage) viewMore.hide();
-                },
-                'json'
-            );
+
+                    if (data.lastPage) {
+                        viewMore.hide();
+                    }
+                }
+            });
 
             return false;
         }
