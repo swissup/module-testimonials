@@ -6,7 +6,7 @@ define(["jquery"], function($) {
             viewMore = $('#viewMore');
 
         function makeAjaxCall() {
-            if (viewMore.hasClass('disabled')) return;
+            if (viewMore.hasClass('disabled')) return false;
 
             viewMore.addClass('disabled');
             ++currentPage;
