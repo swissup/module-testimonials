@@ -1,4 +1,12 @@
-define(['jquery'], function ($) {
+(function (factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else {
+        $.testimonialsList = factory($);
+    }
+}(function ($) {
     'use strict';
 
     return function (config, element) {
@@ -35,4 +43,4 @@ define(['jquery'], function ($) {
             viewMore.on('click', makeAjaxCall);
         }
     };
-});
+}));
