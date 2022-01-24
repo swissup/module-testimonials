@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="swissup_testimonials_data" resource="default" engine="innodb" comment="Swissup Testimonials Data Table">
+    <column xsi:type="smallint" name="testimonial_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Testimonial ID"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Testimonial status"/>
+    <column xsi:type="datetime" name="date" on_update="false" nullable="false" comment="Testimonial creation time"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="100" comment="User name"/>
+    <column xsi:type="varchar" name="email" nullable="false" length="100" comment="User email"/>
+    <column xsi:type="text" name="message" nullable="false" comment="User message"/>
+    <column xsi:type="varchar" name="company" nullable="true" length="255" comment="User company"/>
+    <column xsi:type="varchar" name="website" nullable="true" length="255" comment="User website"/>
+    <column xsi:type="varchar" name="twitter" nullable="true" length="255" comment="User twitter"/>
+    <column xsi:type="varchar" name="facebook" nullable="true" length="255" comment="User facebook"/>
+    <column xsi:type="varchar" name="image" nullable="true" length="100" comment="User image path"/>
+    <column xsi:type="smallint" name="rating" padding="6" unsigned="false" nullable="true" identity="false" comment="User rating"/>
+    <column xsi:type="smallint" name="widget" padding="6" unsigned="false" nullable="true" identity="false" default="1" comment="Show testimonial in widget"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="testimonial_id"/>
+    </constraint>
+    <index referenceId="SWISSUP_TESTIMONIALS_DATA_NAME_EMAIL_MESSAGE" indexType="fulltext">
+      <column name="name"/>
+      <column name="email"/>
+      <column name="message"/>
+    </index>
+  </table>
+  <table name="swissup_testimonials_store" resource="default" engine="innodb" comment="Swissup Testimonial To Store Linkage Table">
+    <column xsi:type="smallint" name="testimonial_id" padding="6" unsigned="false" nullable="false" identity="false" comment="Testimonial ID"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="testimonial_id"/>
+      <column name="store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_6075F59DE8F3F62A95A3F8371EA6D77D" table="swissup_testimonials_store" column="testimonial_id" referenceTable="swissup_testimonials_data" referenceColumn="testimonial_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="SWISSUP_TESTIMONIALS_STORE_STORE_ID_STORE_STORE_ID" table="swissup_testimonials_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <index referenceId="SWISSUP_TESTIMONIALS_STORE_STORE_ID" indexType="btree">
+      <column name="store_id"/>
+    </index>
+  </table>
+</schema>

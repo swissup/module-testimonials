@@ -1,0 +1,39 @@
+{
+    "swissup_testimonials_data": {
+        "column": {
+            "testimonial_id": true,
+            "status": true,
+            "date": true,
+            "name": true,
+            "email": true,
+            "message": true,
+            "company": true,
+            "website": true,
+            "twitter": true,
+            "facebook": true,
+            "image": true,
+            "rating": true,
+            "widget": true
+        },
+        "index": {
+            "SWISSUP_TESTIMONIALS_DATA_NAME_EMAIL_MESSAGE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "swissup_testimonials_store": {
+        "column": {
+            "testimonial_id": true,
+            "store_id": true
+        },
+        "index": {
+            "SWISSUP_TESTIMONIALS_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_6075F59DE8F3F62A95A3F8371EA6D77D": true,
+            "SWISSUP_TESTIMONIALS_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}
