@@ -239,6 +239,13 @@
     .block-content {
         .testimonial-container {
             min-height: 130px;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr;
+            > div {
+                grid-column: 1;
+                grid-row: 1;
+            }
         }
 
         .content {

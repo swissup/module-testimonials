@@ -5,7 +5,11 @@ if (!count($testimonials)) {
 }
 ?>
 
-<div class="widget block block-testimonials <?php if ($block->getHideBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList">
+<div class="widget block block-testimonials <?php if ($block->getHideBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList"
+    data-mage-init='{"Swissup_Testimonials/js/side-list-widget": {
+        "viewTime": <?= (int) $block->getViewTime() ?>,
+        "animDuration": <?= (int) $block->getAnimDuration() ?>
+    }}'>
     <div class="block-title">
         <strong><?= __('Testimonials') ?></strong>
     </div>
@@ -57,15 +61,3 @@ if (!count($testimonials)) {
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require([
-        'Swissup_Testimonials/js/side-list-widget'
-    ], function (sideListWidget) {
-        'use strict';
-        /* jshint ignore:start */
-        sideListWidget.init(<?= count($testimonials); ?>,
-            <?= $block->getViewTime(); ?>,
-            <?= $block->getAnimDuration(); ?>);
-        /* jshint ignore:end */
-    });
-</script>

@@ -1,4 +1,12 @@
-define(["jquery"], function($) {
+(function (factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else {
+        $.testimonialsSideList = factory($);
+    }
+}(function ($) {
     'use strict';
 
     var self,
@@ -11,12 +19,17 @@ define(["jquery"], function($) {
         changeAnimDuration;
 
     return {
-        init: function(num, showTime, animDuration) {
+        'Swissup_Testimonials/js/side-list-widget': function (config, element) {
+            this.element = $(element);
+            this.options = config;
+            this.init();
+        },
+        init: function() {
             self = this;
-            numTestimonials = num;
-            viewTime = showTime;
-            changeAnimDuration = animDuration;
-            contentHeight = $('.block-testimonials .block-content .content .content-wrapper').height();
+            numTestimonials = this.element.find('.testimonial-container > div').length;
+            viewTime = this.options.viewTime;
+            changeAnimDuration = this.options.animDuration;
+            contentHeight = this.element.find('.content-wrapper').height();
 
             if (numTestimonials > 1) {
                 self.startChangeTimer();
@@ -25,10 +38,9 @@ define(["jquery"], function($) {
                 });
                 $('#testimonialsList').on('mouseleave', self.startChangeTimer);
             }
-            if ($('#testimonial_0 .read-more')) {
-                $('#testimonial_0 .read-more').on('click', self.showMore);
-                $('#testimonial_0 .read-less').on('click', self.showLess);
-            }
+
+            this.element.find('.read-more').on('click', self.showMore);
+            this.element.find('.read-less').on('click', self.showLess);
         },
         showMore: function() {
             var $this = $(this);
@@ -54,19 +66,13 @@ define(["jquery"], function($) {
             }
         },
         nextTestimonial: function() {
-            if ($('#testimonial_0 .read-more')) {
-                $('#testimonial_' + curTestimonial + ' .read-more').off('click');
-                $('#testimonial_' + curTestimonial + ' .read-less').off('click');
+            $('#testimonial_' + curTestimonial).fadeOut(changeAnimDuration);
+
+            if (++curTestimonial >= numTestimonials) {
+                curTestimonial = 0;
             }
-            $('#testimonial_' + curTestimonial).fadeOut(changeAnimDuration, function() {
-                ++curTestimonial;
-                if (curTestimonial >= numTestimonials) curTestimonial = 0;
-                $('#testimonial_' + curTestimonial).fadeIn(changeAnimDuration);
-                if ($('#testimonial_0 .read-more')) {
-                    $('#testimonial_' + curTestimonial + ' .read-more').on('click', self.showMore);
-                    $('#testimonial_' + curTestimonial + ' .read-less').on('click', self.showLess);
-                }
-            });
+
+            $('#testimonial_' + curTestimonial).fadeIn(changeAnimDuration);
         }
     };
-});
+}));
