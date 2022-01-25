@@ -182,6 +182,10 @@ class Testimonials
             $collection->addOrder($this->orderField, $this->orderDirection);
         }
 
+        foreach ($collection as $item) {
+            $item->setData($this->getDataArray($item));
+        }
+
         return $collection;
     }
 
@@ -225,7 +229,7 @@ class Testimonials
 
         $items = [];
         foreach ($collection as $item) {
-            $items[$item->getId()] = $this->getDataArray($item);
+            $items[$item->getId()] = $item->getData();
         }
         $data['items'] = $items;
 
