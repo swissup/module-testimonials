@@ -121,13 +121,15 @@ class Save extends \Magento\Framework\App\Action\Action
                 TestimonialsModel:: STATUS_AWAITING_APPROVAL;
             $model = $this->testimonialsFactory->create();
             $model->setData($post);
-            $imageName = $this->uploadModel
-                ->uploadFileAndGetName('image',
-                    $this->imageModel->getBaseDir(),
-                    $post,
-                    ['jpg','jpeg','gif','png', 'bmp']
-                );
-            $model->setImage($imageName);
+            if (isset($post['image'])) {
+                $imageName = $this->uploadModel
+                    ->uploadFileAndGetName('image',
+                        $this->imageModel->getBaseDir(),
+                        $post,
+                        ['jpg','jpeg','gif','png', 'bmp']
+                    );
+                $model->setImage($imageName);
+            }
             $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
             $model->save();
             $this->messageManager->addSuccess(__($this->configHelper->getSentMessage()));
