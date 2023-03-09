@@ -14,6 +14,11 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
     protected $ioFile;
 
     /**
+     * @var \Magento\Framework\Image\Factory
+     */
+    protected $imageFactory;
+
+    /**
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */

@@ -23,6 +23,11 @@ class Form extends \Magento\Framework\App\Helper\AbstractHelper
     protected $customerViewHelper;
 
     /**
+     * @var DataPersistorInterface
+     */
+    protected $dataPersistor;
+
+    /**
      * Testimonials form data
      */
     protected $data = null;

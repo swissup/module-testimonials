@@ -34,7 +34,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     /**
      * @var CollectionFactory
      */
-    protected $testimonialsCollectionFactory;
+    protected $collectionFactory;
 
     /**
      * Item status
