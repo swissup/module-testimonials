@@ -10,6 +10,7 @@ use Swissup\Testimonials\Model\Data as TestimonialsModel;
 class SideReview extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
 {
+    private $_testimonialsCollectionFactory;
     /**
      * Default template to use for review widget
      */
