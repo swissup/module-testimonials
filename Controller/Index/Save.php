@@ -3,6 +3,9 @@ namespace Swissup\Testimonials\Controller\Index;
 
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
+use Magento\Framework\Validator\NotEmpty;
+use Magento\Framework\Validator\NotEmptyFactory;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 
 class Save extends \Magento\Framework\App\Action\Action
@@ -48,6 +51,16 @@ class Save extends \Magento\Framework\App\Action\Action
     private $dataPersistor;
 
     /**
+     * @var NotEmpty
+     */
+    private $notEmpty;
+
+    /**
+     * @var EmailAddressValidator
+     */
+    private $emailAddressValidator;
+
+    /**
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
@@ -56,6 +69,8 @@ class Save extends \Magento\Framework\App\Action\Action
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      * @param \Magento\Customer\Model\Session $customerSession
      * @param DataPersistorInterface $dataPersistor
+     * @param NotEmptyFactory $notEmptyFactory
+     * @param EmailAddressValidator $emailAddressValidator
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
@@ -65,7 +80,9 @@ class Save extends \Magento\Framework\App\Action\Action
         \Swissup\Testimonials\Model\Upload $uploadModel,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
         \Magento\Customer\Model\Session $customerSession,
-        DataPersistorInterface $dataPersistor
+        DataPersistorInterface $dataPersistor,
+        NotEmptyFactory $notEmptyFactory,
+        EmailAddressValidator $emailAddressValidator
     ) {
         parent::__construct($context);
         $this->storeManager = $storeManager;
@@ -75,6 +92,8 @@ class Save extends \Magento\Framework\App\Action\Action
         $this->testimonialsFactory = $testimonialsFactory;
         $this->customerSession = $customerSession;
         $this->dataPersistor = $dataPersistor;
+        $this->notEmpty = $notEmptyFactory->create(['options' => NotEmpty::ALL]);
+        $this->emailAddressValidator = $emailAddressValidator;
     }
 
     /**
@@ -151,17 +170,17 @@ class Save extends \Magento\Framework\App\Action\Action
     protected function validate($data)
     {
         $valid = true;
-        if (!\Zend_Validate::is(trim($data['name']), 'NotEmpty')) {
+        if (!$this->notEmpty->isValid(trim($data['name']))) {
             $valid = false;
         }
-        if (!\Zend_Validate::is(trim($data['message']), 'NotEmpty')) {
+        if (!$this->notEmpty->isValid(trim($data['message']))) {
             $valid = false;
         }
-        if (!\Zend_Validate::is(trim($data['email']), 'EmailAddress')) {
+        if (empty(trim($data['email'])) || !$this->emailAddressValidator->isValid($data['email'])) {
             $valid = false;
         }
         if ($this->configHelper->isRatingRequired() && (!isset($data['rating']) ||
-            !\Zend_Validate::is(trim($data['rating']), 'NotEmpty')))
+            !$this->notEmpty->isValid(trim($data['rating']))))
         {
             $valid = false;
         }
