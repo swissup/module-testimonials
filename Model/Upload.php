@@ -33,7 +33,7 @@ class Upload
     public function uploadFileAndGetName($input, $destinationFolder, $data, $allowedExtensions = [])
     {
         try {
-            if (isset($data[$input]['delete'])) {
+            if (isset($data['delete'])) {
                 return '';
             } else {
                 $uploader = $this->uploaderFactory->create(['fileId' => $input]);
@@ -48,8 +48,8 @@ class Upload
             if ($e->getCode() != Uploader::TMP_NAME_EMPTY) {
                 throw new \Exception($e->getMessage());
             } else {
-                if (isset($data[$input]['value'])) {
-                    return $data[$input]['value'];
+                if (isset($data['value'])) {
+                    return $data['value'];
                 }
             }
         }

@@ -140,11 +140,11 @@ class Save extends \Magento\Framework\App\Action\Action
                 TestimonialsModel:: STATUS_AWAITING_APPROVAL;
             $model = $this->testimonialsFactory->create();
             $model->setData($post);
-            if (isset($post['image'])) {
+            if ($image = $this->getRequest()->getFiles('image')) {
                 $imageName = $this->uploadModel
                     ->uploadFileAndGetName('image',
                         $this->imageModel->getBaseDir(),
-                        $post,
+                        $image,
                         ['jpg','jpeg','gif','png', 'bmp']
                     );
                 $model->setImage($imageName);
