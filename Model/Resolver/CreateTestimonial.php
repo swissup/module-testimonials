@@ -14,7 +14,7 @@ class CreateTestimonial implements ResolverInterface
     /**
      * @var DataProvider
      */
-    private  $dataProvider;
+    private $dataProvider;
 
     /**
      * @var \Swissup\Testimonials\Model\DataFactory
@@ -33,20 +33,6 @@ class CreateTestimonial implements ResolverInterface
     private $configHelper;
 
     /**
-     * upload model
-     *
-     * @var \Swissup\Testimonials\Model\Upload
-     */
-    private $uploadModel;
-
-    /**
-     * image model
-     *
-     * @var \Swissup\Core\Api\Media\FileInfoInterface
-     */
-    private $imageModel;
-
-    /**
      * @var \Magento\Customer\Model\Session
      */
     private $customerSession;
@@ -61,8 +47,6 @@ class CreateTestimonial implements ResolverInterface
      * @param DataProvider $dataProvider
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
-     * @ param \Swissup\Core\Api\Media\FileInfoInterface $imageModel
-     * @param \Swissup\Testimonials\Model\Upload $uploadModel
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      */
@@ -71,8 +55,6 @@ class CreateTestimonial implements ResolverInterface
         DataProvider $dataProvider,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
-//        \Swissup\Core\Api\Media\FileInfoInterface $imageModel,
-        \Swissup\Testimonials\Model\Upload $uploadModel,
         \Magento\Customer\Model\Session $customerSession,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
     ) {
@@ -80,8 +62,6 @@ class CreateTestimonial implements ResolverInterface
         $this->dataProvider = $dataProvider;
         $this->storeManager = $storeManager;
         $this->configHelper = $configHelper;
-//        $this->imageModel = $imageModel;
-        $this->uploadModel = $uploadModel;
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
     }
