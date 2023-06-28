@@ -8,6 +8,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonial as DataProvider;
+use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
 
 class CreateTestimonial implements ResolverInterface
 {
@@ -43,12 +44,18 @@ class CreateTestimonial implements ResolverInterface
     private $customerRepository;
 
     /**
+     * @var EmailAddressValidator
+     */
+    private $emailAddressValidator;
+
+    /**
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      * @param DataProvider $dataProvider
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+     * @param EmailAddressValidator $emailAddressValidator
      */
     public function __construct(
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
@@ -56,7 +63,8 @@ class CreateTestimonial implements ResolverInterface
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
+        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
+        EmailAddressValidator $emailAddressValidator
     ) {
         $this->testimonialsFactory = $testimonialsFactory;
         $this->dataProvider = $dataProvider;
@@ -64,6 +72,7 @@ class CreateTestimonial implements ResolverInterface
         $this->configHelper = $configHelper;
         $this->customerSession = $customerSession;
         $this->customerRepository = $customerRepository;
+        $this->emailAddressValidator = $emailAddressValidator;
     }
 
     /**
@@ -79,6 +88,10 @@ class CreateTestimonial implements ResolverInterface
 
         if (empty($args['email']) || !is_string($args['email'])) {
             throw new GraphQlInputException(__('"email" value should be specified'));
+        }
+
+        if (!$this->emailAddressValidator->isValid($args['email'])) {
+            throw new GraphQlInputException(__('Please enter a valid email address.'));
         }
 
         if (empty($args['name']) || !is_string($args['name'])) {
