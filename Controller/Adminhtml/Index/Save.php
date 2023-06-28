@@ -1,6 +1,9 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
+
 class Save extends \Magento\Backend\App\Action
 {
     /**
@@ -29,23 +32,31 @@ class Save extends \Magento\Backend\App\Action
     protected $dateFilter;
 
     /**
+     * @var EmailAddressValidator
+     */
+    private $emailAddressValidator;
+
+    /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
      * @param \Swissup\Testimonials\ImageUpload $imageUploader
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
      * @param \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
+     * @param EmailAddressValidator $emailAddressValidator
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
         \Magento\Catalog\Model\ImageUploader $imageUploader,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
-        \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
+        \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter,
+        EmailAddressValidator $emailAddressValidator
     ) {
         $this->dataPersistor = $dataPersistor;
         $this->imageUploader = $imageUploader;
         $this->testimonialsFactory = $testimonialsFactory;
         $this->dateFilter = $dateFilter;
+        $this->emailAddressValidator = $emailAddressValidator;
         parent::__construct($context);
     }
 
@@ -98,6 +109,10 @@ class Save extends \Magento\Backend\App\Action
             $model->setData("image", $imageName);
 
             try {
+                if (!$this->emailAddressValidator->isValid($data['email'])) {
+                    throw new LocalizedException(__('Please enter a valid email address.'));
+                }
+
                 $model->save();
                 $this->messageManager->addSuccess(__('Testimonial has been saved.'));
                 $this->dataPersistor->clear('testimonial_data');
@@ -109,7 +124,7 @@ class Save extends \Magento\Backend\App\Action
                 }
 
                 return $resultRedirect->setPath('*/*/');
-            } catch (\Magento\Framework\Exception\LocalizedException $e) {
+            } catch (LocalizedException $e) {
                 $this->messageManager->addError($e->getMessage());
             } catch (\RuntimeException $e) {
                 $this->messageManager->addError($e->getMessage());
