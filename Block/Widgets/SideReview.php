@@ -37,7 +37,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
         if (!$this->hasData('template')) {
             $this->setData('template', self::DEFAULT_REVIEW_TEMPLATE);
         }
-        return parent::_construct();
+        parent::_construct();
     }
     /**
      * @return \Swissup\Testimonials\Model\ResourceModel\Data\Collection

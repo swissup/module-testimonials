@@ -72,7 +72,7 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
             $this->setData('template', self::DEFAULT_LIST_TEMPLATE);
         }
 
-        return parent::_construct();
+        parent::_construct();
     }
 
     /**

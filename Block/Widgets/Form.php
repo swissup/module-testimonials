@@ -18,7 +18,7 @@ class Form extends \Swissup\Testimonials\Block\TestimonialsForm
         if (!$this->hasData('template')) {
             $this->setData('template', self::DEFAULT_FORM_TEMPLATE);
         }
-        return parent::_construct();
+        parent::_construct();
     }
 
     protected function _prepareLayout()
