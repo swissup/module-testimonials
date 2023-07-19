@@ -26,6 +26,8 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
      */
     const REDIRECT_URL = '*/*/';
 
+    const SUCCESS_MESSAGE = '';
+
     /**
      * @var Filter
      */
