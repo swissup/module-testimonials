@@ -6,7 +6,7 @@
     }
 ?>
 
-<div class="widget block testimonials-slider" data-content-type="testimonials" data-dataprovider-config='<?= $block->getDataProviderConfig() ?>'>
+<div class="widget block testimonials-slider slides-<?= $block->getVisibleSlides() ?>" data-content-type="testimonials" data-dataprovider-config='<?= $block->getDataProviderConfig() ?>'>
     <div class="content-heading">
         <h2 class="title" role="heading"><?= $block->escapeHtml($block->getBlockTitle()) ?></h2>
     </div>

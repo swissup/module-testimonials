@@ -362,9 +362,17 @@
 }
 
 @media (min-width: 1025px) {
-    .testimonials-slider:not(.swiper-container-initialized) {
-        figure.testimonial {
-            max-width: 33.33%;
+    .testimonials-slider {
+        &.slides-3 .swiper-container:not(.swiper-container-initialized) {
+            figure.testimonial {
+                max-width: 33.33%;
+            }
+        }
+
+        &.slides-2 .swiper-container:not(.swiper-container-initialized) {
+            figure.testimonial {
+                max-width: 50%;
+            }
         }
     }
 }
