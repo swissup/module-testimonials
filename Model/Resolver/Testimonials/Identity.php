@@ -24,8 +24,11 @@ class Identity implements IdentityInterface
     {
         $ids = [];
         $idKey = 'testimonial_id';
-        if (isset($item[$idKey])) {
-            $ids[] = sprintf('%s_%s', $this->cacheTag, $item[$idKey]);
+        $items = $resolvedData['items'] ?? [];
+        foreach ($items as $item) {
+            if (isset($item[$idKey])) {
+                $ids[] = sprintf('%s_%s', $this->cacheTag, $item[$idKey]);
+            }
         }
 
         if (!empty($ids)) {
