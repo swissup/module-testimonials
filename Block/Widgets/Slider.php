@@ -122,7 +122,6 @@ class Slider extends \Magento\Framework\View\Element\Template
             "slidesToScroll" => 1,
             "freeMode" => false,
             "loop" => true,
-            "spaceBetween" => 10,
             'navigation' => [
                 'nextEl' => '.swiper-button-next',
                 'prevEl' => '.swiper-button-prev'
