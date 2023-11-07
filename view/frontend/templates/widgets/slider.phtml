@@ -32,9 +32,7 @@
                             </div>
                         </div>
                         <?php endif; ?>
-                        <p class="testimonial-message">
-                            <?= $block->escapeHtml($testimonial->getMessage()); ?>
-                        </p>
+                        <p class="testimonial-message"><?= $block->escapeHtml($testimonial->getMessage()); ?></p>
                         <div class="arrow"></div>
                     </blockquote>
                     <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
