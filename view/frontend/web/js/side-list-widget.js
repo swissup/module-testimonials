@@ -1,12 +1,4 @@
-(function (factory) {
-    'use strict';
-
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
-    } else {
-        $.testimonialsSideList = factory($);
-    }
-}(function ($) {
+define(['jquery'], function ($) {
     'use strict';
 
     var self,
@@ -19,6 +11,7 @@
         changeAnimDuration;
 
     return {
+        component: 'Swissup_Testimonials/js/side-list-widget',
         'Swissup_Testimonials/js/side-list-widget': function (config, element) {
             this.element = $(element);
             this.options = config;
@@ -75,4 +68,4 @@
             $('#testimonial_' + curTestimonial).fadeIn(changeAnimDuration);
         }
     };
-}));
+});

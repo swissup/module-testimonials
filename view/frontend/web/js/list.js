@@ -1,15 +1,7 @@
-(function (factory) {
+define(['jquery'], function ($) {
     'use strict';
 
-    if (typeof define === 'function' && define.amd) {
-        define(['jquery'], factory);
-    } else {
-        $.testimonialsList = factory($);
-    }
-}(function ($) {
-    'use strict';
-
-    return function (config, element) {
+    var result = function (config, element) {
         var currentPage = 1,
             viewMore = $('#viewMore');
 
@@ -43,4 +35,8 @@
             viewMore.on('click', makeAjaxCall);
         }
     };
-}));
+
+    result.component = 'Swissup_Testimonials/js/list';
+
+    return result;
+});
