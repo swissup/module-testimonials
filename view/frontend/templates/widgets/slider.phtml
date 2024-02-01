@@ -35,7 +35,7 @@
                         <p class="testimonial-message"><?= $block->escapeHtml($testimonial->getMessage()); ?></p>
                         <div class="arrow"></div>
                     </blockquote>
-                    <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
+                    <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" loading="lazy" />
                     <div class="author">
                         <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
                         <?php if ($testimonial->getCompany()): ?>
