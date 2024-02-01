@@ -9,9 +9,19 @@
                         <item name="items" xsi:type="array">
                             <item name="Swissup_Testimonials/js/list" xsi:type="array">
                                 <item name="path" xsi:type="string">Swissup_Testimonials/js/list</item>
+                                <item name="load" xsi:type="array">
+                                    <item name="onReveal" xsi:type="array">
+                                        <item name="0" xsi:type="string">[data-mage-init*="Swissup_Testimonials/js/list"]</item>
+                                    </item>
+                                </item>
                             </item>
                             <item name="Swissup_Testimonials/js/side-list-widget" xsi:type="array">
                                 <item name="path" xsi:type="string">Swissup_Testimonials/js/side-list-widget</item>
+                                <item name="load" xsi:type="array">
+                                    <item name="onReveal" xsi:type="array">
+                                        <item name="0" xsi:type="string">[data-mage-init*="Swissup_Testimonials/js/side-list-widget"]</item>
+                                    </item>
+                                </item>
                             </item>
                         </item>
                     </item>
