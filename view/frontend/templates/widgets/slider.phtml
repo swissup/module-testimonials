@@ -37,9 +37,9 @@
                     </blockquote>
                     <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" loading="lazy" />
                     <div class="author">
-                        <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
+                        <div class="author-name"><?= $block->escapeHtml($testimonial->getName()) ?></div>
                         <?php if ($testimonial->getCompany()): ?>
-                        <p><?= $block->escapeHtml($testimonial->getCompany()) ?></p>
+                        <p class="author-company"><?= $block->escapeHtml($testimonial->getCompany()) ?></p>
                         <?php endif; ?>
                     </div>
                 </figure>

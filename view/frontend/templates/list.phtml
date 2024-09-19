@@ -37,12 +37,12 @@
                 <div class="info">
                     <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" />
                     <div class="author">
-                        <h5><?= $block->escapeHtml($testimonial->getName()) ?></h5>
+                        <div class="author-name"><?= $block->escapeHtml($testimonial->getName()) ?></div>
                         <?php
                         $company = $testimonial->getCompany();
                         $website = $testimonial->getWebsite();
                         if ($company && $website): ?>
-                        <p>
+                        <p class="author-company">
                             <a href="<?= $block->escapeUrl($website) ?>" target='_blank'>
                                 <?= $block->escapeHtml($company) ?>
                             </a>
