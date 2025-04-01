@@ -30,8 +30,8 @@ class DateFormat implements ResolverInterface
         Field $field,
         $context,
         ResolveInfo $info,
-        array $value = null,
-        array $args = null
+        ?array $value = null,
+        ?array $args = null
     ): string {
         return $this->localeDate->formatDateTime(
             $value['date'],
