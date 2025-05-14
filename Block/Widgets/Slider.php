@@ -118,8 +118,8 @@ class Slider extends \Magento\Framework\View\Element\Template
     public function getSwiperConfig()
     {
         $params = [
-            "slidesPerView" => $this->getVisibleSlides(),
-            "slidesToScroll" => 1,
+            "slidesPerView" => 1,
+            "slidesPerGroup" => 1,
             "freeMode" => false,
             "loop" => true,
             "spaceBetween" => 10,
@@ -129,7 +129,7 @@ class Slider extends \Magento\Framework\View\Element\Template
             ],
             "breakpoints" => [
                 '1024' => [
-                    "slidesPerView" => 1
+                    "slidesPerView" => $this->getVisibleSlides()
                 ]
             ]
         ];
