@@ -1,4 +1,6 @@
 <?php
+/** @var \Magento\Framework\Escaper $escaper */
+
 $testimonials = $block->getTestimonials();
 if (!count($testimonials)) {
     return;
@@ -7,17 +9,17 @@ if (!count($testimonials)) {
 
 <div class="widget block block-testimonials <?php if ($block->getHideBlockDesign()): ?>empty-design<?php endif ?>" id="testimonialsList"
     data-mage-init='{"Swissup_Testimonials/js/side-list-widget": {
-        "viewTime": <?= (int) $block->getViewTime() ?>,
-        "animDuration": <?= (int) $block->getAnimDuration() ?>
+        "viewTime": <?= (int) $escaper->escapeHtmlAttr($block->getViewTime()) ?>,
+        "animDuration": <?= (int) $escaper->escapeHtmlAttr($block->getAnimDuration()) ?>
     }}'>
     <div class="block-title">
-        <strong><?= __('Testimonials') ?></strong>
+        <strong><?= $escaper->escapeHtml(__('Testimonials')) ?></strong>
     </div>
     <div class="block-content">
         <div class="testimonial-container">
             <?php $itemId = 0; ?>
             <?php foreach ($testimonials as $testimonial): ?>
-                <div id="testimonial_<?= $itemId ?>" class="content" <?php if ($itemId > 0): ?> style="display: none;"<?php endif ?>>
+                <div id="testimonial_<?= $escaper->escapeHtmlAttr($itemId) ?>" class="content" <?php if ($itemId > 0): ?> style="display: none;"<?php endif ?>>
                     <div class="content-wrapper">
                         <?php if ($testimonial->getRating()): ?>
                             <?php $helper = $this->helper(\Swissup\Testimonials\Helper\ListHelper::class); ?>
@@ -25,28 +27,28 @@ if (!count($testimonials)) {
                             <div class="review-ratings">
                                 <div class="rating-summary item">
                                     <span class="label rating-label">
-                                        <span><?= __('Rating') ?></span>
+                                        <span><?= $escaper->escapeHtml(__('Rating')) ?></span>
                                     </span>
-                                    <div class="rating-result" title="<?= $ratingPercent ?>%">
-                                        <span style="width:<?= $ratingPercent ?>%">
-                                            <span><?= $ratingPercent ?>%</span>
+                                    <div class="rating-result" title="<?= $escaper->escapeHtmlAttr($ratingPercent) ?>%">
+                                        <span style="width:<?= $escaper->escapeHtmlAttr($ratingPercent) ?>%">
+                                            <span><?= $escaper->escapeHtml($ratingPercent) ?>%</span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         <?php endif ?>
                         <div class="testimonial-message">
-                            <?= $block->escapeHtml($testimonial->getMessage()); ?>
+                            <?= $escaper->escapeHtml($testimonial->getMessage()); ?>
                         </div>
                     </div>
                     <div class="name">
-                        <?= $block->escapeHtml($testimonial->getName()); ?>
+                        <?= $escaper->escapeHtml($testimonial->getName()); ?>
                     </div>
                     <a class="read-more" href="#">
-                        <?= __('Read more') ?>
+                        <?= $escaper->escapeHtml(__('Read more')) ?>
                     </a>
                     <a class="read-less" href="#" style="display: none;">
-                        <?= __('Read less') ?>
+                        <?= $escaper->escapeHtml(__('Read less')) ?>
                     </a>
                 </div>
                 <?php ++$itemId; ?>
@@ -54,8 +56,8 @@ if (!count($testimonials)) {
         </div>
         <div class="actions-toolbar">
             <div class="secondary">
-                <a class="action" href="<?= $block->getListUrl() ?>">
-                    <span><?= __('View all testimonials') ?></span>
+                <a class="action" href="<?= $escaper->escapeUrl($block->getListUrl()) ?>">
+                    <span><?= $escaper->escapeHtml(__('View all testimonials')) ?></span>
                 </a>
             </div>
         </div>

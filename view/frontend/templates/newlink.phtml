@@ -1,1 +1,2 @@
-<a href="<?= $block->getLink() ?>" class="action submit primary"><span><?= $block->getLabel() ?></span></a>
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<a href="<?= $escaper->escapeUrl($block->getLink()) ?>" class="action submit primary"><span><?= $escaper->escapeHtml($block->getLabel()) ?></span></a>

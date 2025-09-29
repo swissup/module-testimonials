@@ -1,24 +1,25 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
 <?php if (!$block->getTestimonials()->getSize()) return; ?>
 <div class="widget block block-testimonials <?php if ($block->getHideBlockDesign()): ?>empty-design<?php endif ?>">
     <div class="block-title">
-        <strong><?php echo __('Store Review') ?></strong>
+        <strong><?= $escaper->escapeHtml(__('Store Review')) ?></strong>
     </div>
     <div class="block-content">
         <span itemscope itemtype="http://schema.org/Store">
             <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="review">
-                <div itemprop="ratingValue" class="score"><?php echo $block->getAvgRating() ?></div>
-                <div class="score-info"><?php echo ' ' . __('out of') . ' 5 (' ?><span itemprop="ratingCount"><?php echo $block->getTestimonials()->getSize() ?></span><?php echo ' ' . __('votes') . ')' ?>
+                <div itemprop="ratingValue" class="score"><?= $escaper->escapeHtml($block->getAvgRating()) ?></div>
+                <div class="score-info"><?= $escaper->escapeHtml(' ' . __('out of') . ' 5 (') ?><span itemprop="ratingCount"><?= $escaper->escapeHtml($block->getTestimonials()->getSize()) ?></span><?= $escaper->escapeHtml(' ' . __('votes') . ')') ?>
                 </div>
             </div>
-            <meta itemprop="name" content="<?php echo $block->getStoreName() ?>">
-            <meta itemprop="image" content="<?php echo $block->getStoreImage() ?>">
-            <meta itemprop="address" content="<?php echo $block->getStoreAddress() ?>">
-            <meta itemprop="telephone" content="<?php echo $block->getStorePhone() ?>">
+            <meta itemprop="name" content="<?= $escaper->escapeHtmlAttr($block->getStoreName()) ?>">
+            <meta itemprop="image" content="<?= $escaper->escapeHtmlAttr($block->getStoreImage()) ?>">
+            <meta itemprop="address" content="<?= $escaper->escapeHtmlAttr($block->getStoreAddress()) ?>">
+            <meta itemprop="telephone" content="<?= $escaper->escapeHtmlAttr($block->getStorePhone()) ?>">
             <meta itemprop="priceRange" content="$$$">
         </span>
         <div class="actions-toolbar">
             <div class="secondary">
-                <a class="action" href="<?php echo $block->getListUrl() ?>"><span><?php echo __('View all testimonials') ?></span></a>
+                <a class="action" href="<?= $escaper->escapeUrl($block->getListUrl()) ?>"><span><?= $escaper->escapeHtml(__('View all testimonials')) ?></span></a>
             </div>
         </div>
     </div>

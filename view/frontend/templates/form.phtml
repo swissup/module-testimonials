@@ -1,94 +1,96 @@
 <?php
+    /** @var \Magento\Framework\Escaper $escaper */
+
     $formHelper = $block->getFormHelper();
     $configHelper = $block->getConfigHelper();
 ?>
 <form class="form testimonial"
-      action="<?= $block->getFormAction(); ?>"
+      action="<?= $escaper->escapeUrl($block->getFormAction()) ?>"
       id="testimonial-form"
       method="post"
       enctype="multipart/form-data"
-      data-hasrequired="<?= __('* Required Fields') ?>"
+      data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
       data-mage-init='{"validation":{}}'>
     <fieldset class="fieldset">
-        <legend class="legend"><span><?= __('Submit your testimonial') ?></span></legend><br />
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Submit your testimonial')) ?></span></legend><br />
         <div class="field name required">
-            <label class="label" for="name"><span><?= __('Name') ?></span></label>
+            <label class="label" for="name"><span><?= $escaper->escapeHtml(__('Name')) ?></span></label>
             <div class="control">
-                <input name="name" id="name" title="<?= __('Name') ?>" value="<?= $block->escapeHtml($formHelper->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                <input name="name" id="name" title="<?= $escaper->escapeHtmlAttr(__('Name')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
             </div>
         </div>
         <div class="field email required">
-            <label class="label" for="email"><span><?= __('Email') ?></span></label>
+            <label class="label" for="email"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
             <div class="control">
-                <input name="email" id="email" title="<?= __('Email') ?>" value="<?= $block->escapeHtml($formHelper->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+                <input name="email" id="email" title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
             </div>
         </div>
         <?php if ($configHelper->isCompanyEnabled()): ?>
         <div class="field company">
-            <label class="label" for="company"><span><?= __('Company') ?></span></label>
+            <label class="label" for="company"><span><?= $escaper->escapeHtml(__('Company')) ?></span></label>
             <div class="control">
-                <input name="company" id="company" title="<?= __('Company') ?>" value="<?= $block->escapeHtml($formHelper->getCompany()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+                <input name="company" id="company" title="<?= $escaper->escapeHtmlAttr(__('Company')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getCompany()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
         <?php endif; ?>
         <?php if ($configHelper->isWebsiteEnabled()): ?>
         <div class="field website">
-            <label class="label" for="website"><span><?= __('Website') ?></span></label>
+            <label class="label" for="website"><span><?= $escaper->escapeHtml(__('Website')) ?></span></label>
             <div class="control">
-                <input name="website" id="website" title="<?= __('Website') ?>" value="<?= $block->escapeHtml($formHelper->getWebsite()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+                <input name="website" id="website" title="<?= $escaper->escapeHtmlAttr(__('Website')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getWebsite()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
         <?php endif; ?>
         <?php if ($configHelper->isTwitterEnabled()): ?>
         <div class="field twitter">
-            <label class="label" for="twitter"><span><?= __('Twitter') ?></span></label>
+            <label class="label" for="twitter"><span><?= $escaper->escapeHtml(__('Twitter')) ?></span></label>
             <div class="control">
-                <input name="twitter" id="twitter" title="<?= __('Twitter') ?>" value="<?= $block->escapeHtml($formHelper->getTwitter()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+                <input name="twitter" id="twitter" title="<?= $escaper->escapeHtmlAttr(__('Twitter')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getTwitter()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
         <?php endif; ?>
         <?php if ($configHelper->isFacebookEnabled()): ?>
         <div class="field facebook">
-            <label class="label" for="facebook"><span><?= __('Facebook') ?></span></label>
+            <label class="label" for="facebook"><span><?= $escaper->escapeHtml(__('Facebook')) ?></span></label>
             <div class="control">
-                <input name="facebook" id="facebook" title="<?= __('Facebook') ?>" value="<?= $block->escapeHtml($formHelper->getFacebook()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
+                <input name="facebook" id="facebook" title="<?= $escaper->escapeHtmlAttr(__('Facebook')) ?>" value="<?= $escaper->escapeHtmlAttr($formHelper->getFacebook()) ?>" class="input-text" type="text" data-validate="{required:false}"/>
             </div>
         </div>
         <?php endif; ?>
         <div class="field image">
-            <label class="label" for="image"><span><?= __('Profile image') ?></span></label>
+            <label class="label" for="image"><span><?= $escaper->escapeHtml(__('Profile image')) ?></span></label>
             <div class="control">
-                <input name="image" id="image" title="<?= __('Profile image') ?>" value="" class="input-text" type="file" data-validate="{required:false}"/>
+                <input name="image" id="image" title="<?= $escaper->escapeHtmlAttr(__('Profile image')) ?>" value="" class="input-text" type="file" data-validate="{required:false}"/>
             </div>
         </div>
         <div class="field choice review-field-rating<?php if ($configHelper->isRatingRequired()): ?> required<?php endif; ?>">
-            <label class="label" id="rating"><span><?= __('Rating') ?></span></label>
+            <label class="label" id="rating"><span><?= $escaper->escapeHtml(__('Rating')) ?></span></label>
             <div class="control review-control-vote">
             <?php for ($i = 1; $i <= 5; ++$i): ?>
                 <input
                     type="radio"
                     name="rating"
-                    id="rating_<?= $i ?>"
-                    value="<?= $i ?>"
+                    id="rating_<?= $escaper->escapeHtmlAttr($i) ?>"
+                    value="<?= $escaper->escapeHtmlAttr($i) ?>"
                     class="radio"
                     <?php if ($formHelper->getRating() == $i): ?>
                     checked="checked"
                     <?php endif; ?>
                     data-validate="{required:<?= $configHelper->isRatingRequired()?'true':'false'?>}"/>
                 <label
-                    class="rating-<?= $i ?>"
-                    for="rating_<?= $i ?>"
-                    title="<?= __('%1 %2', $i, $i > 1 ? 'stars' : 'star') ?>"
-                    id="rating_<?= $i ?>_label">
-                    <span><?= __('%1 %2', $i, $i > 1 ? 'stars' : 'star') ?></span>
+                    class="rating-<?= $escaper->escapeHtmlAttr($i) ?>"
+                    for="rating_<?= $escaper->escapeHtmlAttr($i) ?>"
+                    title="<?= $escaper->escapeHtmlAttr(__('%1 %2', $i, $i > 1 ? 'stars' : 'star')) ?>"
+                    id="rating_<?= $escaper->escapeHtmlAttr($i) ?>_label">
+                    <span><?= $escaper->escapeHtml(__('%1 %2', $i, $i > 1 ? 'stars' : 'star')) ?></span>
                 </label>
             <?php endfor; ?>
             </div>
         </div>
         <div class="field testimonial-message required">
-            <label class="label" for="message"><span><?= __('Message') ?></span></label>
+            <label class="label" for="message"><span><?= $escaper->escapeHtml(__('Message')) ?></span></label>
             <div class="control">
-                <textarea name="message" id="message" title="<?= __('Message') ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}"><?= $block->escapeHtml($formHelper->getMessage()) ?></textarea>
+                <textarea name="message" id="message" title="<?= $escaper->escapeHtmlAttr(__('Message')) ?>" class="input-text" cols="5" rows="5" data-validate="{required:true}"><?= $escaper->escapeHtml($formHelper->getMessage()) ?></textarea>
             </div>
         </div>
         <?= $block->getChildHtml('captcha'); ?>
@@ -96,11 +98,11 @@
     <div class="actions-toolbar">
         <div class="primary">
             <input type="hidden" name="hideit" id="hideit" value="" />
-            <button type="submit" title="<?= __('Submit') ?>" class="action submit primary">
-                <span><?= __('Submit') ?></span>
+            <button type="submit" title="<?= $escaper->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $escaper->escapeHtml(__('Submit')) ?></span>
             </button>
-            <button type="button" title="<?= __('Back to testimonials') ?>" class="button" onclick="window.location = '<?= $block->getListAction(); ?>';return false;">
-                <span><?= __('Back to testimonials') ?></span>
+            <button type="button" title="<?= $escaper->escapeHtmlAttr(__('Back to testimonials')) ?>" class="button" onclick="window.location = '<?= $escaper->escapeUrl($block->getListAction()) ?>';return false;">
+                <span><?= $escaper->escapeHtml(__('Back to testimonials')) ?></span>
             </button>
         </div>
     </div>

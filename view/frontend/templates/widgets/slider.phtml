@@ -1,17 +1,18 @@
 <?php
-    /* @var $block \Swissup\Testimonials\Block\Widgets\Slider */
+    /** @var \Magento\Framework\Escaper $escaper */
+    /** @var \Swissup\Testimonials\Block\Widgets\Slider $block */
     $testimonials = $block->getTestimonials();
     if (!count($testimonials)) {
         return;
     }
 ?>
 
-<div class="widget block testimonials-slider slides-<?= $block->getVisibleSlides() ?>" data-content-type="testimonials" data-dataprovider-config='<?= $block->getDataProviderConfig() ?>'>
+<div class="widget block testimonials-slider slides-<?= $escaper->escapeHtmlAttr($block->getVisibleSlides()) ?>" data-content-type="testimonials" data-dataprovider-config='<?= $escaper->escapeHtmlAttr($block->getDataProviderConfig()) ?>'>
     <div class="content-heading">
-        <h2 class="title" role="heading"><?= $block->escapeHtml($block->getBlockTitle()) ?></h2>
+        <h2 class="title" role="heading"><?= $escaper->escapeHtml($block->getBlockTitle()) ?></h2>
     </div>
     <div class="block-content">
-        <div class="swiper-container" data-mage-init='{"Swissup_Swiper/js/swiper": <?= $block->getSwiperConfig() ?>}'>
+        <div class="swiper-container" data-mage-init='{"Swissup_Swiper/js/swiper": <?= $escaper->escapeHtml($block->getSwiperConfig()) ?>}'>
             <div class="swiper-wrapper">
             <?php foreach ($testimonials as $testimonial): ?>
                 <figure class="testimonial swiper-slide">
@@ -21,25 +22,25 @@
                             <div class="review-ratings">
                                 <div class="rating-summary item">
                                     <span class="label rating-label">
-                                        <span><?= __('Rating') ?></span>
+                                        <span><?= $escaper->escapeHtml(__('Rating')) ?></span>
                                     </span>
-                                    <div class="rating-result" title="<?= $ratingPercent ?>%">
-                                        <span style="width:<?= $ratingPercent ?>%">
-                                            <span><?= $ratingPercent ?>%</span>
+                                    <div class="rating-result" title="<?= $escaper->escapeHtmlAttr($ratingPercent) ?>%">
+                                        <span style="width:<?= $escaper->escapeHtmlAttr($ratingPercent) ?>%">
+                                            <span><?= $escaper->escapeHtml($ratingPercent) ?>%</span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <?php endif; ?>
-                        <p class="testimonial-message"><?= $block->escapeHtml($testimonial->getMessage()); ?></p>
+                        <p class="testimonial-message"><?= $escaper->escapeHtml($testimonial->getMessage()); ?></p>
                         <div class="arrow"></div>
                     </blockquote>
-                    <img src="<?= $block->getProfileImageUrl($testimonial) ?>" alt="Profile image" loading="lazy" />
+                    <img src="<?= $escaper->escapeUrl($block->getProfileImageUrl($testimonial)) ?>" alt="<?= $escaper->escapeHtmlAttr(__('Profile image')) ?>" loading="lazy" />
                     <div class="author">
-                        <div class="author-name"><?= $block->escapeHtml($testimonial->getName()) ?></div>
+                        <div class="author-name"><?= $escaper->escapeHtml($testimonial->getName()) ?></div>
                         <?php if ($testimonial->getCompany()): ?>
-                        <p class="author-company"><?= $block->escapeHtml($testimonial->getCompany()) ?></p>
+                        <p class="author-company"><?= $escaper->escapeHtml($testimonial->getCompany()) ?></p>
                         <?php endif; ?>
                     </div>
                 </figure>
