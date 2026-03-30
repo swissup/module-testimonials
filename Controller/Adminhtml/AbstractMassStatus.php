@@ -66,13 +66,17 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
     public function execute()
     {
         $collection = $this->filter->getCollection($this->collectionFactory->create());
+        $ids = $collection->getAllIds();
 
-        foreach ($collection as $item) {
-            $item->setStatus($this->status);
-            $item->save();
+        if ($ids) {
+            $collection->getResource()->getConnection()->update(
+                $collection->getResource()->getMainTable(),
+                ['status' => $this->status],
+                [self::ID_FIELD . ' IN (?)' => $ids]
+            );
         }
 
-        $this->messageManager->addSuccess(__(static::SUCCESS_MESSAGE, $collection->getSize()));
+        $this->messageManager->addSuccess(__(static::SUCCESS_MESSAGE, count($ids)));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
