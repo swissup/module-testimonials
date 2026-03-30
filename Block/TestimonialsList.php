@@ -176,6 +176,14 @@ class TestimonialsList extends \Magento\Framework\View\Element\Template implemen
     }
 
     /**
+     * @return bool
+     */
+    public function isShowUserEmail()
+    {
+        return $this->configHelper->showUserEmail();
+    }
+
+    /**
      * Get rating value in percents
      * @param  \Swissup\Testimonials\Model\Data $testimonial
      * @return String

@@ -53,7 +53,7 @@
                         <?php endif; ?>
                         <?php
                         $email = $testimonial->getEmail();
-                        $isShowUserEmail = !empty($email);
+                        $isShowUserEmail = !empty($email) && $block->isShowUserEmail();
                         $facebook = $testimonial->getFacebook();
                         $isFacebookEnabled = !empty($facebook);
                         $twitter = $testimonial->getTwitter();

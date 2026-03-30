@@ -22,7 +22,7 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
      * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    public $configHelper;
+    protected $configHelper;
 
     /**
      * image model
