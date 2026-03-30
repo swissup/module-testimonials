@@ -33,7 +33,7 @@ class Layouts implements \Magento\Framework\Option\ArrayInterface
      */
     public function toOptionArray()
     {
-        if (is_null($this->options)) {
+        if ($this->options === null) {
             $_options = $this->pageLayoutBuilder->getPageLayoutsConfig()->toOptionArray(true);
             foreach ($_options as $option) {
                 $this->options[$option['value']] = $option['label'];

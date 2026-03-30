@@ -28,7 +28,7 @@ class Upload
      * @param $data
      * @param array $allowedExtensions
      * @return string
-     * @throws \Magento\Framework\Model\Exception
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function uploadFileAndGetName($input, $destinationFolder, $data, $allowedExtensions = [])
     {

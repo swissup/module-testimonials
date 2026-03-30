@@ -59,7 +59,6 @@ class ImageUrl implements ResolverInterface
         }
 
         $fileId = 'Swissup_Testimonials::images/empty.svg';
-//        $params = ['_secure' => $this->getRequest()->isSecure()];
         $themeId = $this->scopeConfig->getValue(
             \Magento\Framework\View\DesignInterface::XML_PATH_THEME_ID,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
@@ -71,7 +70,6 @@ class ImageUrl implements ResolverInterface
             'themeId' => $themeId
         ];
         $asset = $this->assetRepository->createAsset($fileId, $params);
-//        var_dump($asset->getPath());
         return $asset->getUrl();
     }
 }

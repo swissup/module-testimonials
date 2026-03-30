@@ -103,7 +103,7 @@ class CreateTestimonial implements ResolverInterface
             throw new GraphQlInputException(__('"message" value should be specified'));
         }
 
-        if (empty($args['rating']) || !is_integer($args['rating'])) {
+        if (!isset($args['rating']) || !is_integer($args['rating'])) {
             throw new GraphQlInputException(__('"rating" value should be specified'));
         }
 

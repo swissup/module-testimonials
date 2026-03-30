@@ -197,10 +197,6 @@ class Testimonials
         return [
             'currentPage' => $this->currentPage,
             'pageSize' => $this->pageSize,
-//            \Swissup\Testimonials\Model\Data::STATUS => $this->status,
-//            'isWidget' => $this->isWidget,
-//            'isRandomOrder' => $this->isRandomOrder,
-//            'store' => $this->stores,
         ];
     }
 

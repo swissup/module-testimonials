@@ -144,7 +144,7 @@ class Config extends AbstractHelper
 
     public function getListLayout()
     {
-        return (String)$this->getConfig(self::XML_PATH_LIST_LAYOUT);
+        return (string)$this->getConfig(self::XML_PATH_LIST_LAYOUT);
     }
 
     public function getTestimonialsPerPage()
@@ -164,7 +164,7 @@ class Config extends AbstractHelper
 
     public function getPlaceholderImage()
     {
-        return (String)$this->getConfig(self::XML_PATH_PLACEHOLDER_IMAGE);
+        return (string)$this->getConfig(self::XML_PATH_PLACEHOLDER_IMAGE);
     }
 
     public function showUserEmail()
@@ -174,7 +174,7 @@ class Config extends AbstractHelper
 
     public function getFormLayout()
     {
-        return (String)$this->getConfig(self::XML_PATH_FORM_LAYOUT);
+        return (string)$this->getConfig(self::XML_PATH_FORM_LAYOUT);
     }
 
     public function isCompanyEnabled()
@@ -204,7 +204,7 @@ class Config extends AbstractHelper
 
     public function getSentMessage()
     {
-        return (String)$this->getConfig(self::XML_PATH_SENT_MESSAGE);
+        return (string)$this->getConfig(self::XML_PATH_SENT_MESSAGE);
     }
 
     public function isAdminNotificationEnabled()
@@ -214,21 +214,21 @@ class Config extends AbstractHelper
 
     public function getAdminNotificationSendFrom()
     {
-        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SEND_FROM);
+        return (string)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SEND_FROM);
     }
 
     public function getAdminEmail()
     {
-        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL);
+        return (string)$this->getConfig(self::XML_PATH_ADMIN_EMAIL);
     }
 
     public function getAdminEmailSubject()
     {
-        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SUBJECT);
+        return (string)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_SUBJECT);
     }
 
     public function getAdminEmailTemplate()
     {
-        return (String)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_TEMPLATE);
+        return (string)$this->getConfig(self::XML_PATH_ADMIN_EMAIL_TEMPLATE);
     }
 }
