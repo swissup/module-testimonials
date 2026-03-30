@@ -2,7 +2,6 @@
 namespace Swissup\Testimonials\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 

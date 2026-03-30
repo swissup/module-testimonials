@@ -202,6 +202,32 @@ class Save implements HttpPostActionInterface
     }
 
     /**
+     * Get request object
+     *
+     * Required for predispatch event observers (e.g. CAPTCHA, reCAPTCHA)
+     * that call $controller->getRequest() on the controller action.
+     *
+     * @return RequestInterface
+     */
+    public function getRequest(): RequestInterface
+    {
+        return $this->request;
+    }
+
+    /**
+     * Get response object
+     *
+     * Required for predispatch event observers (e.g. CAPTCHA, reCAPTCHA)
+     * that call $controller->getResponse() on the controller action.
+     *
+     * @return ResponseInterface
+     */
+    public function getResponse(): ResponseInterface
+    {
+        return $this->response;
+    }
+
+    /**
      * Validate form data
      *
      * @param array $data
