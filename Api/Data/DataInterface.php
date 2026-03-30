@@ -3,108 +3,108 @@ namespace Swissup\Testimonials\Api\Data;
 
 interface DataInterface
 {
-    CONST TESTIMONIAL_ID = 'testimonial_id';
-    CONST STATUS = 'status';
-    CONST DATE = 'date';
-    CONST NAME = 'name';
-    CONST EMAIL = 'email';
-    CONST MESSAGE = 'message';
-    CONST COMPANY = 'company';
-    CONST WEBSITE = 'website';
-    CONST TWITTER = 'twitter';
-    CONST FACEBOOK = 'facebook';
-    CONST IMAGE = 'image';
-    CONST RATING = 'rating';
-    CONST WIDGET = 'widget';
+    const TESTIMONIAL_ID = 'testimonial_id';
+    const STATUS = 'status';
+    const DATE = 'date';
+    const NAME = 'name';
+    const EMAIL = 'email';
+    const MESSAGE = 'message';
+    const COMPANY = 'company';
+    const WEBSITE = 'website';
+    const TWITTER = 'twitter';
+    const FACEBOOK = 'facebook';
+    const IMAGE = 'image';
+    const RATING = 'rating';
+    const WIDGET = 'widget';
 
     /**
      * Get testimonial_id
      *
-     * return int
+     * @return int
      */
     public function getTestimonialId();
 
     /**
      * Get status
      *
-     * return int
+     * @return int
      */
     public function getStatus();
 
     /**
      * Get date
      *
-     * return string
+     * @return string
      */
     public function getDate();
 
     /**
      * Get name
      *
-     * return string
+     * @return string
      */
     public function getName();
 
     /**
      * Get email
      *
-     * return string
+     * @return string
      */
     public function getEmail();
 
     /**
      * Get message
      *
-     * return string
+     * @return string
      */
     public function getMessage();
 
     /**
      * Get company
      *
-     * return string
+     * @return string
      */
     public function getCompany();
 
     /**
      * Get website
      *
-     * return string
+     * @return string
      */
     public function getWebsite();
 
     /**
      * Get twitter
      *
-     * return string
+     * @return string
      */
     public function getTwitter();
 
     /**
      * Get facebook
      *
-     * return string
+     * @return string
      */
     public function getFacebook();
 
     /**
      * Get image
      *
-     * return string
+     * @return string
      */
     public function getImage();
 
     /**
      * Get rating
      *
-     * return int
+     * @return int
      */
     public function getRating();
 
     /**
      * Get widget
      *
-     * return int
+     * @return int
      */
     public function getWidget();
 
@@ -113,7 +113,7 @@ interface DataInterface
      * Set testimonial_id
      *
      * @param int $testimonialId
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setTestimonialId($testimonialId);
 
@@ -121,7 +121,7 @@ interface DataInterface
      * Set status
      *
      * @param int $status
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setStatus($status);
 
@@ -129,7 +129,7 @@ interface DataInterface
      * Set date
      *
      * @param string $date
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setDate($date);
 
@@ -137,7 +137,7 @@ interface DataInterface
      * Set name
      *
      * @param string $name
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setName($name);
 
@@ -145,7 +145,7 @@ interface DataInterface
      * Set email
      *
      * @param string $email
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setEmail($email);
 
@@ -153,7 +153,7 @@ interface DataInterface
      * Set message
      *
      * @param string $message
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setMessage($message);
 
@@ -161,7 +161,7 @@ interface DataInterface
      * Set company
      *
      * @param string $company
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setCompany($company);
 
@@ -169,7 +169,7 @@ interface DataInterface
      * Set website
      *
      * @param string $website
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setWebsite($website);
 
@@ -177,7 +177,7 @@ interface DataInterface
      * Set twitter
      *
      * @param string $twitter
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setTwitter($twitter);
 
@@ -185,7 +185,7 @@ interface DataInterface
      * Set facebook
      *
      * @param string $facebook
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setFacebook($facebook);
 
@@ -193,7 +193,7 @@ interface DataInterface
      * Set image
      *
      * @param string $image
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setImage($image);
 
@@ -201,7 +201,7 @@ interface DataInterface
      * Set rating
      *
      * @param int $rating
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setRating($rating);
 
@@ -209,7 +209,7 @@ interface DataInterface
      * Set widget
      *
      * @param int $widget
-     * return \Swissup\Testimonials\Api\Data\DataInterface
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      */
     public function setWidget($widget);
 
