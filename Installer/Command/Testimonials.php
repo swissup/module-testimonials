@@ -3,6 +3,7 @@
 namespace Swissup\Testimonials\Installer\Command;
 
 use Swissup\Testimonials\Model\Data;
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
 
 class Testimonials
 {
@@ -12,12 +13,16 @@ class Testimonials
 
     private \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory;
 
+    private TestimonialRepositoryInterface $testimonialRepository;
+
     public function __construct(
         \Swissup\Testimonials\Model\DataFactory $testimonialFactory,
-        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory
+        \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $collectionFactory,
+        TestimonialRepositoryInterface $testimonialRepository
     ) {
         $this->testimonialFactory = $testimonialFactory;
         $this->collectionFactory = $collectionFactory;
+        $this->testimonialRepository = $testimonialRepository;
     }
 
     /**
@@ -57,7 +62,8 @@ class Testimonials
             $testimonial = $this->testimonialFactory->create();
 
             try {
-                $testimonial->setData(array_merge($defaults, $data))->save();
+                $testimonial->setData(array_merge($defaults, $data));
+                $this->testimonialRepository->save($testimonial);
             } catch (\Exception $e) {
                 $this->logger->warning($e->getMessage());
                 continue;
