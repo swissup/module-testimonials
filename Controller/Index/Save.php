@@ -1,44 +1,50 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\App\Action\HttpPostActionInterface;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
+use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
 use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
 use Magento\Framework\Validator\NotEmpty;
 use Magento\Framework\Validator\NotEmptyFactory;
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 
-class Save extends \Magento\Framework\App\Action\Action
+class Save implements HttpPostActionInterface
 {
     /**
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     /**
-     * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    protected $configHelper;
+    private $configHelper;
 
     /**
-     * upload model
-     *
      * @var \Swissup\Testimonials\Model\Upload
      */
-    protected $uploadModel;
+    private $uploadModel;
 
     /**
-     * image model
-     *
      * @var \Swissup\Core\Api\Media\FileInfoInterface
      */
-    protected $imageModel;
+    private $imageModel;
 
     /**
      * @var \Swissup\Testimonials\Model\DataFactory
      */
-    protected $testimonialsFactory;
+    private $testimonialsFactory;
+
+    /**
+     * @var TestimonialRepositoryInterface
+     */
+    private $testimonialRepository;
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -61,70 +67,97 @@ class Save extends \Magento\Framework\App\Action\Action
     private $emailAddressValidator;
 
     /**
-     * @param \Magento\Framework\App\Action\Context $context
+     * @var ResultFactory
+     */
+    private $resultFactory;
+
+    /**
+     * @var EventManagerInterface
+     */
+    private $eventManager;
+
+    /**
+     * @var MessageManagerInterface
+     */
+    private $messageManager;
+
+    /**
+     * @var RequestInterface
+     */
+    private $request;
+
+    /**
+     * @var ResponseInterface
+     */
+    private $response;
+
+    /**
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Swissup\Core\Api\Media\FileInfoInterface $imageModel
      * @param \Swissup\Testimonials\Model\Upload $uploadModel
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param TestimonialRepositoryInterface $testimonialRepository
      * @param \Magento\Customer\Model\Session $customerSession
      * @param DataPersistorInterface $dataPersistor
      * @param NotEmptyFactory $notEmptyFactory
      * @param EmailAddressValidator $emailAddressValidator
+     * @param ResultFactory $resultFactory
+     * @param EventManagerInterface $eventManager
+     * @param MessageManagerInterface $messageManager
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Swissup\Core\Api\Media\FileInfoInterface $imageModel,
         \Swissup\Testimonials\Model\Upload $uploadModel,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        TestimonialRepositoryInterface $testimonialRepository,
         \Magento\Customer\Model\Session $customerSession,
         DataPersistorInterface $dataPersistor,
         NotEmptyFactory $notEmptyFactory,
-        EmailAddressValidator $emailAddressValidator
+        EmailAddressValidator $emailAddressValidator,
+        ResultFactory $resultFactory,
+        EventManagerInterface $eventManager,
+        MessageManagerInterface $messageManager,
+        RequestInterface $request,
+        ResponseInterface $response
     ) {
-        parent::__construct($context);
         $this->storeManager = $storeManager;
         $this->configHelper = $configHelper;
         $this->uploadModel = $uploadModel;
         $this->imageModel = $imageModel;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialRepository = $testimonialRepository;
         $this->customerSession = $customerSession;
         $this->dataPersistor = $dataPersistor;
         $this->notEmpty = $notEmptyFactory->create(['options' => NotEmpty::ALL]);
         $this->emailAddressValidator = $emailAddressValidator;
-    }
-
-    /**
-     * Check customer authentication
-     *
-     * @param \Magento\Framework\App\RequestInterface $request
-     * @return \Magento\Framework\App\ResponseInterface
-     */
-    public function dispatch(\Magento\Framework\App\RequestInterface $request)
-    {
-        if (!$request->isDispatched()) {
-            return parent::dispatch($request);
-        }
-
-        if (!$this->configHelper->guestSubmitAllowed() &&
-            !$this->customerSession->authenticate()
-        ) {
-            $this->_actionFlag->set('', self::FLAG_NO_DISPATCH, true);
-        }
-
-        return parent::dispatch($request);
+        $this->resultFactory = $resultFactory;
+        $this->eventManager = $eventManager;
+        $this->messageManager = $messageManager;
+        $this->request = $request;
+        $this->response = $response;
     }
 
     /**
      * Save user testimonial
      *
-     * @return \Magento\Framework\Controller\Result\Redirect
+     * @return \Magento\Framework\Controller\Result\Redirect|ResponseInterface
      */
     public function execute()
     {
-        $post = $this->getRequest()->getPostValue();
+        if (!$this->configHelper->guestSubmitAllowed() &&
+            !$this->customerSession->authenticate()
+        ) {
+            // authenticate() redirects the customer to the login page
+            // and returns false; return the response to complete the redirect.
+            return $this->response;
+        }
+
+        $post = $this->request->getPostValue();
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         if (!$post) {
             return $resultRedirect->setRefererUrl();
@@ -134,27 +167,34 @@ class Save extends \Magento\Framework\App\Action\Action
             if (!$this->validate($post)) {
                 throw new \Exception(__('Please fill all required fields.'));
             }
-            $post['store_id'] = $this->storeManager->getStore()->getId();
-            $post['status'] = $this->configHelper->isAutoApprove() ?
+
+            // Only accept user-facing fields; status and widget are set server-side
+            $allowedFields = ['name', 'email', 'message', 'company', 'website', 'twitter', 'facebook', 'rating'];
+            $safeData = array_intersect_key($post, array_flip($allowedFields));
+
+            $safeData['store_id'] = $this->storeManager->getStore()->getId();
+            $safeData['status'] = $this->configHelper->isAutoApprove() ?
                 TestimonialsModel::STATUS_ENABLED :
-                TestimonialsModel:: STATUS_AWAITING_APPROVAL;
+                TestimonialsModel::STATUS_AWAITING_APPROVAL;
+            $safeData['widget'] = 1;
+
             $model = $this->testimonialsFactory->create();
-            $model->setData($post);
-            if ($image = $this->getRequest()->getFiles('image')) {
-                $imageName = $this->uploadModel
-                    ->uploadFileAndGetName('image',
-                        $this->imageModel->getBaseDir(),
-                        $image,
-                        ['jpg','jpeg','gif','png', 'bmp']
-                    );
+            $model->setData($safeData);
+            if ($image = $this->request->getFiles('image')) {
+                $imageName = $this->uploadModel->uploadFileAndGetName(
+                    'image',
+                    $this->imageModel->getBaseDir(),
+                    $image,
+                    ['jpg', 'jpeg', 'gif', 'png', 'bmp']
+                );
                 $model->setImage($imageName);
             }
-            $this->_eventManager->dispatch('testimonials_save_new', ['item' => $model]);
-            $model->save();
-            $this->messageManager->addSuccess(__($this->configHelper->getSentMessage()));
+            $this->eventManager->dispatch('testimonials_save_new', ['item' => $model]);
+            $this->testimonialRepository->save($model);
+            $this->messageManager->addSuccessMessage($this->configHelper->getSentMessage());
             $this->dataPersistor->clear('testimonials_form_data');
         } catch (\Exception $e) {
-            $this->messageManager->addError(__($e->getMessage()));
+            $this->messageManager->addErrorMessage($e->getMessage());
             $this->dataPersistor->set('testimonials_form_data', $post);
         }
 
@@ -164,27 +204,26 @@ class Save extends \Magento\Framework\App\Action\Action
     /**
      * Validate form data
      *
-     * @param  array $data
+     * @param array $data
      * @return bool
      */
-    protected function validate($data)
+    private function validate(array $data): bool
     {
-        $valid = true;
-        if (!$this->notEmpty->isValid(trim($data['name']))) {
-            $valid = false;
+        if (!$this->notEmpty->isValid(trim($data['name'] ?? ''))) {
+            return false;
         }
-        if (!$this->notEmpty->isValid(trim($data['message']))) {
-            $valid = false;
+        if (!$this->notEmpty->isValid(trim($data['message'] ?? ''))) {
+            return false;
         }
-        if (empty(trim($data['email'])) || !$this->emailAddressValidator->isValid($data['email'])) {
-            $valid = false;
+        if (empty(trim($data['email'] ?? '')) || !$this->emailAddressValidator->isValid($data['email'] ?? '')) {
+            return false;
         }
-        if ($this->configHelper->isRatingRequired() && (!isset($data['rating']) ||
-            !$this->notEmpty->isValid(trim($data['rating']))))
-        {
-            $valid = false;
+        if ($this->configHelper->isRatingRequired() &&
+            (!isset($data['rating']) || !$this->notEmpty->isValid(trim($data['rating'])))
+        ) {
+            return false;
         }
 
-        return $valid;
+        return true;
     }
 }

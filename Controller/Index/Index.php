@@ -1,26 +1,40 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\UrlInterface;
 
-class Index extends \Magento\Framework\App\Action\Action
+class Index implements HttpGetActionInterface
 {
     /**
-     * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    protected $configHelper;
+    private $configHelper;
 
     /**
-     * @param \Magento\Framework\App\Action\Context $context
+     * @var ResultFactory
+     */
+    private $resultFactory;
+
+    /**
+     * @var UrlInterface
+     */
+    private $url;
+
+    /**
      * @param \Swissup\Testimonials\Helper\Config $configHelper
+     * @param ResultFactory $resultFactory
+     * @param UrlInterface $url
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
-        \Swissup\Testimonials\Helper\Config $configHelper
+        \Swissup\Testimonials\Helper\Config $configHelper,
+        ResultFactory $resultFactory,
+        UrlInterface $url
     ) {
         $this->configHelper = $configHelper;
-        parent::__construct($context);
+        $this->resultFactory = $resultFactory;
+        $this->url = $url;
     }
 
     /**
@@ -28,13 +42,13 @@ class Index extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
+        /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $layout = $this->configHelper->getListLayout();
         $pageConfig = $resultPage->getConfig();
-        $pageConfig->setPageLayout($layout);
+        $pageConfig->setPageLayout($this->configHelper->getListLayout());
 
         $pageConfig->addRemotePageAsset(
-            $this->_url->getUrl('testimonials'),
+            $this->url->getUrl('testimonials'),
             'canonical',
             ['attributes' => ['rel' => 'canonical']]
         );

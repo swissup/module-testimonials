@@ -1,15 +1,17 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\ActionInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultFactory;
 
-class NewAction extends \Magento\Framework\App\Action\Action
+class NewAction implements HttpGetActionInterface
 {
     /**
-     * Get extension configuration helper
      * @var \Swissup\Testimonials\Helper\Config
      */
-    protected $configHelper;
+    private $configHelper;
 
     /**
      * @var \Magento\Customer\Model\Session
@@ -17,50 +19,50 @@ class NewAction extends \Magento\Framework\App\Action\Action
     private $customerSession;
 
     /**
-     * @param \Magento\Framework\App\Action\Context $context
+     * @var ResultFactory
+     */
+    private $resultFactory;
+
+    /**
+     * @var ResponseInterface
+     */
+    private $response;
+
+    /**
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Customer\Model\Session $customerSession
+     * @param ResultFactory $resultFactory
+     * @param ResponseInterface $response
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
         \Swissup\Testimonials\Helper\Config $configHelper,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        ResultFactory $resultFactory,
+        ResponseInterface $response
     ) {
         $this->configHelper = $configHelper;
         $this->customerSession = $customerSession;
-        parent::__construct($context);
+        $this->resultFactory = $resultFactory;
+        $this->response = $response;
     }
 
     /**
-     * Check customer authentication
-     *
-     * @param \Magento\Framework\App\RequestInterface $request
-     * @return \Magento\Framework\App\ResponseInterface
-     */
-    public function dispatch(\Magento\Framework\App\RequestInterface $request)
-    {
-        if (!$request->isDispatched()) {
-            return parent::dispatch($request);
-        }
-
-        if (!$this->configHelper->guestSubmitAllowed() &&
-            !$this->customerSession->authenticate()
-        ) {
-            $this->_actionFlag->set('', self::FLAG_NO_DISPATCH, true);
-        }
-
-        return parent::dispatch($request);
-    }
-
-    /**
-     * @return \Magento\Framework\View\Result\Page
+     * @return \Magento\Framework\View\Result\Page|ResponseInterface
      */
     public function execute()
     {
+        if (!$this->configHelper->guestSubmitAllowed() &&
+            !$this->customerSession->authenticate()
+        ) {
+            // authenticate() redirects the customer to the login page
+            // and returns false; return the response to complete the redirect.
+            return $this->response;
+        }
+
+        /** @var \Magento\Framework\View\Result\Page $resultPage */
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $layout = $this->configHelper->getFormLayout();
         $pageConfig = $resultPage->getConfig();
-        $pageConfig->setPageLayout($layout);
+        $pageConfig->setPageLayout($this->configHelper->getFormLayout());
 
         return $resultPage;
     }

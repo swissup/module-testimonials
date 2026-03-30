@@ -1,26 +1,41 @@
 <?php
 namespace Swissup\Testimonials\Controller\Index;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\View\Element\BlockFactory;
 
-class Load extends \Magento\Framework\App\Action\Action
+class Load implements HttpGetActionInterface
 {
     /**
-     * Layout Factory
-     * @var \Magento\Framework\View\LayoutFactory
+     * @var BlockFactory
      */
-    protected $layoutFactory;
+    private $blockFactory;
 
     /**
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\LayoutFactory $layoutFactory
+     * @var ResultFactory
+     */
+    private $resultFactory;
+
+    /**
+     * @var RequestInterface
+     */
+    private $request;
+
+    /**
+     * @param BlockFactory $blockFactory
+     * @param ResultFactory $resultFactory
+     * @param RequestInterface $request
      */
     public function __construct(
-        \Magento\Framework\App\Action\Context $context,
-        \Magento\Framework\View\LayoutFactory $layoutFactory
+        BlockFactory $blockFactory,
+        ResultFactory $resultFactory,
+        RequestInterface $request
     ) {
-        $this->layoutFactory = $layoutFactory;
-        parent::__construct($context);
+        $this->blockFactory = $blockFactory;
+        $this->resultFactory = $resultFactory;
+        $this->request = $request;
     }
 
     /**
@@ -28,12 +43,19 @@ class Load extends \Magento\Framework\App\Action\Action
      */
     public function execute()
     {
-        $currentPage = (int)$this->getRequest()->getParam('page', 1);
-        $testimonialsListBlock = $this->layoutFactory->create()
-            ->createBlock(\Swissup\Testimonials\Block\TestimonialsList::class)
-            ->setTemplate('Swissup_Testimonials::list.phtml')
-            ->setCurrentPage($currentPage)
-            ->setIsAjax(true);
+        $currentPage = (int)$this->request->getParam('page', 1);
+
+        /** @var \Swissup\Testimonials\Block\TestimonialsList $testimonialsListBlock */
+        $testimonialsListBlock = $this->blockFactory->createBlock(
+            \Swissup\Testimonials\Block\TestimonialsList::class,
+            [
+                'data' => [
+                    'current_page' => $currentPage,
+                    'is_ajax' => true,
+                ],
+            ]
+        );
+        $testimonialsListBlock->setTemplate('Swissup_Testimonials::list.phtml');
 
         $resultJson = $this->resultFactory->create(ResultFactory::TYPE_JSON);
 
