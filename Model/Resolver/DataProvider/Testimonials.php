@@ -214,7 +214,6 @@ class Testimonials
         $currentPage = $this->currentPage;
 
         $collection = $this->getCollection();
-//        ray($collection);
 
         $totalCount = $collection->getSize();
         $totalPages = ceil($totalCount / $pageSize);

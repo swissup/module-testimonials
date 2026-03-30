@@ -10,10 +10,6 @@ class Data extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected $_date;
     /**
-     * @var \Magento\Framework\Stdlib\DateTime
-     */
-    protected $dateTime;
-    /**
      * Store manager
      *
      * @var \Magento\Store\Model\StoreManagerInterface
@@ -25,14 +21,12 @@ class Data extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      *
      * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
-     * @param \Magento\Framework\Stdlib\DateTime $dateTime
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param string|null $connectionName
      */
     public function __construct(
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
         \Magento\Framework\Stdlib\DateTime\DateTime $date,
-        \Magento\Framework\Stdlib\DateTime $dateTime,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         $connectionName = null
     ) {
@@ -48,18 +42,6 @@ class Data extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     protected function _construct()
     {
         $this->_init('swissup_testimonials_data', 'testimonial_id');
-    }
-    /**
-     * Process testimonial data before deleting
-     *
-     * @param \Magento\Framework\Model\AbstractModel $object
-     * @return \Swissup\Testimonial\Model\ResourceModel\Data
-     */
-    protected function _beforeDelete(\Magento\Framework\Model\AbstractModel $object)
-    {
-        $condition = ['testimonial_id = ?' => (int)$object->getId()];
-        $this->getConnection()->delete($this->getTable('swissup_testimonials_store'), $condition);
-        return parent::_beforeDelete($object);
     }
     /**
      * Process testimonial data before saving
