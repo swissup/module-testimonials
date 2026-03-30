@@ -48,7 +48,7 @@ class Index implements HttpGetActionInterface
         $pageConfig->setPageLayout($this->configHelper->getListLayout());
 
         $pageConfig->addRemotePageAsset(
-            $this->url->getUrl('testimonials'),
+            $this->url->getUrl('', ['_direct' => 'testimonials']),
             'canonical',
             ['attributes' => ['rel' => 'canonical']]
         );
