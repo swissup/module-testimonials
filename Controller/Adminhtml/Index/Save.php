@@ -112,15 +112,22 @@ class Save extends \Magento\Backend\App\Action
                 $data['date'] = $this->dateFilter->filter($data['date']);
             }
 
-            // Only set the submitted fields to avoid overwriting unsubmitted ones
+            // Only set the submitted fields to avoid overwriting unsubmitted ones.
+            // 'stores' is intentionally excluded: the UI multiselect submits its value
+            // under 'store_id' (dataScope="store_id"). Setting 'store_id' alone is
+            // sufficient; but we must also unset the stale 'stores' array that
+            // _afterLoad() placed on the model, otherwise Model\Data::getStores()
+            // returns that old value and _afterSave() never updates the relation.
             $allowedFields = [
                 'status', 'date', 'name', 'email', 'message',
                 'company', 'website', 'twitter', 'facebook', 'rating', 'widget',
-                'store_id', 'stores', 'testimonial_id'
+                'store_id', 'testimonial_id'
             ];
             foreach (array_intersect_key($data, array_flip($allowedFields)) as $key => $value) {
                 $model->setData($key, $value);
             }
+            // Clear the stale 'stores' key so getStores() reads the submitted 'store_id'.
+            $model->unsetData('stores');
 
             $this->_eventManager->dispatch(
                 'testimonial_prepare_save',
