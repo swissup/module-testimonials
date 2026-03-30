@@ -10,7 +10,7 @@ use Swissup\Testimonials\Model\Data as TestimonialsModel;
 class SideReview extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
 {
-    private $_testimonialsCollectionFactory;
+    private $testimonialsCollectionFactory;
     /**
      * Default template to use for review widget
      */
@@ -29,7 +29,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->_testimonialsCollectionFactory = $testimonialsCollectionFactory;
+        $this->testimonialsCollectionFactory = $testimonialsCollectionFactory;
     }
 
     public function _construct()
@@ -46,7 +46,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
     {
         if (!$this->hasData('testimonials')) {
             $storeId = $this->_storeManager->getStore()->getId();
-            $testimonials = $this->_testimonialsCollectionFactory
+            $testimonials = $this->testimonialsCollectionFactory
                 ->create()
                 ->addStatusFilter(TestimonialsModel::STATUS_ENABLED)
                 ->addRatingFilter()
@@ -74,12 +74,16 @@ class SideReview extends \Magento\Framework\View\Element\Template
     public function getAvgRating()
     {
         $testimonials = $this->getTestimonials();
+        $avgRating = 0.0;
         if ($testimonials) {
-            $total = 0;
-            foreach ($testimonials as $testimonial) {
-                $total += (int)$testimonial->getRating();
+            $size = $testimonials->getSize();
+            if ($size > 0) {
+                $total = 0;
+                foreach ($testimonials as $testimonial) {
+                    $total += (int)$testimonial->getRating();
+                }
+                $avgRating = $total / $size;
             }
-            $avgRating = $total / $testimonials->getSize();
         }
         return number_format($avgRating, 2);
     }
