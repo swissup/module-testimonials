@@ -4,6 +4,7 @@ namespace Swissup\Testimonials\Block\Widgets;
 use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonials as DataProvider;
+use Swissup\Testimonials\Helper\ListHelper;
 /**
  * Class side list widget
  * @package Swissup\Testimonials\Block\Widgets
@@ -19,19 +20,27 @@ class SideList extends \Magento\Framework\View\Element\Template
     private $dataProvider;
 
     /**
+     * @var ListHelper
+     */
+    private $listHelper;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param DataProvider $dataProvider
+     * @param ListHelper $listHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         DataProvider $dataProvider,
+        ListHelper $listHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->dataProvider = $dataProvider;
+        $this->listHelper = $listHelper;
     }
 
     public function _construct()
@@ -62,8 +71,23 @@ class SideList extends \Magento\Framework\View\Element\Template
         }
         return $this->getData('testimonials');
     }
+
     public function getListUrl()
     {
         return $this->getUrl('testimonials');
+    }
+
+    /**
+     * Get rating value in percents for a testimonial.
+     *
+     * @param \Swissup\Testimonials\Model\Data $testimonial
+     * @return string|false
+     */
+    public function getRatingPercent($testimonial)
+    {
+        if (!$testimonial->getRating()) {
+            return false;
+        }
+        return $this->listHelper->getRatingPercent($testimonial);
     }
 }
