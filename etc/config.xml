@@ -3,6 +3,7 @@
     <default>
         <testimonials>
             <general>
+                <url_path>testimonials</url_path>
                 <approve>0</approve>
                 <top_links>0</top_links>
                 <footer_links>0</footer_links>

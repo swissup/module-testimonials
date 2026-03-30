@@ -4,11 +4,12 @@ namespace Swissup\Testimonials\Controller\Index;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\UrlInterface;
+use Swissup\Testimonials\Helper\Config;
 
 class Index implements HttpGetActionInterface
 {
     /**
-     * @var \Swissup\Testimonials\Helper\Config
+     * @var Config
      */
     private $configHelper;
 
@@ -23,12 +24,12 @@ class Index implements HttpGetActionInterface
     private $url;
 
     /**
-     * @param \Swissup\Testimonials\Helper\Config $configHelper
+     * @param Config $configHelper
      * @param ResultFactory $resultFactory
      * @param UrlInterface $url
      */
     public function __construct(
-        \Swissup\Testimonials\Helper\Config $configHelper,
+        Config $configHelper,
         ResultFactory $resultFactory,
         UrlInterface $url
     ) {
@@ -48,7 +49,7 @@ class Index implements HttpGetActionInterface
         $pageConfig->setPageLayout($this->configHelper->getListLayout());
 
         $pageConfig->addRemotePageAsset(
-            $this->url->getUrl('', ['_direct' => 'testimonials']),
+            $this->url->getUrl('', ['_direct' => $this->configHelper->getUrlPath()]),
             'canonical',
             ['attributes' => ['rel' => 'canonical']]
         );

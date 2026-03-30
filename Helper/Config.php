@@ -7,6 +7,12 @@ use Magento\Store\Model\ScopeInterface;
 class Config extends AbstractHelper
 {
     /**
+     * Path to store config for testimonials frontend URL slug
+     *
+     * @var string
+     */
+    const XML_PATH_URL_PATH               = 'testimonials/general/url_path';
+    /**
      * Path to store config of testimonial auto approve
      *
      * @var string
@@ -135,6 +141,11 @@ class Config extends AbstractHelper
     public function isAutoApprove()
     {
         return (bool)$this->getConfig(self::XML_PATH_APPROVE);
+    }
+
+    public function getUrlPath()
+    {
+        return (string)$this->getConfig(self::XML_PATH_URL_PATH);
     }
 
     public function guestSubmitAllowed()

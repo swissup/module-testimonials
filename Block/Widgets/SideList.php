@@ -1,9 +1,9 @@
 <?php
 namespace Swissup\Testimonials\Block\Widgets;
 
-use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
 use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonials as DataProvider;
+use Swissup\Testimonials\Helper\Config;
 use Swissup\Testimonials\Helper\ListHelper;
 /**
  * Class side list widget
@@ -20,6 +20,11 @@ class SideList extends \Magento\Framework\View\Element\Template
     private $dataProvider;
 
     /**
+     * @var Config
+     */
+    private $configHelper;
+
+    /**
      * @var ListHelper
      */
     private $listHelper;
@@ -29,17 +34,20 @@ class SideList extends \Magento\Framework\View\Element\Template
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param DataProvider $dataProvider
+     * @param Config $configHelper
      * @param ListHelper $listHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         DataProvider $dataProvider,
+        Config $configHelper,
         ListHelper $listHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->dataProvider = $dataProvider;
+        $this->configHelper = $configHelper;
         $this->listHelper = $listHelper;
     }
 
@@ -74,7 +82,7 @@ class SideList extends \Magento\Framework\View\Element\Template
 
     public function getListUrl()
     {
-        return $this->getUrl('testimonials');
+        return $this->getUrl('', ['_direct' => $this->configHelper->getUrlPath()]);
     }
 
     /**

@@ -4,18 +4,16 @@
     </head>
     <body>
         <referenceBlock name="top.links">
-            <block class="Magento\Framework\View\Element\Html\Link" ifconfig="testimonials/general/top_links" name="testimonials-list-link-header">
+            <block class="Swissup\Testimonials\Block\Html\Link" ifconfig="testimonials/general/top_links" name="testimonials-list-link-header">
                 <arguments>
                     <argument name="label" xsi:type="string" translate="true">Testimonials</argument>
-                    <argument name="path" xsi:type="string">testimonials</argument>
                 </arguments>
             </block>
         </referenceBlock>
         <referenceBlock name="footer_links">
-            <block class="Magento\Framework\View\Element\Html\Link" ifconfig="testimonials/general/footer_links" name="testimonials-list-link-footer">
+            <block class="Swissup\Testimonials\Block\Html\Link" ifconfig="testimonials/general/footer_links" name="testimonials-list-link-footer">
                 <arguments>
                     <argument name="label" xsi:type="string" translate="true">Testimonials</argument>
-                    <argument name="path" xsi:type="string">testimonials</argument>
                 </arguments>
             </block>
         </referenceBlock>

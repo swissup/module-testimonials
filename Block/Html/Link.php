@@ -1,9 +1,9 @@
 <?php
-namespace Swissup\Testimonials\Block;
+namespace Swissup\Testimonials\Block\Html;
 
 use Swissup\Testimonials\Helper\Config;
 
-class NewLink extends \Magento\Framework\View\Element\Template
+class Link extends \Magento\Framework\View\Element\Html\Link
 {
     /**
      * @var Config
@@ -25,18 +25,14 @@ class NewLink extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * @return \Magento\Framework\Phrase
-     */
-    public function getLabel()
-    {
-        return __('Submit Your Testimonial');
-    }
-
-    /**
+     * Return the testimonials list URL using the configured slug.
+     *
+     * Uses _direct to avoid the trailing slash that getUrl($routePath) appends
+     *
      * @return string
      */
-    public function getLink()
+    public function getHref()
     {
-        return $this->getUrl('', ['_direct' => $this->configHelper->getUrlPath() . '/index/new']);
+        return $this->getUrl('', ['_direct' => $this->configHelper->getUrlPath()]);
     }
 }

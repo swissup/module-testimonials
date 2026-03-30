@@ -9,6 +9,11 @@
 
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General</label>
+                <field id="url_path" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Path</label>
+                    <comment>Frontend URL slug for the testimonials page (e.g. "testimonials" or "testimonios"). Can be set per store view.</comment>
+                    <validate>required-entry</validate>
+                </field>
                 <field id="approve" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Automatically approve testimonials</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>

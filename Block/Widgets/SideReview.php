@@ -1,8 +1,8 @@
 <?php
 namespace Swissup\Testimonials\Block\Widgets;
 
-use Swissup\Testimonials\Model\ResourceModel\Data\Collection as TestimonialsCollection;
 use Swissup\Testimonials\Model\Data as TestimonialsModel;
+use Swissup\Testimonials\Helper\Config;
 /**
  * Class side review widget
  * @package Swissup\Testimonials\Block\Widgets
@@ -10,26 +10,38 @@ use Swissup\Testimonials\Model\Data as TestimonialsModel;
 class SideReview extends \Magento\Framework\View\Element\Template
      implements \Magento\Widget\Block\BlockInterface
 {
-    private $testimonialsCollectionFactory;
     /**
      * Default template to use for review widget
      */
     const DEFAULT_REVIEW_TEMPLATE = 'widgets/sidereview.phtml';
 
     /**
+     * @var \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory
+     */
+    private $testimonialsCollectionFactory;
+
+    /**
+     * @var Config
+     */
+    private $configHelper;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory
+     * @param Config $configHelper
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Swissup\Testimonials\Model\ResourceModel\Data\CollectionFactory $testimonialsCollectionFactory,
+        Config $configHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->testimonialsCollectionFactory = $testimonialsCollectionFactory;
+        $this->configHelper = $configHelper;
     }
 
     public function _construct()
@@ -39,6 +51,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
         }
         parent::_construct();
     }
+
     /**
      * @return \Swissup\Testimonials\Model\ResourceModel\Data\Collection
      */
@@ -56,10 +69,12 @@ class SideReview extends \Magento\Framework\View\Element\Template
         }
         return $this->getData('testimonials');
     }
+
     public function getListUrl()
     {
-        return $this->getUrl('testimonials');
+        return $this->getUrl('', ['_direct' => $this->configHelper->getUrlPath()]);
     }
+
     public function getStoreName()
     {
         $storeName = $this->_scopeConfig->getValue(
@@ -68,6 +83,7 @@ class SideReview extends \Magento\Framework\View\Element\Template
         );
         return $storeName ? $storeName : $this->_storeManager->getStore()->getName();
     }
+
     /**
      * Get rating value in percents
      */
