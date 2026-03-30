@@ -7,6 +7,7 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
 use Swissup\Testimonials\Model\Resolver\DataProvider\Testimonial as DataProvider;
 use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
 
@@ -39,14 +40,14 @@ class CreateTestimonial implements ResolverInterface
     private $customerSession;
 
     /**
-     * @var \Magento\Customer\Api\CustomerRepositoryInterface
-     */
-    private $customerRepository;
-
-    /**
      * @var EmailAddressValidator
      */
     private $emailAddressValidator;
+
+    /**
+     * @var TestimonialRepositoryInterface
+     */
+    private $testimonialRepository;
 
     /**
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
@@ -54,8 +55,8 @@ class CreateTestimonial implements ResolverInterface
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Swissup\Testimonials\Helper\Config $configHelper
      * @param \Magento\Customer\Model\Session $customerSession
-     * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param EmailAddressValidator $emailAddressValidator
+     * @param TestimonialRepositoryInterface $testimonialRepository
      */
     public function __construct(
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
@@ -63,16 +64,16 @@ class CreateTestimonial implements ResolverInterface
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Swissup\Testimonials\Helper\Config $configHelper,
         \Magento\Customer\Model\Session $customerSession,
-        \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        EmailAddressValidator $emailAddressValidator
+        EmailAddressValidator $emailAddressValidator,
+        TestimonialRepositoryInterface $testimonialRepository
     ) {
         $this->testimonialsFactory = $testimonialsFactory;
         $this->dataProvider = $dataProvider;
         $this->storeManager = $storeManager;
         $this->configHelper = $configHelper;
         $this->customerSession = $customerSession;
-        $this->customerRepository = $customerRepository;
         $this->emailAddressValidator = $emailAddressValidator;
+        $this->testimonialRepository = $testimonialRepository;
     }
 
     /**
@@ -129,16 +130,17 @@ class CreateTestimonial implements ResolverInterface
 
     /**
      * @param array $postData
-     * @return mixed
+     * @return \Swissup\Testimonials\Api\Data\DataInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     private function execute(array $postData)
     {
-        $customer = $this->getCustomer($postData['email']);
-        $postData['name'] = $customer->getId() ?
-            $customer->getFirstName() . ' ' . $customer->getLastName() : $postData['name'];
-        $postData['email'] = $customer->getId() ? $customer->getEmail() : $postData['email'];
+        $customer = $this->getLoggedInCustomer();
+        if ($customer !== null) {
+            $postData['name'] = $customer->getFirstName() . ' ' . $customer->getLastName();
+            $postData['email'] = $customer->getEmail();
+        }
         $postData['store_id'] = (int) $this->storeManager->getStore()->getId();
 
         $postData['status'] = $this->configHelper->isAutoApprove() ?
@@ -148,29 +150,26 @@ class CreateTestimonial implements ResolverInterface
 
         $testimonial = $this->testimonialsFactory->create();
         $testimonial->setData($postData);
-        $testimonial->save();
 
-        return $testimonial;
+        return $this->testimonialRepository->save($testimonial);
     }
 
     /**
-     * @param $email
-     * @return \Magento\Customer\Api\Data\CustomerInterface|\Magento\Customer\Model\Customer
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * Returns the currently logged-in customer, or null for guests.
+     *
+     * Guest emails are never silently matched to a registered customer account;
+     * the submitter's own name is preserved as entered.
+     *
+     * @return \Magento\Customer\Model\Customer|null
      */
-    protected function getCustomer($email)
+    private function getLoggedInCustomer(): ?\Magento\Customer\Model\Customer
     {
-        $isLoggedIn = $this->customerSession->isLoggedIn();
-        $customerSession = $this->customerSession->getCustomer();
-        $customer = $customerSession;
-        if (!$isLoggedIn) {
-            try {
-                $customer = $this->customerRepository->get($email);
-            } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
-                $customer = $customerSession;
-            }
+        if (!$this->customerSession->isLoggedIn()) {
+            return null;
         }
 
-        return $customer;
+        $customer = $this->customerSession->getCustomer();
+
+        return $customer->getId() ? $customer : null;
     }
 }
