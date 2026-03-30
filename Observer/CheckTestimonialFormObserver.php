@@ -71,12 +71,12 @@ class CheckTestimonialFormObserver implements ObserverInterface
         $formId = 'testimonial_new';
         $captcha = $this->_helper->getCaptcha($formId);
         if ($captcha->isRequired()) {
-            /** @var \Magento\Framework\App\Action\Action $controller */
+            /** @var \Magento\Framework\App\ActionInterface $controller */
             $controller = $observer->getControllerAction();
             if (!$captcha->isCorrect($this->captchaStringResolver->resolve($controller->getRequest(), $formId))) {
                 $this->_testimonialSession->setFormData($controller->getRequest()->getPost());
-                $this->messageManager->addError(__('Incorrect CAPTCHA.'));
-                $this->_actionFlag->set('', \Magento\Framework\App\Action\Action::FLAG_NO_DISPATCH, true);
+                $this->messageManager->addErrorMessage(__('Incorrect CAPTCHA.'));
+                $this->_actionFlag->set('', \Magento\Framework\App\ActionInterface::FLAG_NO_DISPATCH, true);
                 $this->redirect->redirect($controller->getResponse(), $this->redirect->getRefererUrl());
             }
         }

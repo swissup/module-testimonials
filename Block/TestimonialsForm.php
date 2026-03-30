@@ -33,7 +33,6 @@ class TestimonialsForm extends \Magento\Framework\View\Element\Template
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->_isScopePrivate = true;
         $this->configHelper = $configHelper;
         $this->formHelper = $formHelper;
     }
