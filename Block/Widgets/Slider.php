@@ -99,7 +99,7 @@ class Slider extends \Magento\Framework\View\Element\Template
      */
     public function getBlockTitle()
     {
-        return $this->getTitle() ? __($this->getTitle()) : __(self::DEFAULT_TITLE);
+        return $this->getTitle() ? $this->getTitle() : __((string) self::DEFAULT_TITLE);
     }
 
     /**
