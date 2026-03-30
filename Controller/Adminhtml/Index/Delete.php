@@ -1,6 +1,9 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
+
 class Delete extends \Magento\Backend\App\Action
 {
     /**
@@ -9,19 +12,19 @@ class Delete extends \Magento\Backend\App\Action
     const ADMIN_RESOURCE = 'Swissup_Testimonials::delete';
 
     /**
-     * @var \Swissup\Testimonials\Model\DataFactory
+     * @var TestimonialRepositoryInterface
      */
-    protected $testimonialsFactory = null;
+    private $testimonialRepository;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
-     * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param TestimonialRepositoryInterface $testimonialRepository
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
-        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+        TestimonialRepositoryInterface $testimonialRepository
     ) {
-        $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialRepository = $testimonialRepository;
         parent::__construct($context);
     }
 
@@ -34,22 +37,24 @@ class Delete extends \Magento\Backend\App\Action
     {
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
-        $id = $this->getRequest()->getParam('testimonial_id');
+        $id = (int) $this->getRequest()->getParam('testimonial_id');
         if ($id) {
             try {
-                $model = $this->testimonialsFactory->create();
-                $model->load($id);
-                $model->delete();
-                $this->messageManager->addSuccess(__('Testimonial was deleted.'));
+                $this->testimonialRepository->deleteById($id);
+                $this->messageManager->addSuccessMessage(__('Testimonial was deleted.'));
+
+                return $resultRedirect->setPath('*/*/');
+            } catch (NoSuchEntityException $e) {
+                $this->messageManager->addErrorMessage(__('Can\'t find a testimonial to delete.'));
 
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
 
                 return $resultRedirect->setPath('*/*/edit', ['testimonial_id' => $id]);
             }
         }
-        $this->messageManager->addError(__('Can\'t find a testimonial to delete.'));
+        $this->messageManager->addErrorMessage(__('Can\'t find a testimonial to delete.'));
 
         return $resultRedirect->setPath('*/*/');
     }

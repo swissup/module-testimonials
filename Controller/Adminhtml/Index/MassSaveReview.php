@@ -3,6 +3,7 @@ namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Exception\LocalizedException;
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
 
 class MassSaveReview extends \Magento\Backend\App\Action
 {
@@ -41,23 +42,31 @@ class MassSaveReview extends \Magento\Backend\App\Action
     private $testimonialsFactory;
 
     /**
+     * @var TestimonialRepositoryInterface
+     */
+    private $testimonialRepository;
+
+    /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Review\Model\ReviewFactory $reviewFactory
      * @param \Magento\Review\Model\RatingFactory $ratingFactory
      * @param \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param TestimonialRepositoryInterface $testimonialRepository
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Review\Model\ReviewFactory $reviewFactory,
         \Magento\Review\Model\RatingFactory $ratingFactory,
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepository,
-        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        TestimonialRepositoryInterface $testimonialRepository
     ) {
         $this->reviewFactory = $reviewFactory;
         $this->ratingFactory = $ratingFactory;
         $this->customerRepository = $customerRepository;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialRepository = $testimonialRepository;
         parent::__construct($context);
     }
 
@@ -71,20 +80,20 @@ class MassSaveReview extends \Magento\Backend\App\Action
     {
         $reviewsIds = $this->getRequest()->getParam('reviews');
         if (!is_array($reviewsIds)) {
-            $this->messageManager->addError(__('Please select review(s).'));
+            $this->messageManager->addErrorMessage(__('Please select review(s).'));
         } else {
             try {
                 foreach ($reviewsIds as $reviewId) {
                     $review = $this->reviewFactory->create()->load($reviewId);
                     $this->saveReview($review);
                 }
-                $this->messageManager->addSuccess(
+                $this->messageManager->addSuccessMessage(
                     __('A total of %1 testimonial(s) have been created.', count($reviewsIds))
                 );
             } catch (LocalizedException $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addException(
+                $this->messageManager->addExceptionMessage(
                     $e, __('Something went wrong while exporting these records.')
                 );
             }
@@ -99,7 +108,8 @@ class MassSaveReview extends \Magento\Backend\App\Action
 
     /**
      * Save review to testimonial
-     * @param  \Magento\Review\Model\Review $review
+     *
+     * @param \Magento\Review\Model\Review $review
      * @return void
      */
     protected function saveReview($review)
@@ -129,6 +139,6 @@ class MassSaveReview extends \Magento\Backend\App\Action
         $model->setEmail($customerEmail);
         $model->setRating($rating);
 
-        $model->save();
+        $this->testimonialRepository->save($model);
     }
 }

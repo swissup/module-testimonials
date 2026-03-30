@@ -2,7 +2,9 @@
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Validator\EmailAddress as EmailAddressValidator;
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -27,6 +29,11 @@ class Save extends \Magento\Backend\App\Action
     protected $testimonialsFactory;
 
     /**
+     * @var TestimonialRepositoryInterface
+     */
+    private $testimonialRepository;
+
+    /**
      * @var \Magento\Framework\Stdlib\DateTime\Filter\Date
      */
     protected $dateFilter;
@@ -37,26 +44,37 @@ class Save extends \Magento\Backend\App\Action
     private $emailAddressValidator;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor
      * @param \Swissup\Testimonials\ImageUpload $imageUploader
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param TestimonialRepositoryInterface $testimonialRepository
      * @param \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter
      * @param EmailAddressValidator $emailAddressValidator
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\App\Request\DataPersistorInterface $dataPersistor,
         \Magento\Catalog\Model\ImageUploader $imageUploader,
         \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        TestimonialRepositoryInterface $testimonialRepository,
         \Magento\Framework\Stdlib\DateTime\Filter\Date $dateFilter,
-        EmailAddressValidator $emailAddressValidator
+        EmailAddressValidator $emailAddressValidator,
+        \Psr\Log\LoggerInterface $logger
     ) {
         $this->dataPersistor = $dataPersistor;
         $this->imageUploader = $imageUploader;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialRepository = $testimonialRepository;
         $this->dateFilter = $dateFilter;
         $this->emailAddressValidator = $emailAddressValidator;
+        $this->logger = $logger;
         parent::__construct($context);
     }
 
@@ -72,8 +90,19 @@ class Save extends \Magento\Backend\App\Action
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
-            /** @var \Swissup\Testimonials\Model\Data $model */
-            $model = $this->testimonialsFactory->create();
+            $id = $this->getRequest()->getParam('testimonial_id');
+
+            // Load existing or create new
+            if ($id) {
+                try {
+                    $model = $this->testimonialRepository->getById((int)$id);
+                } catch (NoSuchEntityException $e) {
+                    $this->messageManager->addErrorMessage(__('This testimonial no longer exists.'));
+                    return $resultRedirect->setPath('*/*/');
+                }
+            } else {
+                $model = $this->testimonialsFactory->create();
+            }
 
             if (empty($data['testimonial_id'])) {
                 $data['testimonial_id'] = null;
@@ -83,38 +112,47 @@ class Save extends \Magento\Backend\App\Action
                 $data['date'] = $this->dateFilter->filter($data['date']);
             }
 
-            $id = $this->getRequest()->getParam('testimonial_id');
-            if ($id) {
-                $model->load($id);
+            // Only set the submitted fields to avoid overwriting unsubmitted ones
+            $allowedFields = [
+                'status', 'date', 'name', 'email', 'message',
+                'company', 'website', 'twitter', 'facebook', 'rating', 'widget',
+                'store_id', 'stores', 'testimonial_id'
+            ];
+            foreach (array_intersect_key($data, array_flip($allowedFields)) as $key => $value) {
+                $model->setData($key, $value);
             }
-
-            $model->setData($data);
 
             $this->_eventManager->dispatch(
                 'testimonial_prepare_save',
                 ['testimonial' => $model, 'request' => $this->getRequest()]
             );
 
-            $imageName = '';
-            if (isset($data["image"]) && is_array($data["image"])) {
-                $imageName = isset($data["image"][0]['name'])
-                    ? $data["image"][0]['name']
-                    : '';
-                if (isset($data["image"][0]['tmp_name'])) {
+            $imageName = $model->getImage() ?? '';
+            if (isset($data['image']) && is_array($data['image'])) {
+                $imageName = $data['image'][0]['name'] ?? '';
+                if (isset($data['image'][0]['tmp_name'])) {
                     try {
                         $this->imageUploader->moveFileFromTmp($imageName, true);
-                    } catch (\Exception $e) { }
+                    } catch (\Exception $e) {
+                        $this->logger->warning(
+                            'Testimonials: could not move image from tmp: ' . $e->getMessage()
+                        );
+                        $this->messageManager->addWarningMessage(
+                            __('The testimonial image could not be saved: %1', $e->getMessage())
+                        );
+                        $imageName = $model->getImage() ?? '';
+                    }
                 }
             }
-            $model->setData("image", $imageName);
+            $model->setImage($imageName);
 
             try {
                 if (!$this->emailAddressValidator->isValid($data['email'])) {
                     throw new LocalizedException(__('Please enter a valid email address.'));
                 }
 
-                $model->save();
-                $this->messageManager->addSuccess(__('Testimonial has been saved.'));
+                $this->testimonialRepository->save($model);
+                $this->messageManager->addSuccessMessage(__('Testimonial has been saved.'));
                 $this->dataPersistor->clear('testimonial_data');
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath(
@@ -125,12 +163,10 @@ class Save extends \Magento\Backend\App\Action
 
                 return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException $e) {
-                $this->messageManager->addError($e->getMessage());
-            } catch (\RuntimeException $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
-                $this->messageManager->addException(
+                $this->logger->critical($e);
+                $this->messageManager->addExceptionMessage(
                     $e, __('Something went wrong while saving the testimonial.')
                 );
             }
