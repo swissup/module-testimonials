@@ -76,7 +76,7 @@ class AbstractMassStatus extends \Magento\Backend\App\Action
             );
         }
 
-        $this->messageManager->addSuccess(__(static::SUCCESS_MESSAGE, count($ids)));
+        $this->messageManager->addSuccessMessage(__(static::SUCCESS_MESSAGE, count($ids)));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

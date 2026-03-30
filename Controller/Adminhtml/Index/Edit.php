@@ -1,6 +1,8 @@
 <?php
 namespace Swissup\Testimonials\Controller\Adminhtml\Index;
 
+use Swissup\Testimonials\Api\TestimonialRepositoryInterface;
+
 class Edit extends \Magento\Backend\App\Action
 {
     /**
@@ -26,20 +28,28 @@ class Edit extends \Magento\Backend\App\Action
     protected $testimonialsFactory;
 
     /**
+     * @var TestimonialRepositoryInterface
+     */
+    protected $testimonialRepository;
+
+    /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+     * @param TestimonialRepositoryInterface $testimonialRepository
      */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Registry $coreRegistry,
-        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory
+        \Swissup\Testimonials\Model\DataFactory $testimonialsFactory,
+        TestimonialRepositoryInterface $testimonialRepository
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->coreRegistry = $coreRegistry;
         $this->testimonialsFactory = $testimonialsFactory;
+        $this->testimonialRepository = $testimonialRepository;
         parent::__construct($context);
     }
 
@@ -72,9 +82,10 @@ class Edit extends \Magento\Backend\App\Action
         $model = $this->testimonialsFactory->create();
 
         if ($id) {
-            $model->load($id);
-            if (!$model->getId()) {
-                $this->messageManager->addError(__('This testimonial no longer exists.'));
+            try {
+                $model = $this->testimonialRepository->getById((int) $id);
+            } catch (\Magento\Framework\Exception\NoSuchEntityException $e) {
+                $this->messageManager->addErrorMessage(__('This testimonial no longer exists.'));
                 /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
 
