@@ -46,8 +46,13 @@
                 </figure>
             <?php endforeach; ?>
             </div>
+            <?php if ($block->getShowDots()): ?>
+            <div class="swiper-pagination"></div>
+            <?php endif; ?>
+            <?php if ($block->getShowArrows()): ?>
             <div class="swiper-button-prev swiper-button-black"></div>
             <div class="swiper-button-next swiper-button-black"></div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

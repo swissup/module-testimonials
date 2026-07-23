@@ -112,6 +112,25 @@ class Slider extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Whether navigation arrows should be shown.
+     * Missing value is treated as enabled to keep existing widgets unchanged.
+     * @return bool
+     */
+    public function getShowArrows()
+    {
+        return !$this->hasData('show_arrows') || (bool) $this->getData('show_arrows');
+    }
+
+    /**
+     * Whether pagination dots should be shown. Disabled unless explicitly enabled.
+     * @return bool
+     */
+    public function getShowDots()
+    {
+        return (bool) $this->getData('show_dots');
+    }
+
+    /**
      * Get slider config
      * @return String
      */
@@ -123,16 +142,27 @@ class Slider extends \Magento\Framework\View\Element\Template
             "freeMode" => false,
             "loop" => true,
             "spaceBetween" => 10,
-            'navigation' => [
-                'nextEl' => '.swiper-button-next',
-                'prevEl' => '.swiper-button-prev'
-            ],
             "breakpoints" => [
                 '1024' => [
                     "slidesPerView" => $this->getVisibleSlides()
                 ]
             ]
         ];
+
+        if ($this->getShowArrows()) {
+            $params['navigation'] = [
+                'nextEl' => '.swiper-button-next',
+                'prevEl' => '.swiper-button-prev'
+            ];
+        }
+
+        if ($this->getShowDots()) {
+            $params['pagination'] = [
+                'el' => '.swiper-pagination',
+                'clickable' => true,
+                'type' => 'bullets'
+            ];
+        }
 
         return json_encode($params, JSON_HEX_APOS);
     }
