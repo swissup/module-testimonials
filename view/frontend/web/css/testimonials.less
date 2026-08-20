@@ -321,6 +321,11 @@ figure.testimonial {
     .review-ratings {
         float: none;
     }
+
+    // The author's left padding only reserves space for the profile image
+    &.no-image figure.testimonial .author {
+        padding-left: 10px;
+    }
 }
 
 .std .testimonialForm li {
@@ -360,6 +365,18 @@ figure.testimonial {
 
 @media (min-width: 1025px) {
     .testimonials-slider {
+        &.slides-5 .swiper-container:not(.swiper-container-initialized) {
+            figure.testimonial {
+                max-width: 20%;
+            }
+        }
+
+        &.slides-4 .swiper-container:not(.swiper-container-initialized) {
+            figure.testimonial {
+                max-width: 25%;
+            }
+        }
+
         &.slides-3 .swiper-container:not(.swiper-container-initialized) {
             figure.testimonial {
                 max-width: 33.33%;

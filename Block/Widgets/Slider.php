@@ -112,6 +112,16 @@ class Slider extends \Magento\Framework\View\Element\Template
     }
 
     /**
+     * Whether the profile image should be shown.
+     * Missing value is treated as enabled to keep existing widgets unchanged.
+     * @return bool
+     */
+    public function getShowImage()
+    {
+        return !$this->hasData('show_image') || (bool) $this->getData('show_image');
+    }
+
+    /**
      * Whether navigation arrows should be shown.
      * Missing value is treated as enabled to keep existing widgets unchanged.
      * @return bool
@@ -136,17 +146,27 @@ class Slider extends \Magento\Framework\View\Element\Template
      */
     public function getSwiperConfig()
     {
+        $slides = $this->getVisibleSlides();
+        // Keep slides readable on laptops - show at most 3 until the screen is wide enough
+        $breakpoints = [
+            '1024' => [
+                "slidesPerView" => min($slides, 3)
+            ]
+        ];
+
+        if ($slides > 3) {
+            $breakpoints['1440'] = [
+                "slidesPerView" => $slides
+            ];
+        }
+
         $params = [
             "slidesPerView" => 1,
             "slidesPerGroup" => 1,
             "freeMode" => false,
             "loop" => true,
             "spaceBetween" => 10,
-            "breakpoints" => [
-                '1024' => [
-                    "slidesPerView" => $this->getVisibleSlides()
-                ]
-            ]
+            "breakpoints" => $breakpoints
         ];
 
         if ($this->getShowArrows()) {

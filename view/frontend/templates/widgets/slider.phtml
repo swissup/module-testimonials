@@ -7,7 +7,7 @@
     }
 ?>
 
-<div class="widget block testimonials-slider slides-<?= $escaper->escapeHtmlAttr($block->getVisibleSlides()) ?>" data-content-type="testimonials" data-dataprovider-config='<?= $escaper->escapeHtmlAttr($block->getDataProviderConfig()) ?>'>
+<div class="widget block testimonials-slider slides-<?= $escaper->escapeHtmlAttr($block->getVisibleSlides()) ?><?= $block->getShowImage() ? '' : ' no-image' ?>" data-content-type="testimonials" data-dataprovider-config='<?= $escaper->escapeHtmlAttr($block->getDataProviderConfig()) ?>'>
     <div class="content-heading">
         <h2 class="title" role="heading"><?= $escaper->escapeHtml($block->getBlockTitle()) ?></h2>
     </div>
@@ -36,7 +36,9 @@
                         <p class="testimonial-message"><?= $escaper->escapeHtml($testimonial->getMessage()); ?></p>
                         <div class="arrow"></div>
                     </blockquote>
+                    <?php if ($block->getShowImage()): ?>
                     <img src="<?= $escaper->escapeUrl($block->getProfileImageUrl($testimonial)) ?>" alt="<?= $escaper->escapeHtmlAttr(__('Profile image')) ?>" loading="lazy" />
+                    <?php endif; ?>
                     <div class="author">
                         <div class="author-name"><?= $escaper->escapeHtml($testimonial->getName()) ?></div>
                         <?php if ($testimonial->getCompany()): ?>
