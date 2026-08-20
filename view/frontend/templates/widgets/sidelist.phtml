@@ -21,8 +21,7 @@ if (!count($testimonials)) {
             <?php foreach ($testimonials as $testimonial): ?>
                 <div id="testimonial_<?= $escaper->escapeHtmlAttr($itemId) ?>" class="content" <?php if ($itemId > 0): ?> style="display: none;"<?php endif ?>>
                     <div class="content-wrapper">
-                        <?php if ($testimonial->getRating()): ?>
-                            <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
+                        <?php if ($ratingPercent = $block->getRatingPercent($testimonial)): ?>
                             <div class="review-ratings">
                                 <div class="rating-summary item">
                                     <span class="label rating-label">

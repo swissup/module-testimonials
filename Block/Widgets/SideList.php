@@ -93,7 +93,7 @@ class SideList extends \Magento\Framework\View\Element\Template
      */
     public function getRatingPercent($testimonial)
     {
-        if (!$testimonial->getRating()) {
+        if (!$this->listHelper->hasRating($testimonial)) {
             return false;
         }
         return $this->listHelper->getRatingPercent($testimonial);

@@ -18,8 +18,7 @@
                         <small class="date nobr">
                             <?= $escaper->escapeHtml($block->formatDate($testimonial->getDate(), \IntlDateFormatter::LONG)) ?>
                         </small>
-                        <?php if ($testimonial->getRating()): ?>
-                        <?php $ratingPercent = $block->getRatingPercent($testimonial); ?>
+                        <?php if ($ratingPercent = $block->getRatingPercent($testimonial)): ?>
                         <small class="rating nobr">
                             <div class="review-ratings">
                                 <div class="rating-summary item">
@@ -34,8 +33,8 @@
                                 </div>
                             </div>
                         </small>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
                 </blockquote>
                 <div class="info">
                     <img src="<?= $escaper->escapeUrl($block->getProfileImageUrl($testimonial)) ?>" alt="<?= $escaper->escapeHtmlAttr(__('Profile image')) ?>" />

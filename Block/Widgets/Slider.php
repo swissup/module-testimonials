@@ -194,7 +194,7 @@ class Slider extends \Magento\Framework\View\Element\Template
      */
     public function getRatingPercent($testimonial)
     {
-        if ($this->getShowRating() && $testimonial->getRating()) {
+        if ($this->getShowRating() && $this->listHelper->hasRating($testimonial)) {
             return $this->listHelper->getRatingPercent($testimonial);
         }
 

@@ -129,12 +129,27 @@ class ListHelper extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Whether the testimonial has a rating set.
+     * Unrated items are stored as -1, @see \Swissup\Testimonials\Model\Config\Source\Rating
+     * @param  \Swissup\Testimonials\Model\Data $testimonial
+     * @return bool
+     */
+    public function hasRating($testimonial)
+    {
+        return (int)$testimonial->getRating() > 0;
+    }
+
+    /**
      * Get rating value in percents
      * @param  \Swissup\Testimonials\Model\Data $testimonial
-     * @return String
+     * @return String|bool
      */
     public function getRatingPercent($testimonial)
     {
+        if (!$this->hasRating($testimonial)) {
+            return false;
+        }
+
         $ratingPercent = $testimonial->getRating() / 5 * 100;
 
         return (String)$ratingPercent;
